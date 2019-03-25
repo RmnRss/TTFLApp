@@ -1,0 +1,108 @@
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Links} from "./Links";
+import {Team} from "./Team";
+import {Player} from "./Player";
+
+@Injectable()
+export class NbaDataProvider {
+  baseUrl: string = 'http://data.nba.net/10s';
+  links: Links = new Links();
+
+  constructor(public http: HttpClient) {
+    console.log('Starting NbaData Provider');
+  }
+
+  getTodaysDate(): string {
+    let monthStr = "";
+    let dayStr = "";
+
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1; //January is 0
+    let year = today.getFullYear();
+
+    if (day < 10) {
+      dayStr = '0' + day.toString();
+    } else {
+      dayStr = day.toString();
+    }
+
+    if (month < 10) {
+      monthStr = '0' + month.toString();
+    } else {
+      monthStr = month.toString();
+    }
+
+    return year.toString() + monthStr + dayStr;
+  }
+
+  getLinksPromise(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log("Promise to " + this.baseUrl + "/prod/v1/today.json")
+
+      this.http.get(this.baseUrl + "/prod/v1/today.json")
+        .subscribe(success => resolve(success));
+    });
+  }
+
+  getSchedulePromise(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log("Promise to " + this.baseUrl + this.links.leagueSchedule);
+
+      this.http.get(this.baseUrl + this.links.leagueSchedule)
+        .subscribe(success => resolve(success));
+    })
+  }
+
+  getTeamInfoPromise(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log("Promise to " + this.baseUrl + this.links.teamsConfig);
+
+      this.http.get(this.baseUrl + this.links.teamsConfig)
+        .subscribe(success => resolve(success));
+    })
+
+  }
+
+  getRosterPromise(team: Team): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let rosterUrl = this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
+      console.log("Promise to " + this.baseUrl + rosterUrl);
+
+      this.http.get(this.baseUrl + rosterUrl)
+        .subscribe(success => resolve(success));
+    })
+
+  }
+
+  getPlayerPromise(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log("Promise to " + this.baseUrl + this.links.leagueRosterPlayers);
+      this.http.get(this.baseUrl + this.links.leagueRosterPlayers)
+        .subscribe(success => resolve(success));
+    })
+
+  }
+
+  getPlayerSeasonStatsPromise(player: Player): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId);
+      console.log("Promise to " + this.baseUrl + profileUrl);
+      this.http.get(this.baseUrl + profileUrl)
+        .subscribe(success => resolve(success));
+    })
+
+  }
+
+  getPlayerLastGameStatsPromise(player: Player): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId);
+      console.log("Promise to " + this.baseUrl + gamelogUrl);
+      this.http.get(this.baseUrl + gamelogUrl)
+        .subscribe(success => resolve(success));
+    })
+  }
+
+
+}

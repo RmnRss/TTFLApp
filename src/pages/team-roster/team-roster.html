@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>team-roster</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card (click)="showPlayerStats(player)" *ngFor="let player of selectedTeam.players">
+    <ion-row>
+      <ion-col col-2>{{player.jersey}}</ion-col>
+      <ion-col col-5>{{player.firstName}}</ion-col>
+      <ion-col col-5>{{player.lastName}}</ion-col>
+    </ion-row>
+    <ion-row class="badge-inline">
+      <ion-badge>{{player.ppg}}</ion-badge>
+      <ion-badge>{{player.apg}}</ion-badge>
+      <ion-badge>{{player.rpg}}</ion-badge>
+    </ion-row>
+  </ion-card>
+</ion-content>
