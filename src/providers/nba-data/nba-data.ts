@@ -13,30 +13,6 @@ export class NbaDataProvider {
     console.log('Starting NbaData Provider');
   }
 
-  getTodaysDate(): string {
-    let monthStr = "";
-    let dayStr = "";
-
-    let today = new Date();
-    let day = today.getDate();
-    let month = today.getMonth() + 1; //January is 0
-    let year = today.getFullYear();
-
-    if (day < 10) {
-      dayStr = '0' + day.toString();
-    } else {
-      dayStr = day.toString();
-    }
-
-    if (month < 10) {
-      monthStr = '0' + month.toString();
-    } else {
-      monthStr = month.toString();
-    }
-
-    return year.toString() + monthStr + dayStr;
-  }
-
   getLinksPromise(): Promise<any> {
     return new Promise((resolve, reject) => {
       console.log("Promise to " + this.baseUrl + "/prod/v1/today.json")
@@ -103,6 +79,5 @@ export class NbaDataProvider {
         .subscribe(success => resolve(success));
     })
   }
-
 
 }

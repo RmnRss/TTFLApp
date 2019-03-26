@@ -8,6 +8,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {NbaDataProvider} from '../providers/nba-data/nba-data';
+import {DateServiceProvider} from '../providers/date-service/date-service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {NbaDataProvider} from '../providers/nba-data/nba-data';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    NbaDataProvider
+    NbaDataProvider,
+    DateServiceProvider
   ]
 })
 export class AppModule {

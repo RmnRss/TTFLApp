@@ -7,5 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <button (click)="getGames(today)">{{today}}</button>
+  <ion-card (click)="getGames(day)" *ngFor="let day of dates">
+    <ion-card-header>{{day}}</ion-card-header>
+  </ion-card>
 </ion-content>

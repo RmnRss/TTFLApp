@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {NbaDataProvider} from "../../providers/nba-data/nba-data";
+import {DateServiceProvider} from "../../providers/date-service/date-service";
 
 @Component({
   selector: 'page-home',
@@ -8,10 +9,10 @@ import {NbaDataProvider} from "../../providers/nba-data/nba-data";
 })
 export class HomePage {
 
-  today: String = this.dataProvider.getTodaysDate();
-  dates: String[];
+  today: String = this.dateProvider.getTodaysDate();
+  dates: String[] = this.dateProvider.getCurrentWeek();
 
-  constructor(public navCtrl: NavController, public dataProvider: NbaDataProvider) {
+  constructor(public navCtrl: NavController, public dataProvider: NbaDataProvider, public dateProvider: DateServiceProvider) {
   }
 
   ionViewCanEnter() {
@@ -19,7 +20,6 @@ export class HomePage {
     this.dataProvider.getLinksPromise()
       .then(res => {
         this.dataProvider.links = res.links;
-        console.log(this.dataProvider.links);
       });
   }
 
