@@ -22,6 +22,8 @@ export class TeamRosterPage {
 
   ionViewCanEnter() {
     this.selectedTeam = this.navParams.get('selectedTeam');
+    console.log(this.selectedTeam.secondaryColor);
+    console.log(this.selectedTeam.primaryColor);
 
     this.dataProvider.getRosterPromise(this.selectedTeam)
       .then(res => {

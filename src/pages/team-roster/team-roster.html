@@ -10,7 +10,18 @@
 <ion-content padding>
   <ion-card (click)="showPlayerStats(player)" *ngFor="let player of selectedTeam.players">
     <ion-row>
-      <ion-col col-2>{{player.jersey}}</ion-col>
+      <ion-col col-2>
+        <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
+          <rect [ngStyle]="{'fill': selectedTeam.primaryColor}" height="43" width="34" x="0" y="0"></rect>
+          <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="0" cy="5" fill="white" rx="8" ry="15"
+                   stroke-width="2"></ellipse>
+          <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="35" cy="5" fill="white" rx="8" ry="15"
+                   stroke-width="2"></ellipse>
+          <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="17" cy="0" fill="white" rx="8" ry="8"
+                   stroke-width="2"></ellipse>
+        </svg>
+        {{player.jersey}}
+      </ion-col>
       <ion-col col-5>{{player.firstName}}</ion-col>
       <ion-col col-5>{{player.lastName}}</ion-col>
     </ion-row>
