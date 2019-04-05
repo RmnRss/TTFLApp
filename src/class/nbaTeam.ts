@@ -1,6 +1,4 @@
-import {Player} from "./Player";
-
-export class Team {
+export class NbaTeam {
 
   constructor() {
     this._teamId = "";
@@ -8,7 +6,6 @@ export class Team {
     this._ttsName = "";
     this._primaryColor = "#FFF";
     this._secondaryColor = "#FFF";
-    this._players = new Array<Player>();
   }
 
   private _teamId: string;
@@ -62,16 +59,6 @@ export class Team {
 
   set secondaryColor(value: string) {
     this._secondaryColor = value;
-  }
-
-  private _players: Player[];
-
-  get players(): Player[] {
-    return this._players;
-  }
-
-  set players(value: Player[]) {
-    this._players = value;
   }
 
   private _logoUrl: string;

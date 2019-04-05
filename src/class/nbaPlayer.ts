@@ -1,4 +1,6 @@
-export class Player {
+import {NbaTeam} from "./nbaTeam";
+
+export class NbaPlayer {
   personId: string;
   firstName: string;
   lastName: string;
@@ -6,6 +8,7 @@ export class Player {
   ppg: number;
   rpg: number;
   apg: number;
+  team: NbaTeam;
 
   constructor() {
     this.personId = '';

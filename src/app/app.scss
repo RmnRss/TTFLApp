@@ -4,8 +4,14 @@
   display: inline-block;
 }
 
-ion-badge {
+.badge-md {
   border-radius: 25px;
+}
+
+.jersey-nbr {
+  font-size: 2.2rem;
+  margin-top: -30px;
+  text-align: center;
 }
 
 // App Global Sass

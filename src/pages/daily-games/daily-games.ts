@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Game} from "../../providers/nba-data/Game";
-import {NbaDataProvider} from "../../providers/nba-data/nba-data";
-import {Team} from "../../providers/nba-data/Team";
+import {NbaGame} from "../../class/nbaGame";
+import {NbaDataProvider} from "../../providers/nba-service/nba-service";
+import {NbaTeam} from "../../class/nbaTeam";
+import {DateServiceProvider} from "../../providers/date-service/date-service";
 
 @IonicPage()
 @Component({
@@ -11,10 +12,11 @@ import {Team} from "../../providers/nba-data/Team";
 })
 export class DailyGamesPage {
 
-  games: Game[] = new Array<Game>();
-  selectedDate: String;
+  games: NbaGame[] = new Array<NbaGame>();
+  selectedDate: Date;
+  date: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider, public dateProvider: DateServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -23,18 +25,19 @@ export class DailyGamesPage {
 
   ionViewCanEnter() {
     this.selectedDate = this.navParams.get('selectedDate');
+    this.date = this.dateProvider.dateToString(this.selectedDate);
 
     this.dataProvider.getSchedulePromise()
       .then(res => {
-        console.log("Date : " + this.selectedDate);
+        console.log("Date : " + this.date);
 
         let numberOfGames = 0;
         let tempGames = res.league.standard;
 
         for (let game of tempGames) {
-          let aGame = new Game();
+          let aGame = new NbaGame();
 
-          if (game.startDateEastern == this.selectedDate) {
+          if (game.startDateEastern == this.date) {
 
             aGame.hTeam.teamId = game.hTeam.teamId;
             aGame.vTeam.teamId = game.vTeam.teamId;
@@ -58,6 +61,7 @@ export class DailyGamesPage {
                   game.hTeam.primaryColor = team.primaryColor;
                   game.hTeam.secondaryColor = team.secondaryColor;
                 }
+
                 if (game.vTeam.teamId == team.teamId) {
                   game.vTeam.tricode = team.tricode;
                   game.vTeam.ttsName = team.ttsName;
@@ -70,7 +74,7 @@ export class DailyGamesPage {
       });
   }
 
-  showRoster(selectedTeam: Team) {
+  showRoster(selectedTeam: NbaTeam) {
     this.navCtrl.push('TeamRosterPage', {selectedTeam: selectedTeam});
   }
 }

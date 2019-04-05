@@ -6,14 +6,15 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 
 import {MyApp} from './app.component';
-import {HomePage} from '../pages/home/home';
-import {NbaDataProvider} from '../providers/nba-data/nba-data';
+import {NbaDataProvider} from '../providers/nba-service/nba-service';
 import {DateServiceProvider} from '../providers/date-service/date-service';
+import {TtflProvider} from '../providers/ttfl-service/ttfl-service';
+import {LoginPage} from "../pages/login/login";
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -23,14 +24,15 @@ import {DateServiceProvider} from '../providers/date-service/date-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NbaDataProvider,
-    DateServiceProvider
+    DateServiceProvider,
+    TtflProvider
   ]
 })
 export class AppModule {

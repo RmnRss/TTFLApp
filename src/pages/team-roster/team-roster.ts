@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {NbaDataProvider} from "../../providers/nba-data/nba-data";
-import {Team} from "../../providers/nba-data/Team";
-import {Player} from "../../providers/nba-data/Player";
+import {NbaDataProvider} from "../../providers/nba-service/nba-service";
+import {NbaTeam} from "../../class/nbaTeam";
+import {NbaPlayer} from "../../class/nbaPlayer";
 
 @IonicPage()
 @Component({
@@ -11,7 +11,8 @@ import {Player} from "../../providers/nba-data/Player";
 })
 export class TeamRosterPage {
 
-  selectedTeam: Team;
+  selectedTeam: NbaTeam;
+  roster: NbaPlayer[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider) {
   }
@@ -27,7 +28,7 @@ export class TeamRosterPage {
 
     this.dataProvider.getRosterPromise(this.selectedTeam)
       .then(res => {
-          this.selectedTeam.players = res.league.standard.players;
+        this.roster = res.league.standard.players;
         }
       )
       .then(res => {
@@ -35,14 +36,15 @@ export class TeamRosterPage {
           let allPlayers = res.league.standard;
           let numberOfPlayers = 0;
 
-          for (let teamPlayer of this.selectedTeam.players) {
+          for (let teamPlayer of this.roster) {
 
             for (let aPlayer of allPlayers) {
 
               if (teamPlayer.personId == aPlayer.personId) {
-                this.selectedTeam.players[numberOfPlayers].firstName = aPlayer.firstName;
-                this.selectedTeam.players[numberOfPlayers].lastName = aPlayer.lastName;
-                this.selectedTeam.players[numberOfPlayers].jersey = aPlayer.jersey;
+                this.roster[numberOfPlayers].firstName = aPlayer.firstName;
+                this.roster[numberOfPlayers].lastName = aPlayer.lastName;
+                this.roster[numberOfPlayers].jersey = aPlayer.jersey;
+                this.roster[numberOfPlayers].team = this.selectedTeam;
                 numberOfPlayers++;
               }
 
@@ -50,7 +52,7 @@ export class TeamRosterPage {
           }
         })
           .then(res => {
-            for (let player of this.selectedTeam.players) {
+            for (let player of this.roster) {
               this.dataProvider.getPlayerSeasonStatsPromise(player)
                 .then(res => {
                   let seasonStats = res.league.standard.stats.latest;
@@ -66,7 +68,7 @@ export class TeamRosterPage {
       });
   }
 
-  showPlayerStats(selectedPlayer: Player) {
+  showPlayerStats(selectedPlayer: NbaPlayer) {
     this.navCtrl.push('DailyGamesPage', {selectedPlayer: selectedPlayer});
 
   }

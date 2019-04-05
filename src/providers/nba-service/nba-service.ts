@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Links} from "./Links";
-import {Team} from "./Team";
-import {Player} from "./Player";
+import {NbaTeam} from "../../class/nbaTeam";
+import {NbaPlayer} from "../../class/nbaPlayer";
 
 @Injectable()
 export class NbaDataProvider {
@@ -41,7 +41,7 @@ export class NbaDataProvider {
 
   }
 
-  getRosterPromise(team: Team): Promise<any> {
+  getRosterPromise(team: NbaTeam): Promise<any> {
     return new Promise((resolve, reject) => {
       let rosterUrl = this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
       console.log("Promise to " + this.baseUrl + rosterUrl);
@@ -61,7 +61,7 @@ export class NbaDataProvider {
 
   }
 
-  getPlayerSeasonStatsPromise(player: Player): Promise<any> {
+  getPlayerSeasonStatsPromise(player: NbaPlayer): Promise<any> {
     return new Promise((resolve, reject) => {
       let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId);
       console.log("Promise to " + this.baseUrl + profileUrl);
@@ -71,7 +71,7 @@ export class NbaDataProvider {
 
   }
 
-  getPlayerLastGameStatsPromise(player: Player): Promise<any> {
+  getPlayerLastGameStatsPromise(player: NbaPlayer): Promise<any> {
     return new Promise((resolve, reject) => {
       let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId);
       console.log("Promise to " + this.baseUrl + gamelogUrl);

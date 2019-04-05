@@ -2,7 +2,7 @@
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets">
   <name>MyApp</name>
   <description>An awesome Ionic/Cordova app.</description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+  <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework NbaTeam</author>
   <content src="index.html"/>
   <access origin="*"/>
   <allow-intent href="http://*/*"/>

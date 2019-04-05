@@ -9,5 +9,28 @@
 <ion-content padding>
   <ion-card (click)="getGames(day)" *ngFor="let day of dates">
     <ion-card-header>{{day}}</ion-card-header>
+    <!--<ion-card-content>
+      <ion-row>
+        <ion-col col-2>
+          <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
+            <rect [ngStyle]="{'fill': selectedTeam.primaryColor}" height="43" width="34" x="0" y="0"></rect>
+            <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="0" cy="5" fill="white" rx="8" ry="15"
+                     stroke-width="2"></ellipse>
+            <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="35" cy="5" fill="white" rx="8" ry="15"
+                     stroke-width="2"></ellipse>
+            <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="17" cy="0" fill="white" rx="8" ry="8"
+                     stroke-width="2"></ellipse>
+          </svg>
+          <div class="jersey-nbr">{{player.jersey}}</div>
+        </ion-col>
+        <ion-col col-5>{{player.firstName}}</ion-col>
+        <ion-col col-5>{{player.lastName}}</ion-col>
+      </ion-row>
+      <ion-row class="badge-inline">
+        <ion-badge>{{player.ppg}}</ion-badge>
+        <ion-badge>{{player.apg}}</ion-badge>
+        <ion-badge>{{player.rpg}}</ion-badge>
+      </ion-row>
+    </ion-card-content>-->
   </ion-card>
 </ion-content>

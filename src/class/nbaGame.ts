@@ -1,11 +1,11 @@
-import {Team} from "./Team";
+import {NbaTeam} from "./nbaTeam";
 
-export class Game {
+export class NbaGame {
 
   constructor() {
     this._startDateEastern = '';
-    this._vTeam = new Team();
-    this._hTeam = new Team();
+    this._vTeam = new NbaTeam();
+    this._hTeam = new NbaTeam();
   }
 
   private _startDateEastern: string;
@@ -18,23 +18,23 @@ export class Game {
     this._startDateEastern = value;
   }
 
-  private _hTeam: Team; //Home Team id
+  private _hTeam: NbaTeam; //Home NbaTeam id
 
-  get hTeam(): Team {
+  get hTeam(): NbaTeam {
     return this._hTeam;
   }
 
-  set hTeam(value: Team) {
+  set hTeam(value: NbaTeam) {
     this._hTeam = value;
   }
 
-  private _vTeam: Team; //Visitor Team id
+  private _vTeam: NbaTeam; //Visitor NbaTeam id
 
-  get vTeam(): Team {
+  get vTeam(): NbaTeam {
     return this._vTeam;
   }
 
-  set vTeam(value: Team) {
+  set vTeam(value: NbaTeam) {
     this._vTeam = value;
   }
 

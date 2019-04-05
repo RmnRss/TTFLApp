@@ -14,6 +14,7 @@ export class DateServiceProvider {
 
   constructor(public http: HttpClient) {
     this.today = new Date();
+    console.log(this.today);
   }
 
   getTodaysDate(): string {
@@ -54,33 +55,19 @@ export class DateServiceProvider {
     return Math.ceil(used / 7);
   }
 
-  getCurrentWeek(): Array<string> {
-
-    let dayNumber = this.today.getDay(); //0-6
-    let monday = new Date();
+  getCurrentWeek(): Array<Date> {
     let weekDays = new Array<Date>();
-    let weekDaysStr = new Array<string>();
 
-    // Sets to Monday
-    monday.setDate(this.today.getDate() - (dayNumber - 1));
+    let curr = new Date();
 
-    for (let i = 0; i < 7; i++) {
-      let current = new Date();
-      current.setDate(monday.getDate() + i);
-      let toAdd = new Date(current);
-      weekDays.push(toAdd);
-    }
-    console.log(weekDays);
-
-    let index = 0;
-
-    for (let day of weekDays) {
-      weekDaysStr[index] = this.dateToString(day);
-      index++;
+    for (let i = 1; i <= 7; i++) {
+      // first day of the week
+      let first = curr.getDate() - curr.getDay() + i;
+      let day = new Date(curr.setDate(first));
+      weekDays.push(day);
     }
 
-    console.log(weekDaysStr);
-    return weekDaysStr;
+    return weekDays;
   }
 
 }

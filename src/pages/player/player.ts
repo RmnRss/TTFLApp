@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Player} from "../../providers/nba-data/Player";
-import {NbaDataProvider} from "../../providers/nba-data/nba-data";
+import {NbaPlayer} from "../../class/nbaPlayer";
+import {NbaDataProvider} from "../../providers/nba-service/nba-service";
 
 /**
  * Generated class for the PlayerPage page.
@@ -17,7 +17,7 @@ import {NbaDataProvider} from "../../providers/nba-data/nba-data";
 })
 export class PlayerPage {
 
-  selectedPlayer: Player;
+  selectedPlayer: NbaPlayer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider) {
   }
