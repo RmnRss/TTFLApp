@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create an account</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label floating>Email</ion-label>
+    <ion-input #inputEmail (focusout)="setEmail(inputEmail.value)"
+               type="email"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Username</ion-label>
+    <ion-input #inputLogin (focusout)="setUsername(inputLogin.value)"
+               type="username"
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
+               type="password"
+    ></ion-input>
+  </ion-item>
+
+  <button (click)="createPlayer(email, password, login)" ion-button round>Create Account</button>
+
+</ion-content>

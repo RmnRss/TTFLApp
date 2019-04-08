@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 /*
@@ -11,14 +11,28 @@ import {Injectable} from '@angular/core';
 export class TtflProvider {
   baseUrl: string = 'http://localhost:3000/api/';
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+      //'Authorization': 'my-auth-token'
+    })
+  };
 
   constructor(public http: HttpClient) {
     console.log('Hello TtflProvider Provider');
   }
 
-  createTfflPlayer() {
-    let url = this.baseUrl + "ttflPlayer";
-    //this.http.post(url,)
+  createTfflPlayer(email: string, password: string, login: string) {
+    let url = this.baseUrl + "ttflPlayers";
+    this.http.post(url, {
+      login: login,
+      password: password,
+      email: email,
+      points: 0,
+      money: 0
+    }).subscribe(() => {
+      console.log("posted");
+    });
   }
 
 }

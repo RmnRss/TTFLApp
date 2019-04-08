@@ -28,4 +28,7 @@ export class LoginPage {
     this.navCtrl.push('HomePage');
   }
 
+  goToCreateAccount() {
+    this.navCtrl.push('CreateAccountPage');
+  }
 }
