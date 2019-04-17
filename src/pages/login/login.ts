@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
+import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
+import {User} from "../../class/user";
 
 /**
  * Generated class for the LoginPage page.
@@ -16,19 +18,44 @@ export class LoginPage {
 
   username: string;
   password: string;
+  email: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user: User;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ttflProvider: TtflProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  login(username: string, password: string) {
-    this.navCtrl.push('HomePage');
+  login(id: string, password: string) {
+    this.user = new User();
+
+    this.ttflProvider.getLoginPromise(id, password)
+      .then(resp => {
+        console.log("logged in");
+        this.user.id = resp.userId;
+        this.navCtrl.push('HomePage', {loggedUser: this.user});
+      })
+      .catch(() => {
+        console.log("error")
+      })
   }
 
   goToCreateAccount() {
     this.navCtrl.push('CreateAccountPage');
+  }
+
+  setEmail(value: string) {
+    this.email = value;
+  }
+
+  setPassword(value: string) {
+    this.password = value;
+  }
+
+  setUsername(value: string) {
+    this.username = value;
   }
 }

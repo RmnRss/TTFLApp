@@ -17,15 +17,19 @@
 
   <ion-item>
     <ion-label floating>Email or Username</ion-label>
-    <ion-input type="username"></ion-input>
+    <ion-input #inputEmail (focusout)="setEmail(inputEmail.value)"
+               type="email"
+    ></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Password</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
+               type="password"
+    ></ion-input>
   </ion-item>
 
-  <button (click)="login(username,password)" ion-button round>Connect</button>
+  <button (click)="login(email,password)" ion-button round>Connect</button>
 
   <a>mot de passe oublié ?</a>
 

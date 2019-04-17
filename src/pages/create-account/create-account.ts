@@ -11,7 +11,7 @@ export class CreateAccountPage {
 
   email: string;
   password: string;
-  login: string;
+  username: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ttflProvider: TtflProvider) {
   }
@@ -20,11 +20,11 @@ export class CreateAccountPage {
     console.log('ionViewDidLoad CreateAccountPage');
   }
 
-  createPlayer(email: string, password: string, login: string) {
+  createPlayer(email: string, password: string, username: string) {
     console.log(email);
     console.log(password);
-    console.log(login);
-    this.ttflProvider.createTfflPlayer(email, password, login);
+    console.log(username);
+    this.ttflProvider.createTfflPlayer(email, password, username);
   }
 
   setEmail(value: string) {
@@ -36,6 +36,6 @@ export class CreateAccountPage {
   }
 
   setUsername(value: string) {
-    this.login = value;
+    this.username = value;
   }
 }

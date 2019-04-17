@@ -17,7 +17,7 @@
 
   <ion-item>
     <ion-label floating>Username</ion-label>
-    <ion-input #inputLogin (focusout)="setUsername(inputLogin.value)"
+    <ion-input #inputUsername (focusout)="setUsername(inputUsername.value)"
                type="username"
     ></ion-input>
   </ion-item>
@@ -29,6 +29,6 @@
     ></ion-input>
   </ion-item>
 
-  <button (click)="createPlayer(email, password, login)" ion-button round>Create Account</button>
+  <button (click)="createPlayer(email, password, username)" ion-button round>Create Account</button>
 
 </ion-content>

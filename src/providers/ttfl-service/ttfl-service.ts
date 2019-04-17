@@ -22,17 +22,43 @@ export class TtflProvider {
     console.log('Hello TtflProvider Provider');
   }
 
-  createTfflPlayer(email: string, password: string, login: string) {
-    let url = this.baseUrl + "ttflPlayers";
+  createTfflPlayer(email: string, password: string, username: string) {
+    let url = this.baseUrl + "users";
     this.http.post(url, {
-      login: login,
+      username: username,
       password: password,
       email: email,
-      points: 0,
-      money: 0
     }).subscribe(() => {
       console.log("posted");
     });
+  }
+
+  getLoginPromise(login: string, password: string): Promise<any> {
+    let url = this.baseUrl + "users/login";
+    return new Promise((resolve, reject) => {
+      this.http.post(url, {
+        username: login,
+        password: password,
+      }, this.httpOptions)
+        .subscribe(success => {
+          resolve(success);
+        }, reject => {
+          resolve(reject);
+        });
+    })
+
+  }
+
+  getUserInfoPromise(id: number): Promise<any> {
+    let url = this.baseUrl + "users/" + id;
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(success => {
+        resolve(success);
+      }, reject => {
+        resolve(reject);
+      });
+    })
+
   }
 
 }
