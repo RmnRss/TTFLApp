@@ -3,6 +3,8 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NbaDataProvider} from "../../providers/nba-service/nba-service";
 import {NbaTeam} from "../../class/nbaTeam";
 import {NbaPlayer} from "../../class/nbaPlayer";
+import {User} from "../../class/user";
+import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 
 @IonicPage()
 @Component({
@@ -12,9 +14,14 @@ import {NbaPlayer} from "../../class/nbaPlayer";
 export class TeamRosterPage {
 
   selectedTeam: NbaTeam;
+  selectedPlayer: NbaPlayer;
+
+  date: Date;
+  user: User;
+
   roster: NbaPlayer[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider, public ttflProvider: TtflProvider) {
   }
 
   ionViewDidLoad() {
@@ -23,8 +30,8 @@ export class TeamRosterPage {
 
   ionViewCanEnter() {
     this.selectedTeam = this.navParams.get('selectedTeam');
-    console.log(this.selectedTeam.secondaryColor);
-    console.log(this.selectedTeam.primaryColor);
+    this.date = this.navParams.get('selectedDate');
+    this.user = this.navParams.get('currentUser');
 
     this.dataProvider.getRosterPromise(this.selectedTeam)
       .then(res => {
@@ -61,7 +68,6 @@ export class TeamRosterPage {
                   player.rpg = seasonStats.rpg;
                   player.apg = seasonStats.apg;
 
-                  //console.log(player.lastName + " ppg " + player.ppg + " rpg " + player.rpg + " apg " + player.apg);
                 })
             }
           })
@@ -69,7 +75,33 @@ export class TeamRosterPage {
   }
 
   showPlayerStats(selectedPlayer: NbaPlayer) {
-    this.navCtrl.push('DailyGamesPage', {selectedPlayer: selectedPlayer});
+    //this.navCtrl.push('PlayerPage', {selectedPlayer: selectedPlayer});
+  }
 
+  selectPlayer(player: NbaPlayer): NbaPlayer {
+    for (let rosterPlayer of this.roster) {
+      rosterPlayer.selected = false;
+    }
+
+    player.selected = true;
+    this.selectedPlayer = player;
+    return player;
+  }
+
+  postPick(nbaPlayer: NbaPlayer, user: User, date: Date) {
+    this.ttflProvider.postPickPromise(nbaPlayer, user, date).then(resp => {
+      console.log(resp);
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  updatePick(player: NbaPlayer, user: User, date: Date) {
+
+  }
+
+  confirmPick() {
+    this.postPick(this.selectedPlayer, this.user, this.date);
+    //this.navCtrl.push('HomePage');
   }
 }

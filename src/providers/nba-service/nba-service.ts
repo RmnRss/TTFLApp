@@ -15,7 +15,7 @@ export class NbaDataProvider {
 
   getLinksPromise(): Promise<any> {
     return new Promise((resolve, reject) => {
-      console.log("Promise to " + this.baseUrl + "/prod/v1/today.json")
+      console.log("Promise to " + this.baseUrl + "/prod/v1/today.json");
 
       this.http.get(this.baseUrl + "/prod/v1/today.json")
         .subscribe(success => resolve(success));
@@ -58,12 +58,11 @@ export class NbaDataProvider {
       this.http.get(this.baseUrl + this.links.leagueRosterPlayers)
         .subscribe(success => resolve(success));
     })
-
   }
 
   getPlayerSeasonStatsPromise(player: NbaPlayer): Promise<any> {
     return new Promise((resolve, reject) => {
-      let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId);
+      let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId.toString());
       console.log("Promise to " + this.baseUrl + profileUrl);
       this.http.get(this.baseUrl + profileUrl)
         .subscribe(success => resolve(success));
@@ -73,7 +72,7 @@ export class NbaDataProvider {
 
   getPlayerLastGameStatsPromise(player: NbaPlayer): Promise<any> {
     return new Promise((resolve, reject) => {
-      let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId);
+      let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId.toString());
       console.log("Promise to " + this.baseUrl + gamelogUrl);
       this.http.get(this.baseUrl + gamelogUrl)
         .subscribe(success => resolve(success));

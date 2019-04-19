@@ -1,7 +1,7 @@
 import {NbaTeam} from "./nbaTeam";
 
 export class NbaPlayer {
-  personId: string;
+  personId: number;
   firstName: string;
   lastName: string;
   jersey: number;
@@ -9,14 +9,16 @@ export class NbaPlayer {
   rpg: number;
   apg: number;
   team: NbaTeam;
+  selected: boolean;
 
   constructor() {
-    this.personId = '';
+    this.personId = 0;
     this.firstName = '';
     this.lastName = '';
     this.jersey = 0;
     this.ppg = 0;
     this.rpg = 0;
     this.apg = 0;
+    this.team = new NbaTeam();
   }
 }

@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {TtflPick} from "../../class/ttflPick";
 
 /*
   Generated class for the DateServiceProvider provider.
@@ -55,19 +56,24 @@ export class DateServiceProvider {
     return Math.ceil(used / 7);
   }
 
-  getCurrentWeek(): Array<Date> {
-    let weekDays = new Array<Date>();
+  getCurrentWeek(): Array<TtflPick> {
+    let weekPicks = new Array<TtflPick>();
 
     let curr = new Date();
 
+
     for (let i = 1; i <= 7; i++) {
+      let pick = new TtflPick();
+
       // first day of the week
       let first = curr.getDate() - curr.getDay() + i;
       let day = new Date(curr.setDate(first));
-      weekDays.push(day);
+
+      pick.date = day;
+      weekPicks.push(pick);
     }
 
-    return weekDays;
+    return weekPicks;
   }
 
 }

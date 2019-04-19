@@ -32,8 +32,6 @@ export class PlayerPage {
     this.dataProvider.getPlayerLastGameStatsPromise(this.selectedPlayer).then(res => {
 
     });
-
-
   }
 
 }

@@ -32,7 +32,7 @@ export class LoginPage {
   login(id: string, password: string) {
     this.user = new User();
 
-    this.ttflProvider.getLoginPromise(id, password)
+    this.ttflProvider.postLoginPromise(id, password)
       .then(resp => {
         console.log("logged in");
         this.user.id = resp.userId;

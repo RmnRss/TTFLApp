@@ -10,6 +10,7 @@
 <ion-content padding>
   <ion-card (click)="showPlayerStats(player)" *ngFor="let player of roster">
     <ion-row>
+      <!-- JERSEY DRAWING -->
       <ion-col col-2>
         <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
           <rect [ngStyle]="{'fill': selectedTeam.primaryColor}" height="43" width="34" x="0" y="0"></rect>
@@ -20,15 +21,26 @@
           <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="17" cy="0" fill="white" rx="8" ry="8"
                    stroke-width="2"></ellipse>
         </svg>
+
+        <!-- JERSEY NUMBER -->
         <div class="jersey-nbr">{{player.jersey}}</div>
       </ion-col>
-      <ion-col col-5>{{player.firstName}}</ion-col>
-      <ion-col col-5>{{player.lastName}}</ion-col>
+
+      <!-- PLAYER INFO -->
+      <ion-col col-4>{{player.firstName}}</ion-col>
+      <ion-col col-4>{{player.lastName}}</ion-col>
+      <ion-col (click)="selectPlayer(player)" [class.highlight]="player.selected" col-2>
+        <ion-icon class="icon" name="add-circle"></ion-icon>
+      </ion-col>
     </ion-row>
+
+    <!-- PLAYER STATS -->
     <ion-row class="badge-inline">
       <ion-badge>{{player.ppg}}</ion-badge>
       <ion-badge>{{player.apg}}</ion-badge>
       <ion-badge>{{player.rpg}}</ion-badge>
     </ion-row>
   </ion-card>
+
+  <button (click)="confirmPick()" ion-button round>Confirm</button>
 </ion-content>
