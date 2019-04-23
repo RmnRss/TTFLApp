@@ -52,8 +52,29 @@ export class TtflProvider {
 
   postPickPromise(player: NbaPlayer, user: User, date: Date): Promise<any> {
     let url = this.baseUrl + "picks";
+    console.log("post @ " + url);
+
     return new Promise((resolve, reject) => {
       this.http.post(url, {
+        date: date,
+        userId: user.id,
+        nbaPlayerId: player.personId
+      }, this.httpOptions)
+        .subscribe(success => {
+          resolve(success);
+        }, reject => {
+          resolve(reject);
+        });
+    })
+  }
+
+  updatePickPromise(existingPickId: number, player: NbaPlayer, user: User, date: Date): Promise<any> {
+    let url = this.baseUrl + "picks/" + existingPickId;
+    console.log("put @ " + url);
+
+    return new Promise((resolve, reject) => {
+      this.http.put(url, {
+        id: existingPickId,
         date: date,
         userId: user.id,
         nbaPlayerId: player.personId

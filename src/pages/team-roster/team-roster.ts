@@ -89,11 +89,24 @@ export class TeamRosterPage {
   }
 
   postPick(nbaPlayer: NbaPlayer, user: User, date: Date) {
-    this.ttflProvider.postPickPromise(nbaPlayer, user, date).then(resp => {
-      console.log(resp);
-    }, error => {
-      console.log(error);
-    })
+    this.ttflProvider.getPickOfUserPromise(date, this.user).then(res => {
+      console.log(res);
+      console.log("size " + res.length);
+      if (res.length == 0) {
+        this.ttflProvider.postPickPromise(nbaPlayer, user, date).then(resp => {
+          console.log(resp);
+        }, error => {
+          console.log(error);
+        })
+      } else {
+        this.ttflProvider.updatePickPromise(res[0].id, nbaPlayer, user, date).then(resp => {
+          console.log(resp);
+        }, error => {
+          console.log(error);
+        })
+      }
+
+    });
   }
 
   updatePick(player: NbaPlayer, user: User, date: Date) {
