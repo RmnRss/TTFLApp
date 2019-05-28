@@ -42,7 +42,7 @@ export class HomePage {
             for (let result of res) {
               if (result.size != 0) {
                 pick.nbaPlayer.personId = result.nbaPlayerId;
-                pick.points = result.points;
+                pick.score = result.score;
                 pick.bestPick = result.bestPick;
                 pick.worstPick = result.worstPick;
 

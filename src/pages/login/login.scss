@@ -1,3 +1,92 @@
 page-login {
 
+  /*
+    GENERAL STYLE
+  */
+  .bg-dark {
+    background-color: color($colors, tt-dark, base)
+  }
+
+  /*
+    HEADER STYLE
+  */
+
+  .login-header {
+    display: block;
+    color: white;
+    text-align: center;
+  }
+
+  .brand-name-row {
+    margin-top: 5rem;
+  }
+
+  .brand-name {
+    color: white;
+  }
+
+  .app-name-row {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .app-name {
+  }
+
+  /*
+    INPUTS
+  */
+  .input-row {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  .item-md, .item-ios {
+    background-color: transparent;
+  }
+
+  ion-input {
+    background: white;
+  }
+
+  .item-inner {
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .label-md[stacked], .label-ios[stacked] {
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  /*
+    BUTTON
+  */
+  .button-md, .button-ios {
+    width: 80%;
+    background-color: color($colors, tt-blue, base);
+  }
+
+  .button-row {
+    justify-content: center;
+  }
+
+  /*
+    LINKS
+  */
+  a {
+    color: color($colors, tt-blue, base);
+  }
+
+  .small-links {
+    margin-top: 2rem;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .pw-link {
+    margin-left: 185px;
+    margin-bottom: 2rem;
+  }
+
 }

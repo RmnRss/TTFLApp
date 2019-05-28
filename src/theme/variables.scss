@@ -32,11 +32,18 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
+  //Ionic Basic
   primary: #488aff,
   secondary: #32db64,
   danger: #f53d3d,
   light: #f4f4f4,
-  dark: #222
+  //Custom colors
+  tt-dark: #333333,
+  tt-dark-alt: #272424,
+  tt-red : #E5192C,
+  tt-red-alt : #C91021,
+  tt-blue: #1097C9
+
 );
 
 

@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {NbaPlayer} from "../../class/nbaPlayer";
 import {User} from "../../class/user";
+import {NbaDataProvider} from "../nba-service/nba-service";
 
 /*
   Generated class for the TtflProvider provider.
@@ -20,7 +21,7 @@ export class TtflProvider {
     })
   };
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public nbaData: NbaDataProvider) {
     console.log('Hello TtflProvider Provider');
   }
 

@@ -59,8 +59,7 @@ export class DateServiceProvider {
   getCurrentWeek(): Array<TtflPick> {
     let weekPicks = new Array<TtflPick>();
 
-    let curr = new Date();
-
+    let curr = new Date("May 24, 2019");
 
     for (let i = 1; i <= 7; i++) {
       let pick = new TtflPick();

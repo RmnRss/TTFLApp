@@ -5,13 +5,13 @@ export class TtflPick {
   date: Date;
   bestPick: boolean;
   worstPick: boolean;
-  points: number;
+  score: number;
 
   constructor() {
     this.nbaPlayer = new NbaPlayer();
     this.date = new Date();
     this.bestPick = false;
     this.worstPick = false;
-    this.points = 0;
+    this.score = 0;
   }
 }
