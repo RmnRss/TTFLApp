@@ -41,6 +41,11 @@ page-login {
     margin-top: 2rem;
   }
 
+  .input-cover {
+    position: static;
+  }
+
+
   .item-md, .item-ios {
     background-color: transparent;
   }
@@ -57,6 +62,10 @@ page-login {
   .label-md[stacked], .label-ios[stacked] {
     margin-bottom: 1rem;
     color: white;
+  }
+
+  .item-label-stacked .text-input-md, .item-ios.item-label-stacked .text-input {
+    margin-left: 10px;
   }
 
   /*
