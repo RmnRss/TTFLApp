@@ -1,10 +1,10 @@
 <ion-content class="bg-dark" padding>
   <ion-row class="login-header brand-name-row">
-    <h1 class="brand-name">#TRASHTALK</h1>
+    <h1>#TRASHTALK</h1>
   </ion-row>
 
   <ion-row class="login-header app-name-row">
-    <h2 class="app-name">FANTASY LEAGUE</h2>
+    <h2>FANTASY LEAGUE</h2>
   </ion-row>
 
   <ion-row class="input-row">
@@ -13,6 +13,7 @@
       <ion-input #inputEmail (focusout)="setEmail(inputEmail.value)"
                  class="round-edges"
                  type="email"
+                 (keyup.enter)="login(email,password)"
       ></ion-input>
     </ion-item>
   </ion-row>
@@ -23,12 +24,13 @@
       <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
                  class="round-edges"
                  type="password"
+                 (keyup.enter)="login(email,password)"
       ></ion-input>
     </ion-item>
   </ion-row>
 
   <ion-row class="pw-link">
-    <a (click)="goToCreateAccount()">Mot de passe oublié ?</a>
+    <a (click)="ForgottenPassword()">Mot de passe oublié ?</a>
   </ion-row>
 
   <ion-row class="button-row">
@@ -36,7 +38,7 @@
   </ion-row>
 
   <ion-row class="small-links">
-    <a color="tt-blue">Pas encore de compte ? Rejoins la communauté !</a>
+    <a (click)="goToCreateAccount()">Pas encore de compte ? Rejoins la communauté !</a>
   </ion-row>
 
 

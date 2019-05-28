@@ -1,34 +1,42 @@
-<ion-header>
+<ion-content class="bg-dark" padding>
 
-  <ion-navbar>
-    <ion-title>Create an account</ion-title>
-  </ion-navbar>
+  <ion-row class="header">
+    <h1>CREER UN COMPTE</h1>
+  </ion-row>
 
-</ion-header>
+  <ion-row class="input-row">
+    <ion-item>
+      <ion-label stacked>EMAIL</ion-label>
+      <ion-input #inputEmail (focusout)="setEmail(inputEmail.value)"
+                 class="round-edges"
+                 type="email"
+      ></ion-input>
+    </ion-item>
+  </ion-row>
 
-<ion-content padding>
+  <ion-row class="input-row">
+    <ion-item>
+      <ion-label stacked>IDENTIFIANT</ion-label>
+      <ion-input #inputUsername (focusout)="setUsername(inputUsername.value)"
+                 class="round-edges"
+                 type="username"
+      ></ion-input>
+    </ion-item>
+  </ion-row>
 
-  <ion-item>
-    <ion-label floating>Email</ion-label>
-    <ion-input #inputEmail (focusout)="setEmail(inputEmail.value)"
-               type="email"
-    ></ion-input>
-  </ion-item>
+  <ion-row class="input-row">
+    <ion-item>
+      <ion-label stacked>MOT DE PASSE</ion-label>
+      <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
+                 (keyup.enter)="createPlayer(email, password, username)"
+                 class="round-edges"
+                 type="password"
+      ></ion-input>
+    </ion-item>
+  </ion-row>
 
-  <ion-item>
-    <ion-label floating>Username</ion-label>
-    <ion-input #inputUsername (focusout)="setUsername(inputUsername.value)"
-               type="username"
-    ></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label floating>Password</ion-label>
-    <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
-               type="password"
-    ></ion-input>
-  </ion-item>
-
-  <button (click)="createPlayer(email, password, username)" ion-button round>Create Account</button>
+  <ion-row class="button-row">
+    <button (click)="createPlayer(email, password, username)" class="round-edges" ion-button>CREER MON COMPTE</button>
+  </ion-row>
 
 </ion-content>

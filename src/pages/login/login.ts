@@ -3,13 +3,6 @@ import {NavController, NavParams} from 'ionic-angular';
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {User} from "../../class/user";
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -57,5 +50,9 @@ export class LoginPage {
 
   setUsername(value: string) {
     this.username = value;
+  }
+
+  ForgottenPassword() {
+
   }
 }
