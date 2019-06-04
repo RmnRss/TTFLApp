@@ -5,7 +5,7 @@ import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 
-import {MyApp} from './app.component';
+import {MyApp} from '../app/app.component';
 import {NbaDataProvider} from '../providers/nba-service/nba-service';
 import {DateServiceProvider} from '../providers/date-service/date-service';
 import {TtflProvider} from '../providers/ttfl-service/ttfl-service';

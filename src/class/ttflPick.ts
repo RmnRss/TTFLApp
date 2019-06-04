@@ -6,6 +6,7 @@ export class TtflPick {
   bestPick: boolean;
   worstPick: boolean;
   score: number;
+  hasPlayer: boolean;
 
   constructor() {
     this.nbaPlayer = new NbaPlayer();
@@ -13,5 +14,6 @@ export class TtflPick {
     this.bestPick = false;
     this.worstPick = false;
     this.score = 0;
+    this.hasPlayer = false;
   }
 }

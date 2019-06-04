@@ -34,16 +34,59 @@
   COMMON TRAITS
 */
 .round-edges {
-  border-radius: 5px;
+  border-radius: 7px;
+}
+
+.no-padding {
+  padding: 0 0 0 0;
+}
+
+/*
+  PICK CARD
+*/
+
+.pickCard {
+  padding: 0 0 0 0;
+  margin: 10px 0px 10px 0px;
+  width: auto;
+}
+
+.inner-card {
+  padding-right: 0px;
+}
+
+.pickCard .score-bubble {
+  background-color: color($colors, tt-dark, base);
+  border-radius: 20px 0 0 20px;
+  margin-top: 5.5%;
+  height: 35px;
+}
+
+.pickCard .score {
+  color: white;
+  text-align: left;
+}
+
+/*
+  DATE
+ */
+
+.date {
+  background-color: color($colors, tt-dark, base);
+  color: white;
+  text-align: center;
+  font-weight: bold;
 }
 
 /*
   NBA PLAYER JERSEYS
 */
+
 .jersey-nbr {
   font-size: 2.2rem;
   margin-top: -30px;
   text-align: center;
+  color: white;
 }
 
 /*

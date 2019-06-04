@@ -29,7 +29,7 @@ export class LoginPage {
       .then(resp => {
         console.log("logged in");
         this.user.id = resp.userId;
-        this.navCtrl.push('HomePage', {loggedUser: this.user});
+        this.navCtrl.setRoot('HomePage', {loggedUser: this.user});
       })
       .catch(() => {
         console.log("error")

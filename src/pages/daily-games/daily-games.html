@@ -1,40 +1,51 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>{{selectedDate.getDate()}}</ion-title>
+    <ion-title>Matchs du {{selectedDate}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <ion-grid>
-    <ion-row *ngFor="let game of games">
-      <ion-col col-6>
-        <ion-card (click)="showRoster(game.vTeam)">
-          <img src="{{game.vTeam.logoUrl}}"/>
-          <ion-card-content>
-            <ion-card-title>{{game.vTeam.tName}}</ion-card-title>
-            <ion-row class="badge-inline">
-              <ion-badge>win</ion-badge>
-              <ion-badge>loss</ion-badge>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
 
-      <ion-col col-6>
-        <ion-card (click)="showRoster(game.hTeam)">
-          <img src="{{game.hTeam.logoUrl}}"/>
-          <ion-card-content>
-            <ion-card-title>{{game.hTeam.tName}}</ion-card-title>
-            <ion-row class="badge-inline">
-              <ion-badge>win</ion-badge>
-              <ion-badge>loss</ion-badge>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-row *ngFor="let game of games">
+    <!-- GAME CARD -->
+    <ion-card>
+      <ion-card-content>
+
+        <!-- TEAM LOGOS -->
+        <ion-row>
+          <ion-col (click)="showRoster(game.vTeam)" col-6>
+            <img src="{{game.vTeam.logoUrl}}"/>
+          </ion-col>
+          <ion-col (click)="showRoster(game.hTeam)" col-6>
+            <img src="{{game.hTeam.logoUrl}}"/>
+          </ion-col>
+        </ion-row>
+
+        <!-- TEAM NAMES -->
+        <ion-row>
+          <ion-col col-5>
+            <h2>{{game.vTeam.tName}}</h2>
+          </ion-col>
+          <ion-col col-2>@</ion-col>
+          <ion-col col-5>
+            <h2>{{game.hTeam.tName}}</h2>
+          </ion-col>
+        </ion-row>
+
+        <!-- TEAM RECORDS -->
+        <ion-row>
+          <ion-col class="badge-inline" col-6>
+            <ion-badge>win</ion-badge>
+            <ion-badge>loss</ion-badge>
+          </ion-col>
+          <ion-col class="badge-inline" col-6>
+            <ion-badge>win</ion-badge>
+            <ion-badge>loss</ion-badge>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+
 </ion-content>

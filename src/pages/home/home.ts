@@ -41,6 +41,7 @@ export class HomePage {
           this.ttflProvider.getPickOfUserPromise(pick.date, this.user).then(res => {
             for (let result of res) {
               if (result.size != 0) {
+                pick.hasPlayer = true;
                 pick.nbaPlayer.personId = result.nbaPlayerId;
                 pick.score = result.score;
                 pick.bestPick = result.bestPick;
