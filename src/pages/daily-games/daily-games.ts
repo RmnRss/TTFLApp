@@ -32,48 +32,30 @@ export class DailyGamesPage {
     this.selectedDate = this.navParams.get('selectedDate');
     this.dateStr = this.dateProvider.dateToString(this.selectedDate);
 
-    this.nbaDataProvider.getSchedulePromise().then(
-      res => {
-        let numberOfGames = 0;
-        let tempGames = res.league.standard;
 
-        for (let game of tempGames) {
-          let aGame = new NbaGame();
+    this.nbaDataProvider.getTeamInfoPromise()
+      .then(res => {
+        let allTeams = res.teams.config;
 
-          if (game.startDateEastern == this.dateStr) {
-            aGame.startTimeUTC = game.startTimeUTC;
-            aGame.hTeam.teamId = game.hTeam.teamId;
-            aGame.vTeam.teamId = game.vTeam.teamId;
-            this.games.push(aGame);
-            numberOfGames++;
+        for (let game of this.games) {
+
+          for (let team of allTeams) {
+
+            if (game.hTeam.teamId == team.teamId) {
+              game.hTeam.tricode = team.tricode;
+              game.hTeam.ttsName = team.ttsName;
+              game.hTeam.primaryColor = team.primaryColor;
+              game.hTeam.secondaryColor = team.secondaryColor;
+            }
+
+            if (game.vTeam.teamId == team.teamId) {
+              game.vTeam.tricode = team.tricode;
+              game.vTeam.ttsName = team.ttsName;
+              game.vTeam.primaryColor = team.primaryColor;
+              game.vTeam.secondaryColor = team.secondaryColor;
+            }
           }
         }
-      })
-      .then(res => {
-        this.nbaDataProvider.getTeamInfoPromise()
-          .then(res => {
-            let allTeams = res.teams.config;
-
-            for (let game of this.games) {
-
-              for (let team of allTeams) {
-
-                if (game.hTeam.teamId == team.teamId) {
-                  game.hTeam.tricode = team.tricode;
-                  game.hTeam.ttsName = team.ttsName;
-                  game.hTeam.primaryColor = team.primaryColor;
-                  game.hTeam.secondaryColor = team.secondaryColor;
-                }
-
-                if (game.vTeam.teamId == team.teamId) {
-                  game.vTeam.tricode = team.tricode;
-                  game.vTeam.ttsName = team.ttsName;
-                  game.vTeam.primaryColor = team.primaryColor;
-                  game.vTeam.secondaryColor = team.secondaryColor;
-                }
-              }
-            }
-          })
       });
   }
 
