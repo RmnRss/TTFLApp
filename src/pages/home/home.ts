@@ -5,6 +5,7 @@ import {DateServiceProvider} from "../../providers/date-service/date-service";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {TtflPick} from "../../class/ttflPick";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {NbaGame} from "../../class/nbaGame";
 
 @IonicPage()
 @Component({
@@ -13,7 +14,8 @@ import {UserServiceProvider} from "../../providers/user-service/user-service";
 })
 export class HomePage {
 
-  picks: TtflPick[] = this.dateProvider.getCurrentWeek();
+  picks: TtflPick[] = new Array<TtflPick>();
+  daysOfTheWeek = this.dateProvider.getCurrentWeek();
 
   /***
    * Initializes the user information on page creation
@@ -43,7 +45,47 @@ export class HomePage {
         this.nbaDataProvider.links = res.links;
       })
       .then(next => {
-        for (let pick of this.picks) {
+        for (let day of this.daysOfTheWeek) {
+          let pick = new TtflPick(this.dateProvider);
+          pick.date = day;
+          this.picks.push(pick);
+
+          let games: NbaGame[] = new Array<NbaGame>();
+
+          this.nbaDataProvider.getSchedulePromise().then(
+            res => {
+              let numberOfGames = 0;
+              let tempGames = res.league.standard;
+
+              for (let game of tempGames) {
+                let aGame = new NbaGame();
+
+                if (game.startDateEastern == this.dateProvider.dateToString(day)) {
+                  aGame.startTimeUTC = game.startTimeUTC;
+                  aGame.hTeam.teamId = game.hTeam.teamId;
+                  aGame.vTeam.teamId = game.vTeam.teamId;
+                  games.push(aGame);
+                  numberOfGames++;
+                }
+              }
+
+              if (games.length > 0) {
+                let index = 0;
+                let earliestGameTime = games[index].startTimeUTC;
+
+                while (index < games.length - 2) {
+                  if (earliestGameTime > games[index + 1].startTimeUTC) {
+                    earliestGameTime = games[index + 1].startTimeUTC;
+                    index++;
+                  } else {
+                    index++;
+                  }
+                }
+                pick.closingTime = earliestGameTime;
+                console.log(pick.closingTime);
+              }
+            });
+
           this.ttflProvider.getPickOfUserPromise(pick.date, this.userProvider.user)
             .then(res => {
               for (let result of res) {

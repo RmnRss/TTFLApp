@@ -49,8 +49,8 @@ export class DateServiceProvider {
     return Math.ceil(used / 7);
   }
 
-  getCurrentWeek(): Array<TtflPick> {
-    let weekPicks = new Array<TtflPick>();
+  getCurrentWeek(): Array<Date> {
+    let weekDays = new Array<Date>();
 
     let curr = new Date();
 
@@ -61,11 +61,10 @@ export class DateServiceProvider {
       let first = curr.getDate() - curr.getDay() + i;
       let day = new Date(curr.setDate(first));
 
-      pick.date = day;
-      weekPicks.push(pick);
+      weekDays.push(day);
     }
 
-    return weekPicks;
+    return weekDays;
   }
 
 }
