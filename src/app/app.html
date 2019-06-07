@@ -3,17 +3,20 @@
   <!-- TOP PART -->
   <ion-header>
     <ion-toolbar>
+      <!-- USER INFOS -->
       <ion-row>
-        <!-- USER INFOS -->
-        <ion-col col-3>
+        <!-- USER PP -->
+        <ion-col col-3 menuClose (click)="openPage('UserProfilePage')">
           <span class="dot">
             <h1 class="center">{{userProvider.user.username.charAt(0) | uppercase}}</h1>
           </span>
         </ion-col>
         <ion-col class="no-padding" col-9>
+          <!-- USERNAME -->
           <ion-row>
             <ion-title>{{userProvider.user.username | titlecase}}</ion-title>
           </ion-row>
+          <!-- USER INFO -->
           <ion-row class="badge-inline">
             <ion-badge>{{userProvider.user.points}} pts</ion-badge>
             <ion-badge>{{userProvider.user.money}} TT$</ion-badge>
@@ -30,11 +33,11 @@
     <ion-title class="drawer-category">FANTASY LEAGUE</ion-title>
 
     <ion-list class="page-list">
-      <button (click)="openPage('HomePage')" ion-item>
+      <button menuClose (click)="openPage('HomePage')" ion-item>
         <h3>Mes Decks</h3>
       </button>
 
-      <button (click)="openPage('TtflTeamPage')" ion-item>
+      <button menuClose (click)="openPage('TtflTeamPage')" ion-item>
         <h3>Mon Equipe</h3>
       </button>
     </ion-list>
@@ -42,11 +45,11 @@
     <ion-title class="drawer-category">CLASSEMENTS</ion-title>
 
     <ion-list class="page-list">
-      <button (click)="openPage('TtflRankingPage')" ion-item>
+      <button menuClose (click)="openPage('TtflRankingPage')" ion-item>
         <h3>Classement</h3>
       </button>
 
-      <button (click)="openPage('TtflTeamRankingPage')" ion-item>
+      <button menuClose (click)="openPage('TtflTeamRankingPage')" ion-item>
         <h3>Classement par equipes</h3>
       </button>
     </ion-list>
@@ -54,7 +57,7 @@
     <ion-title class="drawer-category">TOP PICKS</ion-title>
 
     <ion-list class="page-list">
-      <button (click)="openPage('TtflDailyPickRankingPage')" ion-item>
+      <button menuClose (click)="openPage('TtflDailyPickRankingPage')" ion-item>
         <h3>Top Picks</h3>
       </button>
     </ion-list>

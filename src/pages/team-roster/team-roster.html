@@ -46,8 +46,13 @@
       </ion-col>
     </ion-row>
 
+    <ion-row>
 
+    </ion-row>
   </ion-card>
 
-  <button (click)="confirmPick()" ion-button round>Confirm</button>
+  <ion-fab *ngIf="selectedPlayer != undefined">
+    <button ion-fab color="primary" (click)="confirmPick()">Ajouter au deck</button>
+  </ion-fab>
+
 </ion-content>
