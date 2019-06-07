@@ -10,6 +10,12 @@ import {NbaDataProvider} from '../providers/nba-service/nba-service';
 import {DateServiceProvider} from '../providers/date-service/date-service';
 import {TtflProvider} from '../providers/ttfl-service/ttfl-service';
 import {LoginPage} from "../pages/login/login";
+import {UserServiceProvider} from '../providers/user-service/user-service';
+
+import {registerLocaleData} from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -32,7 +38,8 @@ import {LoginPage} from "../pages/login/login";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NbaDataProvider,
     DateServiceProvider,
-    TtflProvider
+    TtflProvider,
+    UserServiceProvider
   ]
 })
 export class AppModule {

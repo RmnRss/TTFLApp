@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NbaDataProvider} from "../../providers/nba-service/nba-service";
 import {DateServiceProvider} from "../../providers/date-service/date-service";
-import {User} from "../../class/user";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {TtflPick} from "../../class/ttflPick";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @IonicPage()
 @Component({
@@ -13,77 +13,91 @@ import {TtflPick} from "../../class/ttflPick";
 })
 export class HomePage {
 
-  today: String = this.dateProvider.getTodaysDate();
   picks: TtflPick[] = this.dateProvider.getCurrentWeek();
 
-  user: User;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider, public dateProvider: DateServiceProvider, public ttflProvider: TtflProvider) {
+  /***
+   * Initializes the user information on page creation
+   */
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public nbaDataProvider: NbaDataProvider,
+              public userProvider: UserServiceProvider,
+              public dateProvider: DateServiceProvider,
+              public ttflProvider: TtflProvider) {
+    //Gets the user info once he's logged in
+    this.userProvider.getUserInfoPromise(this.userProvider.user.id)
+      .then(resp => {
+        this.userProvider.user = resp;
+        console.log(this.userProvider.user);
+      }, error => {
+        console.log(error);
+      });
   }
 
+  /***
+   * Called everytime the page is loaded
+   */
   ionViewCanEnter() {
-
-    this.user = this.navParams.get('loggedUser');
-
-    this.dataProvider.getLinksPromise()
+    this.nbaDataProvider.getLinksPromise()
       .then(res => {
-        this.dataProvider.links = res.links;
-      })
-      .then(next => {
-        this.ttflProvider.getUserInfoPromise(this.user.id)
-          .then(resp => {
-            this.user = resp;
-            console.log(this.user);
-          })
+        this.nbaDataProvider.links = res.links;
       })
       .then(next => {
         for (let pick of this.picks) {
-          this.ttflProvider.getPickOfUserPromise(pick.date, this.user).then(res => {
-            for (let result of res) {
-              if (result.size != 0) {
-                pick.hasPlayer = true;
-                pick.nbaPlayer.personId = result.nbaPlayerId;
-                pick.score = result.score;
-                pick.bestPick = result.bestPick;
-                pick.worstPick = result.worstPick;
+          this.ttflProvider.getPickOfUserPromise(pick.date, this.userProvider.user)
+            .then(res => {
+              for (let result of res) {
 
-                this.dataProvider.getPlayerPromise().then(res => {
-                  for (let player of res.league.standard) {
-                    if (player.personId == pick.nbaPlayer.personId) {
-                      pick.nbaPlayer.firstName = player.firstName;
-                      pick.nbaPlayer.lastName = player.lastName;
-                      pick.nbaPlayer.jersey = player.jersey;
+                // If a pick has already been chosen this week we get the information about all the picks
+                if (result.size != 0) {
+                  pick.hasPlayer = true;
 
-                      console.log(player.teams);
-                      pick.nbaPlayer.team = player.teams[player.teams.length - 1];
+                  pick.nbaPlayer.personId = result.nbaPlayerId;
+                  pick.score = result.score;
+                  pick.bestPick = result.bestPick;
+                  pick.worstPick = result.worstPick;
 
-                      this.dataProvider.getTeamInfoPromise()
-                        .then(res => {
-                          let allTeams = res.teams.config;
+                  this.nbaDataProvider.getPlayerPromise()
+                    .then(res => {
+                      for (let player of res.league.standard) {
+                        if (player.personId == pick.nbaPlayer.personId) {
+                          pick.nbaPlayer.firstName = player.firstName;
+                          pick.nbaPlayer.lastName = player.lastName;
+                          pick.nbaPlayer.jersey = player.jersey;
+                          pick.nbaPlayer.team = player.teams[player.teams.length - 1];
 
-                          for (let team of allTeams) {
+                          this.nbaDataProvider.getTeamInfoPromise()
+                            .then(res => {
+                              let allTeams = res.teams.config;
 
-                            if (pick.nbaPlayer.team.teamId == team.teamId) {
-                              pick.nbaPlayer.team.tricode = team.tricode;
-                              pick.nbaPlayer.team.ttsName = team.ttsName;
-                              pick.nbaPlayer.team.primaryColor = team.primaryColor;
-                              pick.nbaPlayer.team.secondaryColor = team.secondaryColor;
-                            }
+                              for (let team of allTeams) {
 
-                          }
+                                if (pick.nbaPlayer.team.teamId == team.teamId) {
+                                  pick.nbaPlayer.team.tricode = team.tricode;
+                                  pick.nbaPlayer.team.ttsName = team.ttsName;
+                                  pick.nbaPlayer.team.primaryColor = team.primaryColor;
+                                  pick.nbaPlayer.team.secondaryColor = team.secondaryColor;
+                                }
 
-                        })
-                    }
-                  }
-                });
+                              }
+
+                            })
+                        }
+                      }
+                    });
+                }
               }
-            }
-          });
+            });
         }
       });
   }
 
-  getGames(date: Date) {
-    this.navCtrl.push('DailyGamesPage', {selectedDate: date, currentUser: this.user});
+  /***
+   * Load the daily game page
+   * @param date selected by the user
+   */
+  showGamePage(date: Date) {
+    this.navCtrl.push('DailyGamesPage', {selectedDate: date});
   }
 }
+

@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
-import {User} from "../../class/user";
+import {LoadingController, NavController, NavParams} from 'ionic-angular';
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @Component({
   selector: 'page-login',
@@ -13,9 +12,11 @@ export class LoginPage {
   password: string;
   email: string;
 
-  user: User;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ttflProvider: TtflProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public loadingCtrl: LoadingController,
+              public userProvider: UserServiceProvider
+  ) {
   }
 
   ionViewDidLoad() {
@@ -23,17 +24,25 @@ export class LoginPage {
   }
 
   login(id: string, password: string) {
-    this.user = new User();
 
-    this.ttflProvider.postLoginPromise(id, password)
+    this.userProvider.postLoginPromise(id, password)
       .then(resp => {
-        console.log("logged in");
-        this.user.id = resp.userId;
-        this.navCtrl.setRoot('HomePage', {loggedUser: this.user});
+        console.log("logging in...");
+        this.connexionLoading();
+        this.userProvider.user.id = resp.userId;
+        this.navCtrl.setRoot('HomePage');
       })
       .catch(() => {
         console.log("error")
       })
+  }
+
+  connexionLoading() {
+    const loader = this.loadingCtrl.create({
+      content: "Connexion en cours",
+      duration: 3000
+    });
+    loader.present();
   }
 
   goToCreateAccount() {

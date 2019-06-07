@@ -3,7 +3,14 @@ page-team-roster {
     color: #32db64;
   }
 
-  .icon {
+  .player-card {
+    margin: 10px 0px 10px 0px;
+    width: auto;
+  }
+
+  .player-card ion-icon {
     font-size: 3rem;
+    margin-top: 7px;
+    margin-left: 10px;
   }
 }

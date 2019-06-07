@@ -4,7 +4,6 @@ import {NbaGame} from "../../class/nbaGame";
 import {NbaDataProvider} from "../../providers/nba-service/nba-service";
 import {NbaTeam} from "../../class/nbaTeam";
 import {DateServiceProvider} from "../../providers/date-service/date-service";
-import {User} from "../../class/user";
 
 @IonicPage()
 @Component({
@@ -16,11 +15,13 @@ export class DailyGamesPage {
   games: NbaGame[] = new Array<NbaGame>();
 
   selectedDate: Date;
-  user: User;
 
   dateStr: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider, public dateProvider: DateServiceProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public nbaDataProvider: NbaDataProvider,
+              public dateProvider: DateServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -29,13 +30,10 @@ export class DailyGamesPage {
 
   ionViewCanEnter() {
     this.selectedDate = this.navParams.get('selectedDate');
-    this.user = this.navParams.get('currentUser');
     this.dateStr = this.dateProvider.dateToString(this.selectedDate);
 
-    this.dataProvider.getSchedulePromise()
-      .then(res => {
-        console.log("Date : " + this.dateStr);
-
+    this.nbaDataProvider.getSchedulePromise().then(
+      res => {
         let numberOfGames = 0;
         let tempGames = res.league.standard;
 
@@ -43,7 +41,7 @@ export class DailyGamesPage {
           let aGame = new NbaGame();
 
           if (game.startDateEastern == this.dateStr) {
-
+            aGame.startTimeUTC = game.startTimeUTC;
             aGame.hTeam.teamId = game.hTeam.teamId;
             aGame.vTeam.teamId = game.vTeam.teamId;
             this.games.push(aGame);
@@ -52,7 +50,7 @@ export class DailyGamesPage {
         }
       })
       .then(res => {
-        this.dataProvider.getTeamInfoPromise()
+        this.nbaDataProvider.getTeamInfoPromise()
           .then(res => {
             let allTeams = res.teams.config;
 
@@ -82,7 +80,6 @@ export class DailyGamesPage {
   showRoster(selectedTeam: NbaTeam) {
     this.navCtrl.push('TeamRosterPage', {
       selectedTeam: selectedTeam,
-      currentUser: this.user,
       selectedDate: this.selectedDate
     });
   }

@@ -2,12 +2,6 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {TtflPick} from "../../class/ttflPick";
 
-/*
-  Generated class for the DateServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DateServiceProvider {
 
@@ -15,7 +9,6 @@ export class DateServiceProvider {
 
   constructor(public http: HttpClient) {
     this.today = new Date();
-    console.log(this.today);
   }
 
   getTodaysDate(): string {
@@ -59,10 +52,10 @@ export class DateServiceProvider {
   getCurrentWeek(): Array<TtflPick> {
     let weekPicks = new Array<TtflPick>();
 
-    let curr = new Date("May 24, 2019");
+    let curr = new Date();
 
     for (let i = 1; i <= 7; i++) {
-      let pick = new TtflPick();
+      let pick = new TtflPick(this);
 
       // first day of the week
       let first = curr.getDate() - curr.getDay() + i;

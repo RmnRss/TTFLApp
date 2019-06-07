@@ -12,16 +12,30 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-/*
+/****************
   GENERAL STYLE
-*/
+****************/
+
 .bg-dark {
   background-color: color($colors, tt-dark, base)
 }
 
-/*
+/****************
+  NAVBAR STYLE
+****************/
+
+.toolbar-background {
+  background-color: color($colors, tt-dark, base)
+}
+
+.bar-button-default-md, .toolbar-title-md, .bar-button-default-ios, .toolbar-title-ios {
+  color: white;
+}
+
+/****************
   BADGES
-  */
+****************/
+
 .badge-inline {
   display: inline-block;
 }
@@ -30,9 +44,9 @@
   border-radius: 25px;
 }
 
-/*
+/****************
   COMMON TRAITS
-*/
+****************/
 .round-edges {
   border-radius: 7px;
 }
@@ -41,57 +55,88 @@
   padding: 0 0 0 0;
 }
 
-/*
-  PICK CARD
-*/
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 
-.pickCard {
+.center-row-content {
+  justify-content: center;
+}
+
+/****************
+  PICK CARD STYLE
+****************/
+
+.pick-card {
   padding: 0 0 0 0;
   margin: 10px 0px 10px 0px;
   width: auto;
+  height: 72px;
 }
 
 .inner-card {
   padding-right: 0px;
 }
 
-.pickCard .score-bubble {
+.pick-card .score-bubble {
   background-color: color($colors, tt-dark, base);
   border-radius: 20px 0 0 20px;
-  margin-top: 5.5%;
+  margin-top: 3%;
   height: 35px;
 }
 
-.pickCard .score {
+.pick-card .score {
   color: white;
-  text-align: left;
+  text-align: right;
+  font-weight: 500;
+  margin-top: 2px !important;
+  margin-bottom: 0 !important;
 }
 
-/*
-  DATE
- */
+/****************
+  DATE STYLE
+****************/
 
-.date {
+.date-background {
+  height: 72px;
   background-color: color($colors, tt-dark, base);
-  color: white;
-  text-align: center;
-  font-weight: bold;
 }
 
-/*
+.day {
+  color: white !important;
+  text-align: left;
+  font-weight: bold !important;
+  font-size: 2.5rem !important;
+  margin-top: 10px !important;
+}
+
+.month {
+  color: color($colors, tt-red, base) !important;
+  text-align: left;
+  font-weight: bold !important;
+  font-size: 2rem !important;
+  overflow: hidden;
+}
+
+/****************
   NBA PLAYER JERSEYS
-*/
+****************/
 
 .jersey-nbr {
   font-size: 2.2rem;
-  margin-top: -30px;
+  margin-top: -33px;
   text-align: center;
   color: white;
 }
 
-/*
+/****************
   INPUTS
-*/
+****************/
 .input-row {
   margin-bottom: 2rem;
   margin-top: 2rem;
@@ -124,9 +169,9 @@ ion-input {
   margin-left: 10px;
 }
 
-/*
-  BUTTON
-*/
+/****************
+  BUTTON STYLE
+****************/
 .button-md, .button-ios {
   width: 80%;
   background-color: color($colors, tt-blue, base);
@@ -134,4 +179,42 @@ ion-input {
 
 .button-row {
   justify-content: center;
+}
+
+/****************
+  DRAWER STYLE
+****************/
+.dot {
+  height: 50px;
+  width: 50px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
+  padding: 0;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: white;
+}
+
+.drawer-category {
+  margin-top: 10px;
+}
+
+.drawer-category .toolbar-title-md, .drawer-category .toolbar-title-ios {
+  color: black;
+}
+
+.page-list .item-md, .page-list .item-ios {
+  padding-left: 20px;
+}
+
+/***********
+  TEAM LOGO
+ */
+
+.logo {
+  width: 75% !important;
 }

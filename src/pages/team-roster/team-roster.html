@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-  <ion-card (click)="showPlayerStats(player)" *ngFor="let player of roster">
+  <ion-card (click)="showPlayerStats(player)" *ngFor="let player of roster" class="player-card round-edges">
     <ion-row>
       <!-- JERSEY DRAWING -->
       <ion-col col-2>
@@ -27,19 +27,26 @@
       </ion-col>
 
       <!-- PLAYER INFO -->
-      <ion-col col-4>{{player.firstName}}</ion-col>
-      <ion-col col-4>{{player.lastName}}</ion-col>
+      <ion-col col-8>
+        <!-- PLAYER NAME -->
+        <ion-row>
+          <p>{{player.firstName}} {{player.lastName}}</p>
+        </ion-row>
+
+        <!-- PLAYER STATS -->
+        <ion-row class="badge-inline">
+          <ion-badge>{{player.ppg}}</ion-badge>
+          <ion-badge>{{player.apg}}</ion-badge>
+          <ion-badge>{{player.rpg}}</ion-badge>
+        </ion-row>
+      </ion-col>
+
       <ion-col (click)="selectPlayer(player)" [class.highlight]="player.selected" col-2>
-        <ion-icon class="icon" name="add-circle"></ion-icon>
+        <ion-icon class="icon" name="checkmark-circle"></ion-icon>
       </ion-col>
     </ion-row>
 
-    <!-- PLAYER STATS -->
-    <ion-row class="badge-inline">
-      <ion-badge>{{player.ppg}}</ion-badge>
-      <ion-badge>{{player.apg}}</ion-badge>
-      <ion-badge>{{player.rpg}}</ion-badge>
-    </ion-row>
+
   </ion-card>
 
   <button (click)="confirmPick()" ion-button round>Confirm</button>

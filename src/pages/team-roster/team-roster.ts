@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {NbaDataProvider} from "../../providers/nba-service/nba-service";
 import {NbaTeam} from "../../class/nbaTeam";
 import {NbaPlayer} from "../../class/nbaPlayer";
 import {User} from "../../class/user";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @IonicPage()
 @Component({
@@ -17,11 +18,15 @@ export class TeamRosterPage {
   selectedPlayer: NbaPlayer;
 
   date: Date;
-  user: User;
 
   roster: NbaPlayer[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: NbaDataProvider, public ttflProvider: TtflProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public toastCtrl: ToastController,
+              public nbaDataProvider: NbaDataProvider,
+              public userProvider: UserServiceProvider,
+              public ttflProvider: TtflProvider) {
   }
 
   ionViewDidLoad() {
@@ -31,15 +36,14 @@ export class TeamRosterPage {
   ionViewCanEnter() {
     this.selectedTeam = this.navParams.get('selectedTeam');
     this.date = this.navParams.get('selectedDate');
-    this.user = this.navParams.get('currentUser');
 
-    this.dataProvider.getRosterPromise(this.selectedTeam)
+    this.nbaDataProvider.getRosterPromise(this.selectedTeam)
       .then(res => {
         this.roster = res.league.standard.players;
         }
       )
       .then(res => {
-        this.dataProvider.getPlayerPromise().then(res => {
+        this.nbaDataProvider.getPlayerPromise().then(res => {
           let allPlayers = res.league.standard;
           let numberOfPlayers = 0;
 
@@ -60,7 +64,7 @@ export class TeamRosterPage {
         })
           .then(res => {
             for (let player of this.roster) {
-              this.dataProvider.getPlayerSeasonStatsPromise(player)
+              this.nbaDataProvider.getPlayerSeasonStatsPromise(player)
                 .then(res => {
                   let seasonStats = res.league.standard.stats.latest;
 
@@ -89,19 +93,26 @@ export class TeamRosterPage {
   }
 
   postPick(nbaPlayer: NbaPlayer, user: User, date: Date) {
-    this.ttflProvider.getPickOfUserPromise(date, this.user).then(res => {
+    this.ttflProvider.getPickOfUserPromise(date, this.userProvider.user).then(res => {
       console.log(res);
       console.log("size " + res.length);
       if (res.length == 0) {
-        this.ttflProvider.postPickPromise(nbaPlayer, user, date).then(resp => {
-          console.log(resp);
-        }, error => {
-          console.log(error);
-        })
+        this.ttflProvider.postPickPromise(nbaPlayer, user, date).then(
+          resp => {
+            this.presentToast('Pick selectionné : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
+            this.navCtrl.setRoot('HomePage');
+            console.log(resp);
+          }, error => {
+            this.presentToast('Erreur lors de l\'envoi du pick au serveur.');
+            console.log(error);
+          })
       } else {
         this.ttflProvider.updatePickPromise(res[0].id, nbaPlayer, user, date).then(resp => {
+          this.presentToast('Pick mis à jour : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
+          this.navCtrl.setRoot('HomePage');
           console.log(resp);
         }, error => {
+          this.presentToast('Erreur lors de l\'envoi du pick au serveur.');
           console.log(error);
         })
       }
@@ -109,12 +120,15 @@ export class TeamRosterPage {
     });
   }
 
-  updatePick(player: NbaPlayer, user: User, date: Date) {
-
+  confirmPick() {
+    this.postPick(this.selectedPlayer, this.userProvider.user, this.date);
   }
 
-  confirmPick() {
-    this.postPick(this.selectedPlayer, this.user, this.date);
-    //this.navCtrl.push('HomePage');
+  async presentToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 }
