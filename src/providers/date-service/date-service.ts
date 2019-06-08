@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {TtflPick} from "../../class/ttflPick";
+import {GameDay} from "../../class/GameDay";
 
 @Injectable()
 export class DateServiceProvider {
@@ -49,19 +49,20 @@ export class DateServiceProvider {
     return Math.ceil(used / 7);
   }
 
-  getCurrentWeek(): Array<Date> {
-    let weekDays = new Array<Date>();
+  getCurrentWeek(): Array<GameDay> {
+    let weekDays = new Array<GameDay>();
 
-    let curr = new Date();
+    let curr = new Date('January 19, 2019');
 
     for (let i = 1; i <= 7; i++) {
-      let pick = new TtflPick(this);
+      let gameDay = new GameDay();
 
       // first day of the week
       let first = curr.getDate() - curr.getDay() + i;
       let day = new Date(curr.setDate(first));
 
-      weekDays.push(day);
+      gameDay.date = day;
+      weekDays.push(gameDay);
     }
 
     return weekDays;

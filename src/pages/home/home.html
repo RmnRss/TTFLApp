@@ -9,18 +9,18 @@
 
 <ion-content padding>
   <!-- PICK CARDS -->
-  <ion-card (click)="showGamePage(pick.date)" *ngFor="let pick of picks" class="pick-card round-edges">
+  <ion-card (click)="showGamePage(pick.gameDate)" *ngFor="let pick of picks" class="pick-card round-edges">
 
     <ion-card-content class="no-padding">
       <ion-row class="inner-card">
         <!-- DATE -->
         <ion-col class="no-padding date-background" col-2>
           <ion-row class="center-row-content">
-            <h3 class="day">{{pick.date | date: 'dd': undefined : 'fr-FR' | titlecase}}</h3>
+            <h3 class="day">{{pick.gameDate.date | date: 'dd': undefined : 'fr-FR'}}</h3>
           </ion-row>
 
           <ion-row class="center-row-content">
-            <h3 class="month">{{pick.date | date: 'MMMM': undefined : 'fr-FR' | uppercase}}</h3>
+            <h3 class="month">{{pick.gameDate.date | date: 'MMMM': undefined : 'fr-FR' | uppercase | slice :0:3 }}</h3>
           </ion-row>
         </ion-col>
 
@@ -50,7 +50,7 @@
 
         <!-- PICK SCORE -->
         <!-- Displayed when the game has been played and stats are available -->
-        <ion-col *ngIf="pick.GamePlayed() && pick.hasPlayer" class="score-bubble center-row-content" col-2>
+        <ion-col *ngIf="pick.GamePlayed()" class="score-bubble center-row-content" col-2>
           <div class="score">{{pick.score}} pts</div>
         </ion-col>
 
@@ -66,7 +66,7 @@
         </ion-col>
 
         <!-- Displayed when the first game of the night has started -->
-        <ion-col *ngIf="!pick.closingTime < dateProvider.today" col-2>
+        <ion-col *ngIf="!pick.GamePlayed() && (pick.closingTime < dateProvider.today)" col-2>
           <ion-icon name="lock"></ion-icon>
         </ion-col>
 
@@ -74,4 +74,5 @@
 
     </ion-card-content>
   </ion-card>
+
 </ion-content>

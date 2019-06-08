@@ -16,43 +16,45 @@
         <ion-col col-5>
 
           <!-- TEAM LOGO -->
-          <ion-row (click)="showRoster(game.vTeam)" col-6>
+          <ion-row (click)="showRoster(game.vTeam)" class="center-row-content">
             <img class="logo" src="{{game.vTeam.logoUrl}}"/>
           </ion-row>
 
           <!-- TEAM NAME -->
-          <ion-row>
+          <ion-row class="center-row-content">
             <h2>{{game.vTeam.tName}}</h2>
           </ion-row>
 
           <!-- TEAM RECORDS -->
-          <ion-row>
+          <ion-row class="center-row-content">
             <div class="inline">
-              <p>win - loss</p>
+              <p>{{game.vTeam.wins}} - {{game.vTeam.loss}}</p>
             </div>
           </ion-row>
 
         </ion-col>
 
-        <ion-col col-2>@</ion-col>
+        <ion-col col-2 class="center-row-content">
+          <h1 class="at">@</h1>
+        </ion-col>
 
         <!--  HOME TEAM  -->
         <ion-col col-5>
 
           <!-- TEAM LOGO -->
-          <ion-row (click)="showRoster(game.hTeam)">
+          <ion-row (click)="showRoster(game.hTeam)" class="center-row-content">
             <img class="logo" src="{{game.hTeam.logoUrl}}"/>
           </ion-row>
 
           <!-- TEAM NAME -->
-          <ion-row>
+          <ion-row class="center-row-content">
             <h2>{{game.hTeam.tName}}</h2>
           </ion-row>
 
           <!-- TEAM RECORDS -->
-          <ion-row>
+          <ion-row class="center-row-content">
             <div class="inline">
-              <p>win - loss</p>
+              <p>{{game.hTeam.wins}} - {{game.hTeam.loss}}</p>
             </div>
           </ion-row>
 

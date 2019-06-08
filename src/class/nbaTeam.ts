@@ -6,6 +6,27 @@ export class NbaTeam {
     this._ttsName = "";
     this._primaryColor = "#FFF";
     this._secondaryColor = "#FFF";
+    this._loss = "0";
+    this._wins = "0";
+  }
+
+  private _wins: string;
+  private _loss: string;
+
+  get wins(): string {
+    return this._wins;
+  }
+
+  set wins(value: string) {
+    this._wins = value;
+  }
+
+  get loss(): string {
+    return this._loss;
+  }
+
+  set loss(value: string) {
+    this._loss = value;
   }
 
   private _teamId: string;
