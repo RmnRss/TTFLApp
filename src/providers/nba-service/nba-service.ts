@@ -1,16 +1,16 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Links} from "../../class/Links";
-import {NbaTeam} from "../../class/nbaTeam";
-import {NbaPlayer} from "../../class/nbaPlayer";
-import {NbaGame} from "../../class/nbaGame";
+import {NBALinks} from "../../class/NBA/NBALinks";
+import {NBATeam} from "../../class/NBA/NBATeam";
+import {NBAPlayer} from "../../class/NBA/NBAPlayer";
+import {NBAGame} from "../../class/NBA/NBAGame";
 
 @Injectable()
 export class NbaDataProvider {
   nbaApiUrl: string = 'http://data.nba.net/10s';
 
-  links: Links = new Links();
-  games: NbaGame[] = new Array<NbaGame>();
+  links: NBALinks = new NBALinks();
+  games: NBAGame[] = new Array<NBAGame>();
 
   /***
    * Initializes the service by getting all the links
@@ -48,7 +48,7 @@ export class NbaDataProvider {
 
   }
 
-  getRosterPromise(team: NbaTeam): Promise<any> {
+  getRosterPromise(team: NBATeam): Promise<any> {
     return new Promise((resolve, reject) => {
       let rosterUrl = this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
       //console.log("Promise to " + this.nbaApiUrl + rosterUrl);
@@ -68,7 +68,7 @@ export class NbaDataProvider {
     })
   }
 
-  getPlayerSeasonStatsPromise(player: NbaPlayer): Promise<any> {
+  getPlayerSeasonStatsPromise(player: NBAPlayer): Promise<any> {
     return new Promise((resolve, reject) => {
       let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId.toString());
       //console.log("Promise to " + this.nbaApiUrl + profileUrl);
@@ -79,7 +79,7 @@ export class NbaDataProvider {
 
   }
 
-  getPlayerLastGameStatsPromise(player: NbaPlayer): Promise<any> {
+  getPlayerLastGameStatsPromise(player: NBAPlayer): Promise<any> {
     return new Promise((resolve, reject) => {
       let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId.toString());
       //console.log("Promise to " + this.nbaApiUrl + gamelogUrl);

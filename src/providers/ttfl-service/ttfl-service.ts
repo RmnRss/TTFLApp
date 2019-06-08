@@ -1,7 +1,7 @@
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {NbaPlayer} from "../../class/nbaPlayer";
-import {User} from "../../class/user";
+import {NBAPlayer} from "../../class/NBA/NBAPlayer";
+import {User} from "../../class/TTFL/user";
 import {NbaDataProvider} from "../nba-service/nba-service";
 
 @Injectable()
@@ -15,27 +15,21 @@ export class TtflProvider {
     })
   };
 
-  constructor(public http: HttpClient, public nbaData: NbaDataProvider) {
+  constructor(public http: HttpClient) {
     console.log('Hello TtflProvider Provider');
   }
 
-  createTfflPlayer(email: string, password: string, username: string) {
-    let url = this.apiUrl + "users";
+  /**********************************************************************
+   *                              PICKS                                 *
+   * *******************************************************************/
 
-    this.http.post(url, {
-      username: username,
-      password: password,
-      email: email,
-    })
-      .subscribe(success => {
-          console.log(success);
-        }, error => {
-          console.log(error);
-        }
-      );
-  }
-
-  postPickPromise(player: NbaPlayer, user: User, date: Date): Promise<any> {
+  /***
+   * Get the promise to post a pick
+   * @param player
+   * @param user
+   * @param date
+   */
+  postPickPromise(player: NBAPlayer, user: User, date: Date): Promise<any> {
     let url = this.apiUrl + "picks";
 
     return new Promise((resolve, reject) => {
@@ -52,7 +46,14 @@ export class TtflProvider {
     })
   }
 
-  updatePickPromise(existingPickId: number, player: NbaPlayer, user: User, date: Date): Promise<any> {
+  /***
+   * Returns the promise to update an existing pick
+   * @param existingPickId
+   * @param player
+   * @param user
+   * @param date
+   */
+  updatePickPromise(existingPickId: number, player: NBAPlayer, user: User, date: Date): Promise<any> {
     let url = this.apiUrl + "picks/" + existingPickId;
     console.log("put @ " + url);
 
@@ -82,9 +83,16 @@ export class TtflProvider {
     })
   }
 
+  /***
+   * Returns the promise to get the pick of a user for a specific date
+   * @param date
+   * @param user
+   */
   getPickOfUserPromise(date: Date, user: User): Promise<any> {
     let url = this.apiUrl + "picks";
 
+    // Formating date for the database
+    // Specific time is not needed
     date.setUTCHours(0);
     date.setUTCMinutes(0);
     date.setUTCSeconds(0);
@@ -101,5 +109,33 @@ export class TtflProvider {
           reject(error);
         });
     })
+  }
+
+  /**********************************************************************
+   *                             TEAMS                                  *
+   * *******************************************************************/
+
+  /***
+   * Creates a team on the API
+   * @param email
+   * @param password
+   * @param username
+   */
+  createTeam(creator: User, teamName: string) {
+    let url = this.apiUrl + "ttflTeams";
+
+    return new Promise((resolve, reject) => {
+
+      this.http.post(url, {
+        name: teamName,
+      })
+        .subscribe(success => {
+            resolve(success);
+          }, error => {
+            reject(error);
+          }
+        );
+    })
+
   }
 }

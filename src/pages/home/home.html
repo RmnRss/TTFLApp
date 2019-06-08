@@ -48,12 +48,6 @@
         <ion-col *ngIf="pick.hasPlayer" col-6
                  style="padding-top: 10px;">{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</ion-col>
 
-        <!-- PICK SCORE -->
-        <!-- Displayed when the game has been played and stats are available -->
-        <ion-col *ngIf="pick.GamePlayed()" class="score-bubble center-row-content" col-2>
-          <div class="score">{{pick.score}} pts</div>
-        </ion-col>
-
         <!-- Displayed when the user hasn't pick any nba player -->
         <ion-col *ngIf="!pick.hasPlayer" col-8>
           <p style="margin-top: 5px; margin-left: 5px;">Choisis ton joueur</p>
@@ -63,6 +57,12 @@
         <!-- Displayed when the user hasn't pick any nba player -->
         <ion-col *ngIf="!pick.hasPlayer" col-2>
           <ion-icon class="icon" name="arrow-forward"></ion-icon>
+        </ion-col>
+
+        <!-- PICK SCORE -->
+        <!-- Displayed when the game has been played and stats are available -->
+        <ion-col *ngIf="pick.GamePlayed()" class="score-bubble center-row-content" col-2>
+          <div class="score">{{pick.score}} pts</div>
         </ion-col>
 
         <!-- Displayed when the first game of the night has started -->

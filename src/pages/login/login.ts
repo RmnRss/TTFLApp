@@ -28,7 +28,7 @@ export class LoginPage {
     this.userProvider.postLoginPromise(id, password)
       .then(resp => {
         console.log("logging in...");
-        this.connexionLoading();
+        //this.connexionLoading();
         this.userProvider.user.id = resp.userId;
         this.navCtrl.setRoot('HomePage');
       })

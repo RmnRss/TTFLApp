@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {NbaGame} from "../../class/nbaGame";
+import {NBAGame} from "../../class/NBA/NBAGame";
 import {NbaDataProvider} from "../../providers/nba-service/nba-service";
-import {NbaTeam} from "../../class/nbaTeam";
+import {NBATeam} from "../../class/NBA/NBATeam";
 import {DateServiceProvider} from "../../providers/date-service/date-service";
 
 @IonicPage()
@@ -12,7 +12,7 @@ import {DateServiceProvider} from "../../providers/date-service/date-service";
 })
 export class DailyGamesPage {
 
-  games: NbaGame[] = new Array<NbaGame>();
+  games: NBAGame[] = new Array<NBAGame>();
 
   selectedDate: Date;
 
@@ -60,7 +60,7 @@ export class DailyGamesPage {
       });
   }
 
-  showRoster(selectedTeam: NbaTeam) {
+  showRoster(selectedTeam: NBATeam) {
     this.navCtrl.push('TeamRosterPage', {
       selectedTeam: selectedTeam,
       selectedDate: this.selectedDate

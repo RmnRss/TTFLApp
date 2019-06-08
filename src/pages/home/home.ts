@@ -3,9 +3,9 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NbaDataProvider} from "../../providers/nba-service/nba-service";
 import {DateServiceProvider} from "../../providers/date-service/date-service";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
-import {TtflPick} from "../../class/ttflPick";
+import {TTFLPick} from "../../class/TTFL/TTFLPick";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
-import {NbaGame} from "../../class/nbaGame";
+import {NBAGame} from "../../class/NBA/NBAGame";
 import {GameDay} from "../../class/GameDay";
 
 @IonicPage()
@@ -15,7 +15,7 @@ import {GameDay} from "../../class/GameDay";
 })
 export class HomePage {
 
-  picks: TtflPick[];
+  picks: TTFLPick[];
   daysOfTheWeek = this.dateProvider.getCurrentWeek();
 
   /***
@@ -46,39 +46,41 @@ export class HomePage {
         this.nbaDataProvider.links = res.links;
       })
       .then(next => {
-        this.picks = new Array<TtflPick>();
+        this.picks = new Array<TTFLPick>();
         for (let gameDay of this.daysOfTheWeek) {
-          let pick = new TtflPick(this.dateProvider);
+          let pick = new TTFLPick(this.dateProvider);
           pick.gameDate = gameDay;
           this.picks.push(pick);
 
-          let games: NbaGame[] = new Array<NbaGame>();
+          let games: NBAGame[] = new Array<NBAGame>();
 
           this.nbaDataProvider.getSchedulePromise().then(
             res => {
-              let numberOfGames = 0;
               let tempGames = res.league.standard;
 
               for (let game of tempGames) {
-                let aGame = new NbaGame();
+                let aGame = new NBAGame();
 
                 if (game.startDateEastern == this.dateProvider.dateToString(gameDay.date)) {
                   aGame.startTimeUTC = game.startTimeUTC;
+
+                  // Home team
                   aGame.hTeam.teamId = game.hTeam.teamId;
-                  aGame.vTeam.teamId = game.vTeam.teamId;
                   aGame.hTeam.wins = game.hTeam.win;
                   aGame.hTeam.loss = game.hTeam.loss;
+
+                  // Visitor team
+                  aGame.vTeam.teamId = game.vTeam.teamId;
                   aGame.vTeam.wins = game.vTeam.win;
                   aGame.vTeam.loss = game.vTeam.loss;
                   gameDay.nbaGames.push(aGame);
-                  numberOfGames++;
                 }
               }
 
+              // If there is at least one game that day, we get the earliest one
               if (gameDay.nbaGames.length > 0) {
                 let index = 0;
                 let earliestGameTime = gameDay.nbaGames[index].startTimeUTC;
-
 
                 while (index < games.length - 2) {
                   if (earliestGameTime > gameDay.nbaGames[index + 1].startTimeUTC) {
@@ -89,7 +91,6 @@ export class HomePage {
                   }
                 }
                 pick.closingTime = earliestGameTime;
-                console.log(pick.closingTime);
               }
             });
 
@@ -142,7 +143,7 @@ export class HomePage {
   }
 
   /***
-   * Load the daily game page
+   * Load the daily game page and passes the games and dates as parameters
    * @param date selected by the user
    */
   showGamePage(date: GameDay) {

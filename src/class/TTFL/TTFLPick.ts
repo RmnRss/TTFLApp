@@ -1,9 +1,9 @@
-import {NbaPlayer} from "./nbaPlayer";
-import {DateServiceProvider} from "../providers/date-service/date-service";
-import {GameDay} from "./GameDay";
+import {NBAPlayer} from "../NBA/NBAPlayer";
+import {DateServiceProvider} from "../../providers/date-service/date-service";
+import {GameDay} from "../GameDay";
 
-export class TtflPick {
-  nbaPlayer: NbaPlayer;
+export class TTFLPick {
+  nbaPlayer: NBAPlayer;
   gameDate: GameDay;
   closingTime: Date;
   bestPick: boolean;
@@ -14,7 +14,7 @@ export class TtflPick {
 
 
   constructor(public dateService: DateServiceProvider) {
-    this.nbaPlayer = new NbaPlayer();
+    this.nbaPlayer = new NBAPlayer();
     this.gameDate = new GameDay();
     this.closingTime = new Date();
     this.bestPick = false;

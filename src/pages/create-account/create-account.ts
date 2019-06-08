@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
 
 @IonicPage()
 @Component({
@@ -13,7 +13,7 @@ export class CreateAccountPage {
   password: string;
   username: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ttflProvider: TtflProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -21,10 +21,7 @@ export class CreateAccountPage {
   }
 
   createPlayer(email: string, password: string, username: string) {
-    console.log(email);
-    console.log(password);
-    console.log(username);
-    this.ttflProvider.createTfflPlayer(email, password, username);
+    this.userService.createUser(email, password, username);
   }
 
   setEmail(value: string) {

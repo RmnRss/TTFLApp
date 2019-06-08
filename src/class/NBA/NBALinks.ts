@@ -1,4 +1,4 @@
-export class Links {
+export class NBALinks {
   teams: string;
   leagueRosterPlayers: string;
   leagueSchedule: string;

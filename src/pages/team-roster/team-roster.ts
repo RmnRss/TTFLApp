@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {NbaDataProvider} from "../../providers/nba-service/nba-service";
-import {NbaTeam} from "../../class/nbaTeam";
-import {NbaPlayer} from "../../class/nbaPlayer";
-import {User} from "../../class/user";
+import {NBATeam} from "../../class/NBA/NBATeam";
+import {NBAPlayer} from "../../class/NBA/NBAPlayer";
+import {User} from "../../class/TTFL/user";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
 
@@ -14,12 +14,12 @@ import {UserServiceProvider} from "../../providers/user-service/user-service";
 })
 export class TeamRosterPage {
 
-  selectedTeam: NbaTeam;
-  selectedPlayer: NbaPlayer;
+  selectedTeam: NBATeam;
+  selectedPlayer: NBAPlayer;
 
   date: Date;
 
-  roster: NbaPlayer[];
+  roster: NBAPlayer[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -78,11 +78,11 @@ export class TeamRosterPage {
       });
   }
 
-  showPlayerStats(selectedPlayer: NbaPlayer) {
+  showPlayerStats(selectedPlayer: NBAPlayer) {
     //this.navCtrl.push('PlayerPage', {selectedPlayer: selectedPlayer});
   }
 
-  selectPlayer(player: NbaPlayer): NbaPlayer {
+  selectPlayer(player: NBAPlayer): NBAPlayer {
     for (let rosterPlayer of this.roster) {
       rosterPlayer.selected = false;
     }
@@ -92,7 +92,7 @@ export class TeamRosterPage {
     return player;
   }
 
-  postPick(nbaPlayer: NbaPlayer, user: User, date: Date) {
+  postPick(nbaPlayer: NBAPlayer, user: User, date: Date) {
     this.ttflProvider.getPickOfUserPromise(date, this.userProvider.user).then(res => {
       console.log(res);
       console.log("size " + res.length);

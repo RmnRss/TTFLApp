@@ -1,14 +1,14 @@
-import {NbaTeam} from "./nbaTeam";
+import {NBATeam} from "./NBATeam";
 
-export class NbaGame {
+export class NBAGame {
 
   private;
 
   constructor() {
     this._startTimeUTC = new Date();
     this._startDateEastern = '';
-    this._vTeam = new NbaTeam();
-    this._hTeam = new NbaTeam();
+    this._vTeam = new NBATeam();
+    this._hTeam = new NBATeam();
   }
 
   private _startTimeUTC: Date;
@@ -31,23 +31,23 @@ export class NbaGame {
     this._startTimeUTC = value;
   }
 
-  private _hTeam: NbaTeam; //Home NbaTeam id
+  private _hTeam: NBATeam; //Home NBATeam id
 
-  get hTeam(): NbaTeam {
+  get hTeam(): NBATeam {
     return this._hTeam;
   }
 
-  set hTeam(value: NbaTeam) {
+  set hTeam(value: NBATeam) {
     this._hTeam = value;
   }
 
-  private _vTeam: NbaTeam; //Visitor NbaTeam id
+  private _vTeam: NBATeam; //Visitor NBATeam id
 
-  get vTeam(): NbaTeam {
+  get vTeam(): NBATeam {
     return this._vTeam;
   }
 
-  set vTeam(value: NbaTeam) {
+  set vTeam(value: NBATeam) {
     this._vTeam = value;
   }
 

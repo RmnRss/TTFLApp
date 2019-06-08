@@ -1,4 +1,4 @@
-export class NbaTeam {
+export class NBATeam {
 
   constructor() {
     this._teamId = "";
