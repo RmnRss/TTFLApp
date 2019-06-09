@@ -2,4 +2,13 @@ page-ttfl-team {
   .leave-team-button {
     background-color: color($colors, tt-red, base);
   }
+
+  .team-pick {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
 }

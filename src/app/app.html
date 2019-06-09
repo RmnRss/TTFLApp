@@ -7,7 +7,7 @@
       <ion-row>
         <!-- USER PP -->
         <ion-col col-3 menuClose (click)="openPage('UserProfilePage')">
-          <span class="dot">
+          <span class="user-pick">
             <h1 class="center">{{userProvider.user.username.charAt(0) | uppercase}}</h1>
           </span>
         </ion-col>
@@ -17,10 +17,8 @@
             <ion-title>{{userProvider.user.username | titlecase}}</ion-title>
           </ion-row>
           <!-- USER INFO -->
-          <ion-row class="badge-inline">
-            <ion-badge>{{userProvider.user.points}} pts</ion-badge>
-            <ion-badge>{{userProvider.user.money}} TT$</ion-badge>
-            <ion-badge>{{userProvider.user.money}} e</ion-badge>
+          <ion-row class="stats">
+            <p>{{userProvider.user.points}} pts | {{userProvider.user.money}} e | {{userProvider.user.money}} TT$</p>
           </ion-row>
         </ion-col>
 
@@ -29,40 +27,68 @@
   </ion-header>
 
   <!-- LIST OF PAGES -->
-  <ion-content>
-    <ion-title class="drawer-category">FANTASY LEAGUE</ion-title>
+  <ion-content class="bg-dark">
+    <ion-list class="drawer-page-list">
+      <ion-item-divider>FANTASY LEAGUE</ion-item-divider>
 
-    <ion-list class="page-list">
-      <button menuClose (click)="openPage('HomePage')" ion-item>
-        <h3>Mes Decks</h3>
-      </button>
+      <ion-item-group class="page-group">
+        <button menuClose (click)="openPage('HomePage')" ion-item>
+          <ion-icon name="plane"></ion-icon>
+          Mes decks
+        </button>
 
-      <button menuClose (click)="openPage('TtflTeamPage')" ion-item>
-        <h3>Mon Equipe</h3>
-      </button>
+        <button menuClose (click)="openPage('TtflTeamPage')" ion-item>
+          <ion-icon name="plane"></ion-icon>
+          Mon équipe
+        </button>
+      </ion-item-group>
+
+      <ion-item-divider>CLASSEMENTS</ion-item-divider>
+
+      <ion-item-group class="page-group">
+        <button menuClose (click)="openPage('TtflRankingPage')" ion-item>
+          <ion-icon name="plane"></ion-icon>
+          Général
+        </button>
+
+        <button menuClose (click)="openPage('TtflTeamRankingPage')" ion-item>
+          <ion-icon name="plane"></ion-icon>
+          Par équipe
+        </button>
+      </ion-item-group>
+
+      <ion-item-divider>TOP PICKS</ion-item-divider>
+
+      <ion-item-group class="page-group">
+        <button menuClose (click)="openPage('TtflDailyPickRankingPage')" ion-item>
+          <ion-icon name="plane"></ion-icon>
+          Top picks
+        </button>
+      </ion-item-group>
+
+      <ion-item-divider>AIDE</ion-item-divider>
+
+      <ion-item-group class="page-group">
+        <button menuClose (click)="openPage('')" ion-item>
+          <ion-icon name="plane"></ion-icon>
+          Les règles
+        </button>
+      </ion-item-group>
     </ion-list>
 
-    <ion-title class="drawer-category">CLASSEMENTS</ion-title>
-
-    <ion-list class="page-list">
-      <button menuClose (click)="openPage('TtflRankingPage')" ion-item>
-        <h3>Classement</h3>
-      </button>
-
-      <button menuClose (click)="openPage('TtflTeamRankingPage')" ion-item>
-        <h3>Classement par equipes</h3>
-      </button>
-    </ion-list>
-
-    <ion-title class="drawer-category">TOP PICKS</ion-title>
-
-    <ion-list class="page-list">
-      <button menuClose (click)="openPage('TtflDailyPickRankingPage')" ion-item>
-        <h3>Top Picks</h3>
-      </button>
-    </ion-list>
-
+    <ion-footer>
+      <ion-row class="drawer-footer">
+        <ion-col col-6 (click)="openPage('')">
+          <ion-icon class="center" name="settings"></ion-icon>
+        </ion-col>
+        <ion-col col-6 (click)="logOut()">
+          <ion-icon class="center" name="log-out"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-footer>
   </ion-content>
+
+
 </ion-menu>
 
 <ion-nav #content [root]="rootPage" id="nav"></ion-nav>

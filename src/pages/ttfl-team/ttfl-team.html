@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar class="bg-dark" hideBackButton>
+  <ion-navbar hideBackButton>
     <button align-items-start ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -10,7 +10,7 @@
 
 <ion-content padding>
   <!-- USER HAS NO TEAM -->
-  <div *ngIf="!userProvider.userHasTeam()">
+  <div *ngIf="!userService.userHasTeam()">
     <ion-row>
       <h1>Pas encore de Team ?</h1>
     </ion-row>
@@ -61,42 +61,41 @@
   </div>
 
   <!-- USER HAS TEAM -->
-  <div *ngIf="userProvider.userHasTeam()">
+  <div *ngIf="userService.userHasTeam()">
 
     <!--TEAM IMAGE-->
-    <ion-row class="enter-row-content">
-      <span class="dot"></span>
+    <ion-row class="center-row-content">
+      <span class="team-pick"></span>
     </ion-row>
 
     <!--TEAM NAME-->
-    <ion-row class="enter-row-content">
-      <ion-title>{{userTeam.name}}</ion-title>
+    <ion-row class="center-row-content">
+      <h2>{{userTeam.name}}</h2>
     </ion-row>
 
     <!--TEAM INFO-->
-    <ion-row class="badge-inline center-row-content">
-      <ion-badge>{{userTeam.points}} pts</ion-badge>
-      <ion-badge>{{userTeam.rank}} e</ion-badge>
-      <ion-badge>{{userTeam.members.length}} membres</ion-badge>
-    </ion-row>
+    <div>
+      <ion-row class="center-row-content">
+        <ion-badge>{{userTeam.points}} pts</ion-badge>
+        <ion-badge style="margin-left: 5px; margin-right: 5px;">{{userTeam.rank}} e</ion-badge>
+        <ion-badge>{{userTeam.members.length}} membres</ion-badge>
+      </ion-row>
+    </div>
+
 
     <!--SEPARATOR-->
     <div class="separator"></div>
 
-    <ion-row>
-      <h2>
-        Membres
-      </h2>
-    </ion-row>
-    <ion-list>
+    <ion-list inset>
+      <ion-list-header>MEMBRES</ion-list-header>
       <ion-item *ngFor="let member of userTeam.members">
-        <ion-row>
-          <p>{{member.username}} : {{member.points}}</p>
-        </ion-row>
+        <ion-label>{{member.username}}</ion-label>
+        <ion-note item-end>{{member.points}}</ion-note>
       </ion-item>
     </ion-list>
-    <ion-row class="leave-team-button button-row">
-      <button (click)="leaveTeam()" class="tt-red round-edges" ion-button>Quitter la team</button>
+
+    <ion-row class="button-row">
+      <button (click)="leaveTeam()" class="leave-team-button round-edges" ion-button>Quitter la team</button>
     </ion-row>
   </div>
 </ion-content>

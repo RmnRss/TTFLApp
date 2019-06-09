@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserServiceProvider} from "../../providers/user-service/user-service";
 import {TTFLTeam} from "../../class/TTFL/TTFLTeam";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
+import {User} from "../../class/TTFL/user";
 
 @IonicPage()
 @Component({
@@ -20,23 +21,39 @@ export class TtflTeamPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public userProvider: UserServiceProvider,
+              public userService: UserServiceProvider,
               public ttflService: TtflProvider) {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TtflTeamPage');
-  }
-
   ionViewCanEnter() {
-    /*
-    if (this.userProvider.userHasTeam()) {
+    if (this.userService.userHasTeam()) {
+      this.ttflService.getTeamPromise(this.userService.user)
+        .then(result => {
+          this.userTeam.id = result.id;
+          this.userTeam.name = result.name;
+          console.log(this.userTeam.name);
+          this.userTeam.points = result.points;
+        }, error => {
+          console.log(error);
+        })
+        .then(next => {
+        this.ttflService.getTeamMemberPromise(this.userTeam.id)
+          .then(results => {
+            let tempMembers = new Array<User>();
 
+            for (let member of results) {
+              tempMembers.push(member);
+            }
+
+            this.userTeam.members = tempMembers;
+          }, error => {
+            console.log(error);
+          })
+      })
     } else {
 
     }
-    */
   }
 
   showTeamSearch() {
@@ -52,16 +69,16 @@ export class TtflTeamPage {
   }
 
   createTeam(name: string) {
-    /*this.ttflService.createTeam(this.userProvider.user, name)
+    /*this.ttflService.createTeam(this.userService.user, name)
       .then(response => {
-        this.userProvider.updateUserTeamPromise(this.userProvider.user.id, response[0].id)
+        this.userService.updateUserTeamPromise(this.userService.user.id, response[0].id)
           .then(() => {
           });
       })*/
   }
 
   leaveTeam() {
-    /*this.userProvider.updateUserTeamPromise(this.userProvider.user.id, null)
+    /*this.userService.updateUserTeamPromise(this.userService.user.id, null)
       .then(() => {
       });*/
   }

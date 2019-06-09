@@ -17,7 +17,11 @@
 ****************/
 
 .bg-dark {
-  background-color: color($colors, tt-dark, base)
+  background-color: color($colors, tt-dark, base);
+}
+
+.bg-red {
+  background-color: color($colors, tt-red, base);
 }
 
 /****************
@@ -40,7 +44,13 @@
   display: inline-block;
 }
 
-.badge-md {
+.stats-badge {
+  font-weight: normal;
+  background-color: transparent;
+  border: 1.5px solid;
+}
+
+.badge-md, .badge-ios {
   border-radius: 25px;
 }
 
@@ -59,13 +69,24 @@
   margin: 0;
   position: absolute;
   top: 50%;
-  left: 40%;
-  -ms-transform: translate(-50%, -50%);
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
 .center-row-content {
   justify-content: center;
+}
+
+.separator {
+  width: 50%;
+  height: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: color($colors, tt-red, base);
+  border: 0 none;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 /****************
@@ -184,12 +205,8 @@ ion-input {
 /****************
   DRAWER STYLE
 ****************/
-.dot {
-  height: 50px;
-  width: 50px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
+.menu-inner .toolbar-background {
+  background-color: color($colors, tt-red-alt, base);
 }
 
 ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
@@ -199,22 +216,72 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
   color: white;
 }
 
-.drawer-category {
-  margin-top: 10px;
+.user-pick {
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 5px;
 }
 
-.drawer-category .toolbar-title-md, .drawer-category .toolbar-title-ios {
-  color: black;
+.user-pick .center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 47%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
-.page-list .item-md, .page-list .item-ios {
-  padding-left: 20px;
+.stats {
+  color: white;
+}
+
+.stats p {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.drawer-page-list ion-icon {
+  margin-right: 5px;
+  color: white;
+}
+
+.drawer-page-list .item-divider-md, .drawer-page-list .item-divider-ios {
+  border: none !important;
+}
+
+.drawer-page-list .label-md, .drawer-page-list .label-ios {
+  margin: 10px 8px 0px 0;
+}
+
+.drawer-page-list ion-item-divider .label-md, .drawer-page-list ion-item-divider .label-ios {
+  color: #f2f2f2;
+}
+
+.drawer-page-list ion-item-group .label-md, .drawer-page-list ion-item-group .label-ios {
+  color: #d2d2d2;
+}
+
+.page-group .item-md, .page-group .item-ios {
+  padding-left: 25px;
+}
+
+.drawer-footer {
+  height: 75px;
+  background-color: color($colors, tt-dark-alt, base);
+}
+
+.drawer-footer ion-icon {
+  color: #f2f2f2;
+  font-size: 3rem;
 }
 
 /***********
-  TEAM LOGO
+  NBA TEAM LOGO
  */
 
 .logo {
-  width: 75px !important;
+  width: 65px !important;
 }
