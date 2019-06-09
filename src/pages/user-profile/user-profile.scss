@@ -1,3 +1,15 @@
 page-user-profile {
+  .user-pick {
+    height: 75px;
+    width: 75px;
+    background-color: color($colors, tt-red, base);
+    margin-bottom: 10px;
+  }
+
+  .team-name{
+    font-weight: lighter;
+    font-size: medium;
+  }
+
 
 }

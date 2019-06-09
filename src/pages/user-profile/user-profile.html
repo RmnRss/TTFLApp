@@ -7,7 +7,40 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
+
+  <!--USER IMAGE-->
+  <ion-row class="center-row-content">
+    <span class="user-pick"></span>
+  </ion-row>
+
+  <!--USER NAME-->
+  <ion-row class="center-row-content">
+    <h2>{{userService.user.username | titlecase}}</h2>
+  </ion-row>
+
+  <!-- USER TEAM NAME -->
+  <ion-row class="center-row-content" *ngIf="userService.userHasTeam()">
+    <h5 class="team-name">{{userTeam.name | uppercase}}</h5>
+  </ion-row>
+
+  <!--TEAM INFO-->
+  <div>
+    <ion-row class="center-row-content">
+      <ion-badge>{{userService.user.points}} pts</ion-badge>
+      <ion-badge style="margin-left: 5px; margin-right: 5px;">{{userService.user.rank}} e</ion-badge>
+    </ion-row>
+  </div>
+
+  <!--SEPARATOR-->
+  <div class="separator"></div>
+
+  <ion-list inset>
+    <ion-list-header>HISTORIQUE</ion-list-header>
+    <ion-item *ngFor="let pick of userPicks">
+      <ion-label>{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</ion-label>
+      <ion-note item-end>{{pick.score}}</ion-note>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

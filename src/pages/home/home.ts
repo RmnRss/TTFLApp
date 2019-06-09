@@ -28,13 +28,7 @@ export class HomePage {
               public dateProvider: DateServiceProvider,
               public ttflProvider: TtflProvider) {
     //Gets the user info once he's logged in
-    this.userProvider.getUserInfoPromise(this.userProvider.user.id)
-      .then(resp => {
-        this.userProvider.user = resp;
-        console.log(this.userProvider.user);
-      }, error => {
-        console.log(error);
-      });
+    this.userProvider.getUserInfo(this.userProvider.user.id);
   }
 
   /***
@@ -61,7 +55,7 @@ export class HomePage {
               for (let game of tempGames) {
                 let aGame = new NBAGame();
 
-                if (game.startDateEastern == this.dateProvider.dateToString(gameDay.date)) {
+                if (game.startDateEastern == this.dateProvider.dateToNBAString(gameDay.date)) {
                   aGame.startTimeUTC = game.startTimeUTC;
 
                   // Home team

@@ -11,8 +11,7 @@ import {DateServiceProvider} from '../providers/date-service/date-service';
 import {TtflProvider} from '../providers/ttfl-service/ttfl-service';
 import {LoginPage} from "../pages/login/login";
 import {UserServiceProvider} from '../providers/user-service/user-service';
-
-import {registerLocaleData} from '@angular/common';
+import {DatePipe, registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
 
 registerLocaleData(localeFr);
@@ -36,6 +35,7 @@ registerLocaleData(localeFr);
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DatePipe,
     NbaDataProvider,
     DateServiceProvider,
     TtflProvider,

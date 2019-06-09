@@ -22,4 +22,8 @@ export class TtflTeamRankingPage {
     console.log('ionViewDidLoad TtflTeamRankingPage');
   }
 
+  ionViewCanEnter() {
+    //TODO : get all teams and rank them
+  }
+
 }

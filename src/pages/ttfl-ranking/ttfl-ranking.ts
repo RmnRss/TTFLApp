@@ -22,4 +22,7 @@ export class TtflRankingPage {
     console.log('ionViewDidLoad TtflRankingPage');
   }
 
+  ionViewCanEnter() {
+    //TODO : get all players and rank them
+  }
 }

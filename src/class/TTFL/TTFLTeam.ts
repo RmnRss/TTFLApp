@@ -7,12 +7,11 @@ export class TTFLTeam {
   points: number;
   rank: number;
 
-
   constructor() {
     this.id = null;
     this.name = "";
     this.members = new Array<User>();
     this.points = 0;
-    this.rank = 0;
+    this.rank = null;
   }
 }

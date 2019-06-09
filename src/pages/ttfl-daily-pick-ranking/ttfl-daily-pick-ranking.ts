@@ -22,4 +22,8 @@ export class TtflDailyPickRankingPage {
     console.log('ionViewDidLoad TtflDailyPickRankingPage');
   }
 
+  ionViewCanEnter() {
+    //TODO : get all yesterday's pick and rank them
+  }
+
 }

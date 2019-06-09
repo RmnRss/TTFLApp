@@ -151,7 +151,7 @@ export class TtflProvider {
     })
   }
 
-  getTeamMemberPromise(teamId: number): Promise<any> {
+  getTeamMembersPromise(teamId: number): Promise<any> {
     let url = this.apiUrl + "users";
 
     let filter = {"where": {"teamId": teamId}};

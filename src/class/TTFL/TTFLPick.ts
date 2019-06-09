@@ -24,7 +24,12 @@ export class TTFLPick {
     this.gamePlayed = false;
   }
 
+  /***
+   * Checks if the game concerning the pick has been played
+   * @constructor
+   */
   GamePlayed(): boolean {
+    //TODO: Fix
     if (this.dateService.today.getHours() > 11 && this.dateService.today > this.gameDate.date) {
       this.gamePlayed = true;
     } else {

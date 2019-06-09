@@ -1,45 +1,30 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {GameDay} from "../../class/GameDay";
+import {DatePipe} from "@angular/common";
 
 @Injectable()
 export class DateServiceProvider {
 
   today: Date;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private datePipe: DatePipe) {
     this.today = new Date();
   }
 
-  getTodaysDate(): string {
-    return this.dateToString(this.today);
+  /***
+   * Formats the date to a string we can use with the NBA API
+   * @param date
+   */
+  dateToNBAString(theDate: Date): string {
+    return this.datePipe.transform(theDate, 'yyyy' + 'MM' + 'dd');
   }
 
-  dateToString(date: Date): string {
-
-    let monthStr = "";
-    let dayStr = "";
-
-    let day = date.getDate();
-    let month = date.getMonth() + 1; //January is 0
-    let year = date.getFullYear();
-
-    if (day < 10) {
-      dayStr = '0' + day.toString();
-    } else {
-      dayStr = day.toString();
-    }
-
-    if (month < 10) {
-      monthStr = '0' + month.toString();
-    } else {
-      monthStr = month.toString();
-    }
-
-    return year.toString() + monthStr + dayStr;
-
-  }
-
+  /***
+   * Counts the number of weeks starting from a specific date
+   * @param year
+   * @param month_number
+   */
   weekCount(year, month_number): number {
     let firstOfMonth = new Date(year, month_number - 1, 1);
     let lastOfMonth = new Date(year, month_number, 0);
@@ -49,10 +34,16 @@ export class DateServiceProvider {
     return Math.ceil(used / 7);
   }
 
+  /***
+   * returns the current week
+   */
   getCurrentWeek(): Array<GameDay> {
+    //TODO: Fix bug for sundays
+
     let weekDays = new Array<GameDay>();
 
-    let curr = new Date('January 19, 2019');
+    //let curr = new Date('January 19, 2019');
+    let curr = new Date('June 08, 2019');
 
     for (let i = 1; i <= 7; i++) {
       let gameDay = new GameDay();
@@ -64,6 +55,18 @@ export class DateServiceProvider {
       gameDay.date = day;
       weekDays.push(gameDay);
     }
+
+    return weekDays;
+  }
+
+  /***
+   * returns a week based on its number
+   * @param weekNumber
+   */
+  getWeek(weekNumber: number): Array<GameDay> {
+    let weekDays = new Array<GameDay>();
+
+    //TODO: Implement
 
     return weekDays;
   }

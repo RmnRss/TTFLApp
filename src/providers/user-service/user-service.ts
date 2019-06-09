@@ -2,7 +2,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Injectable} from '@angular/core';
 import {User} from "../../class/TTFL/user";
-import {NBAPlayer} from "../../class/NBA/NBAPlayer";
 
 @Injectable()
 export class UserServiceProvider {
@@ -57,6 +56,19 @@ export class UserServiceProvider {
         reject(error);
       });
     })
+  }
+
+  /***
+   * Stores users information in user object
+   */
+  getUserInfo(id: number) {
+    this.getUserInfoPromise(id)
+      .then(resp => {
+        this.user = resp;
+        console.log(this.user);
+      }, error => {
+        console.log(error);
+      });
   }
 
 
@@ -115,5 +127,4 @@ export class UserServiceProvider {
       return this.user.hasTeam;
     }
   }
-
 }

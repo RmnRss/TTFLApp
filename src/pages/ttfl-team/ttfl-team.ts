@@ -32,13 +32,13 @@ export class TtflTeamPage {
         .then(result => {
           this.userTeam.id = result.id;
           this.userTeam.name = result.name;
-          console.log(this.userTeam.name);
+          this.userTeam.rank = result.rank;
           this.userTeam.points = result.points;
         }, error => {
           console.log(error);
         })
         .then(next => {
-        this.ttflService.getTeamMemberPromise(this.userTeam.id)
+        this.ttflService.getTeamMembersPromise(this.userTeam.id)
           .then(results => {
             let tempMembers = new Array<User>();
 
