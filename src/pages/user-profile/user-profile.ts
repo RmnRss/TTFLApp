@@ -4,14 +4,8 @@ import {UserServiceProvider} from "../../providers/user-service/user-service";
 import {TTFLPick} from "../../class/TTFL/TTFLPick";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {TTFLTeam} from "../../class/TTFL/TTFLTeam";
-import {User} from "../../class/TTFL/user";
+import {NbaDataProvider} from "../../providers/nba-service/nba-service";
 
-/**
- * Generated class for the UserProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -26,11 +20,10 @@ export class UserProfilePage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public userService: UserServiceProvider,
-              public ttflService: TtflProvider)
-  {
+              public TTFLService: TtflProvider,
+              public NBAService: NbaDataProvider) {
     this.userPicks = new Array<TTFLPick>();
     this.userTeam = new TTFLTeam();
-
   }
 
   ionViewDidLoad() {
@@ -38,8 +31,10 @@ export class UserProfilePage {
   }
 
   ionViewCanEnter() {
+
+    //Team Info
     if (this.userService.userHasTeam()) {
-      this.ttflService.getTeamPromise(this.userService.user)
+      this.TTFLService.getTeamPromise(this.userService.user)
         .then(result => {
           this.userTeam.id = result.id;
           this.userTeam.name = result.name;
@@ -47,8 +42,41 @@ export class UserProfilePage {
           this.userTeam.points = result.points;
         }, error => {
           console.log(error);
-        })
+        }).then(next => {
+
+      });
     }
+
+    // All Users Pick
+    this.TTFLService.getAllPicksOfUserPromise(this.userService.user)
+      .then(results => {
+        for (let pick of results.picks) {
+          let tempPick = new TTFLPick();
+
+          tempPick.nbaPlayer.personId = pick.nbaPlayerId;
+          tempPick.score = pick.score;
+          tempPick.bestPick = pick.bestPick;
+          tempPick.worstPick = pick.worstPick;
+
+          this.NBAService.getPlayerPromise()
+            .then(players => {
+              for (let player of players.league.standard) {
+                if (player.personId == tempPick.nbaPlayer.personId) {
+                  tempPick.nbaPlayer.firstName = player.firstName;
+                  tempPick.nbaPlayer.lastName = player.lastName;
+                  tempPick.nbaPlayer.jersey = player.jersey;
+                  tempPick.nbaPlayer.team = player.teams[player.teams.length - 1];
+                }
+              }
+
+              console.log(tempPick);
+              this.userPicks.push(tempPick);
+            });
+        }
+
+      }, error => {
+        console.log(error);
+      });
   }
 
   getUsersPick() {

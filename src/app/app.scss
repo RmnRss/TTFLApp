@@ -57,6 +57,7 @@
 /****************
   COMMON TRAITS
 ****************/
+
 .round-edges {
   border-radius: 7px;
 }
@@ -282,6 +283,15 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
   NBA TEAM LOGO
  */
 
-.logo {
+.nba-logo {
   width: 65px !important;
+}
+
+/***********
+  List
+ */
+
+.wide-list {
+  width: 100%;
+  margin: 0 !important;
 }

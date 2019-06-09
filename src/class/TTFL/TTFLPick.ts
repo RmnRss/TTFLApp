@@ -1,5 +1,4 @@
 import {NBAPlayer} from "../NBA/NBAPlayer";
-import {DateServiceProvider} from "../../providers/date-service/date-service";
 import {GameDay} from "../GameDay";
 
 export class TTFLPick {
@@ -13,7 +12,7 @@ export class TTFLPick {
   gamePlayed: boolean;
 
 
-  constructor(public dateService: DateServiceProvider) {
+  constructor() {
     this.nbaPlayer = new NBAPlayer();
     this.gameDate = new GameDay();
     this.closingTime = new Date();
@@ -30,7 +29,9 @@ export class TTFLPick {
    */
   GamePlayed(): boolean {
     //TODO: Fix
-    if (this.dateService.today.getHours() > 11 && this.dateService.today > this.gameDate.date) {
+    let today = new Date();
+
+    if (today.getHours() > 11 && today > this.gameDate.date) {
       this.gamePlayed = true;
     } else {
       this.gamePlayed = false;

@@ -69,7 +69,7 @@ export class TtflTeamPage {
   }
 
   createTeam(name: string) {
-    /*this.ttflService.createTeam(this.userService.user, name)
+    /*this.TTFLService.createTeam(this.userService.user, name)
       .then(response => {
         this.userService.updateUserTeamPromise(this.userService.user.id, response[0].id)
           .then(() => {

@@ -2,7 +2,6 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {NBAPlayer} from "../../class/NBA/NBAPlayer";
 import {User} from "../../class/TTFL/user";
-import {NbaDataProvider} from "../nba-service/nba-service";
 
 @Injectable()
 export class TtflProvider {
@@ -103,6 +102,24 @@ export class TtflProvider {
 
     return new Promise((resolve, reject) => {
       this.http.get(url, {params: params}).subscribe(
+        success => {
+          resolve(success);
+        }, error => {
+          reject(error);
+        });
+    })
+  }
+
+  /***
+   * Returns the promise to get the pick of a user for a specific date
+   * @param date
+   * @param user
+   */
+  getAllPicksOfUserPromise(user: User): Promise<any> {
+    let url = this.apiUrl + "picks/ofUser?userId=" + user.id;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
         success => {
           resolve(success);
         }, error => {

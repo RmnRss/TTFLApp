@@ -8,71 +8,76 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- PICK CARDS -->
-  <ion-card (click)="showGamePage(pick.gameDate)" *ngFor="let pick of picks" class="pick-card round-edges">
 
-    <ion-card-content class="no-padding">
-      <ion-row class="inner-card">
-        <!-- DATE -->
-        <ion-col class="no-padding date-background" col-2>
-          <ion-row class="center-row-content">
-            <h3 class="day">{{pick.gameDate.date | date: 'dd': undefined : 'fr-FR'}}</h3>
-          </ion-row>
+  <div *ngFor="let pick of picks">
+    <!-- PICK CARDS -->
+    <ion-card (click)="showGamePage(pick.gameDate)" *ngIf="pick.gameDate.hasGames()" class="pick-card round-edges">
 
-          <ion-row class="center-row-content">
-            <h3 class="month">{{pick.gameDate.date | date: 'MMMM': undefined : 'fr-FR' | uppercase | slice :0:3 }}</h3>
-          </ion-row>
-        </ion-col>
+      <ion-card-content class="no-padding">
+        <ion-row class="inner-card">
+          <!-- DATE -->
+          <ion-col class="no-padding date-background" col-2>
+            <ion-row class="center-row-content">
+              <h3 class="day">{{pick.gameDate.date | date: 'dd': undefined : 'fr-FR'}}</h3>
+            </ion-row>
 
-        <!-- JERSEY -->
-        <!-- Displayed when the user has chosen a pick -->
-        <ion-col *ngIf="pick.hasPlayer" class="custom-padding" col-2>
-          <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
-            <rect [ngStyle]="{'fill': pick.nbaPlayer.team.primaryColor}" height="43" width="34" x="0"
-                  y="0"></rect>
-            <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="0" cy="5" fill="white" rx="8"
-                     ry="15"
-                     stroke-width="2"></ellipse>
-            <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="35" cy="5" fill="white" rx="8"
-                     ry="15"
-                     stroke-width="2"></ellipse>
-            <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="17" cy="0" fill="white" rx="8"
-                     ry="8"
-                     stroke-width="2"></ellipse>
-          </svg>
-          <div class="jersey-nbr">{{pick.nbaPlayer.jersey}}</div>
-        </ion-col>
+            <ion-row class="center-row-content">
+              <h3
+                class="month">{{pick.gameDate.date | date: 'MMMM': undefined : 'fr-FR' | uppercase | slice :0:3 }}</h3>
+            </ion-row>
+          </ion-col>
 
-        <!-- PLAYER NAME -->
-        <!-- Displayed when the user has chosen a pick -->
-        <ion-col *ngIf="pick.hasPlayer" col-6
-                 style="padding-top: 10px;">{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</ion-col>
+          <!-- JERSEY -->
+          <!-- Displayed when the user has chosen a pick -->
+          <ion-col *ngIf="pick.hasPlayer" class="custom-padding" col-2>
+            <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
+              <rect [ngStyle]="{'fill': pick.nbaPlayer.team.primaryColor}" height="43" width="34" x="0"
+                    y="0"></rect>
+              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="0" cy="5" fill="white" rx="8"
+                       ry="15"
+                       stroke-width="2"></ellipse>
+              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="35" cy="5" fill="white" rx="8"
+                       ry="15"
+                       stroke-width="2"></ellipse>
+              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="17" cy="0" fill="white" rx="8"
+                       ry="8"
+                       stroke-width="2"></ellipse>
+            </svg>
+            <div class="jersey-nbr">{{pick.nbaPlayer.jersey}}</div>
+          </ion-col>
 
-        <!-- Displayed when the user hasn't pick any nba player -->
-        <ion-col *ngIf="!pick.hasPlayer" col-8>
-          <p style="margin-top: 5px; margin-left: 5px;">Choisis ton joueur</p>
-          <p style="margin-left: 5px;">Fermeture à {{pick.closingTime | date:'hh': undefined : 'fr-FR'}}h</p>
-        </ion-col>
+          <!-- PLAYER NAME -->
+          <!-- Displayed when the user has chosen a pick -->
+          <ion-col *ngIf="pick.hasPlayer" col-6
+                   style="padding-top: 10px;">{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</ion-col>
 
-        <!-- Displayed when the user hasn't pick any nba player -->
-        <ion-col *ngIf="!pick.hasPlayer" col-2>
-          <ion-icon class="icon" name="arrow-forward"></ion-icon>
-        </ion-col>
+          <!-- Displayed when the user hasn't pick any nba player -->
+          <ion-col *ngIf="!pick.hasPlayer" col-8>
+            <p style="margin-top: 5px; margin-left: 5px;">Choisis ton joueur</p>
+            <p style="margin-left: 5px;">Fermeture à {{pick.closingTime | date:'hh': undefined : 'fr-FR'}}h</p>
+          </ion-col>
 
-        <!-- PICK SCORE -->
-        <!-- Displayed when the game has been played and stats are available -->
-        <ion-col *ngIf="pick.GamePlayed()" class="score-bubble center-row-content" col-2>
-          <div class="score">{{pick.score}} pts</div>
-        </ion-col>
+          <!-- Displayed when the user hasn't pick any nba player -->
+          <ion-col *ngIf="!pick.hasPlayer" col-2>
+            <ion-icon class="icon" name="arrow-forward"></ion-icon>
+          </ion-col>
 
-        <!-- Displayed when the first game of the night has started -->
-        <ion-col *ngIf="!pick.GamePlayed() && (pick.closingTime < dateProvider.today)" col-2>
-          <ion-icon name="lock"></ion-icon>
-        </ion-col>
+          <!-- PICK SCORE -->
+          <!-- Displayed when the game has been played and stats are available -->
+          <ion-col *ngIf="pick.GamePlayed()" class="score-bubble center-row-content" col-2>
+            <div class="score">{{pick.score}} pts</div>
+          </ion-col>
 
-      </ion-row>
+          <!-- Displayed when the first game of the night has started -->
+          <ion-col *ngIf="!pick.GamePlayed() && (pick.closingTime < dateProvider.today)" col-2>
+            <ion-icon name="lock"></ion-icon>
+          </ion-col>
 
-    </ion-card-content>
-  </ion-card>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
 
 </ion-content>

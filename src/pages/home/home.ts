@@ -42,7 +42,7 @@ export class HomePage {
       .then(next => {
         this.picks = new Array<TTFLPick>();
         for (let gameDay of this.daysOfTheWeek) {
-          let pick = new TTFLPick(this.dateProvider);
+          let pick = new TTFLPick();
           pick.gameDate = gameDay;
           this.picks.push(pick);
 
