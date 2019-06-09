@@ -30,7 +30,8 @@ export class MyApp {
   }
 
   logOut() {
-    this.openPage('');
+    //TODO : Add logout promise
+    this.openPage('LoginPage');
   }
 }
 
