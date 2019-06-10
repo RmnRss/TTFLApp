@@ -1,12 +1,8 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-
-/**
- * Generated class for the TtflTeamRankingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
+import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {TTFLTeam} from "../../class/TTFL/TTFLTeam";
 
 @IonicPage()
 @Component({
@@ -15,7 +11,13 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 })
 export class TtflTeamRankingPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  teams: Array<TTFLTeam>;
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public ttflService: TtflProvider,
+              public userService: UserServiceProvider) {
+    this.teams = new Array<TTFLTeam>();
   }
 
   ionViewDidLoad() {
@@ -23,7 +25,12 @@ export class TtflTeamRankingPage {
   }
 
   ionViewCanEnter() {
-    //TODO : get all teams and rank them
+    this.ttflService.getTeamsRankingPromise().then(
+      response => {
+        this.teams = response.teams;
+      }, error => {
+        console.log(error);
+      })
   }
 
 }

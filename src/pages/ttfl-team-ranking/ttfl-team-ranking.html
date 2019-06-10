@@ -9,14 +9,11 @@
 
 
 <ion-content padding>
-  <ion-content padding>
-    <ion-list inset>
-      <ion-list-header></ion-list-header>
-      <ion-item>
-        <ion-note item-start>{{}}</ion-note>
-        <ion-note item-start>{{}}</ion-note>
-        <ion-label>{{}}</ion-label>
-        <ion-note item-end>{{}}</ion-note>
-      </ion-item>
-    </ion-list>
+  <ion-list class="wide-list" inset>
+    <ion-item *ngFor="let team of teams">
+      <ion-note item-start>{{team.rank}}</ion-note>
+      <ion-label>{{team.name}}</ion-label>
+      <ion-note item-end>{{team.points}} pts</ion-note>
+    </ion-item>
+  </ion-list>
 </ion-content>

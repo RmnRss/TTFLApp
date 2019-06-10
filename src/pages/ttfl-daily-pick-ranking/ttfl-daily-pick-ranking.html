@@ -9,13 +9,11 @@
 
 
 <ion-content padding>
-  <ion-content padding>
-    <ion-list inset>
-      <ion-list-header></ion-list-header>
-      <ion-item>
-        <ion-note item-start>{{}}</ion-note>
-        <ion-label>{{}}</ion-label>
-        <ion-note item-end>{{}}</ion-note>
-      </ion-item>
-    </ion-list>
+  <ion-list class="wide-list" inset>
+    <ion-list-header>HISTORIQUE</ion-list-header>
+    <ion-item *ngFor="let pick of picks">
+      <ion-label>{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</ion-label>
+      <ion-note item-end>{{pick.score}}</ion-note>
+    </ion-item>
+  </ion-list>
 </ion-content>

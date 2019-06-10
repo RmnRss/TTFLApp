@@ -19,6 +19,23 @@ export class TtflProvider {
   }
 
   /**********************************************************************
+   *                              PLAYERS                               *
+   * *******************************************************************/
+
+  getUsersRankingPromise(): Promise<any> {
+    let url = this.apiUrl + "users/ranking";
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        success => {
+          resolve(success);
+        }, error => {
+          reject(error);
+        });
+    })
+  }
+
+  /**********************************************************************
    *                              PICKS                                 *
    * *******************************************************************/
 
@@ -71,8 +88,8 @@ export class TtflProvider {
     })
   }
 
-  getPickPromise(): Promise<any> {
-    let url = this.apiUrl + "picks";
+  getResultsOfYesterday(): Promise<any> {
+    let url = this.apiUrl + "picks/results";
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(success => {
         resolve(success);
@@ -180,4 +197,19 @@ export class TtflProvider {
         });
     })
   }
+
+  getTeamsRankingPromise(): Promise<any> {
+    let url = this.apiUrl + "ttflTeams/ranking";
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        success => {
+          resolve(success);
+        }, error => {
+          reject(error);
+        });
+    })
+  }
+
+
 }

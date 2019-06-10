@@ -43,7 +43,7 @@ export class DateServiceProvider {
     let weekDays = new Array<GameDay>();
 
     //let curr = new Date('January 19, 2019');
-    let curr = new Date('June 08, 2019');
+    let curr = new Date();
 
     for (let i = 1; i <= 7; i++) {
       let gameDay = new GameDay();
