@@ -42,7 +42,7 @@ export class TtflTeamPage {
           .then(results => {
             let tempMembers = new Array<User>();
 
-            for (let member of results) {
+            for (let member of results.members) {
               tempMembers.push(member);
             }
 
