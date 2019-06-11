@@ -82,12 +82,40 @@ $colors: (
 // Fonts
 // --------------------------------------------------
 
-@import "roboto";
-@import "noto-sans";
-
 @font-face {
   font-family: "Noto Sans";
   src: url($font-path + '/Noto_Sans/NotoSans-Regular.ttf');
 }
 
-$font-family-base: "Noto Sans";
+@font-face {
+  font-family: "Noto Sans Bold";
+  src: url($font-path + '/Noto_Sans/NotoSans-Bold.ttf');
+}
+
+$Noto-Sans: "Noto Sans";
+$Noto-Sans-Bold: "Noto Sans Bold";
+
+@font-face {
+  font-family: "Montserrat";
+  src: url($font-path + '/Montserrat/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Montserrat Bold";
+  src: url($font-path + '/Montserrat/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: "Montserrat Black";
+  src: url($font-path + '/Montserrat/Montserrat-Black.ttf');
+}
+
+@font-face {
+  font-family: "Montserrat Light";
+  src: url($font-path + '/Montserrat/Montserrat-Light.ttf');
+}
+
+$Montserrat: "Montserrat";
+$MontserratBold: "Montserrat Bold";
+$MontserratBlack: "Montserrat Black";
+$MontserratLight: "Montserrat Light";

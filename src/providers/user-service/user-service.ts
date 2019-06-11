@@ -5,7 +5,7 @@ import {User} from "../../class/TTFL/user";
 
 @Injectable()
 export class UserServiceProvider {
-  apiUrl: string = 'http://localhost:3000/api/';
+  apiUrl: string = 'http://163.172.190.75:5498/api/';
 
   httpOptions = {
     headers: new HttpHeaders({

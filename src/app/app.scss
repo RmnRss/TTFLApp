@@ -27,8 +27,21 @@
 /****************
   TEXT STYLE
 ****************/
-* {
-  font-family: $font-family-base;
+
+h1,h2 {
+  font-family: $MontserratBold !important;
+}
+
+h3,h5,h6 {
+  font-family: $Montserrat !important;
+}
+
+a, p {
+  font-family: $Noto-Sans;
+}
+
+a {
+  color: color($colors, tt-blue, base);
 }
 /****************
   NAVBAR STYLE
@@ -130,9 +143,10 @@
   DATE STYLE
 ****************/
 
-.date-background {
+.date {
   height: 72px;
   background-color: color($colors, tt-dark, base);
+  font-family: $Noto-Sans-Bold;
 }
 
 .day {

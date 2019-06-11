@@ -5,25 +5,19 @@ page-login {
   */
   .login-header {
     display: block;
-    color: white;
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 5rem;
   }
 
   .brand-name-row {
+    color: color($colors, tt-red-alt, base);;
     margin-top: 5rem;
   }
 
   .app-name-row {
+    color: white;
     margin-top: 1rem;
     margin-bottom: 2rem;
-  }
-
-  /*
-    LINKS
-  */
-  a {
-    color: color($colors, tt-blue, base);
   }
 
   .small-links {
@@ -33,8 +27,7 @@ page-login {
   }
 
   .pw-link {
-    margin-left: 185px;
+    margin-left: 175px;
     margin-bottom: 2rem;
   }
-
 }

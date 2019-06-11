@@ -16,14 +16,13 @@
       <ion-card-content class="no-padding">
         <ion-row class="inner-card">
           <!-- DATE -->
-          <ion-col class="no-padding date-background" col-2>
+          <ion-col class="no-padding date" col-2>
             <ion-row class="center-row-content">
               <h3 class="day">{{pick.gameDate.date | date: 'dd': undefined : 'fr-FR'}}</h3>
             </ion-row>
 
             <ion-row class="center-row-content">
-              <h3
-                class="month">{{pick.gameDate.date | date: 'MMMM': undefined : 'fr-FR' | uppercase | slice :0:3 }}</h3>
+              <h3 class="month">{{pick.gameDate.date | date: 'MMMM': undefined : 'fr-FR' | uppercase | slice :0:3 }}</h3>
             </ion-row>
           </ion-col>
 
@@ -49,7 +48,7 @@
           <!-- PLAYER NAME -->
           <!-- Displayed when the user has chosen a pick -->
           <ion-col *ngIf="pick.hasPlayer" col-6
-                   style="padding-top: 10px;">{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</ion-col>
+                   style="padding-top: 10px;"><p>{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</p></ion-col>
 
           <!-- Displayed when the user hasn't pick any nba player -->
           <ion-col *ngIf="!pick.hasPlayer" col-8>
