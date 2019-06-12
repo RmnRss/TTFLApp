@@ -11,10 +11,10 @@
   <ion-row class="input-row">
     <ion-item>
       <ion-label stacked>IDENTIFIANT OU EMAIL</ion-label>
-      <ion-input #inputEmail (focusout)="setEmail(inputEmail.value)"
-                 class="round-edges"
+      <ion-input class="round-edges"
                  type="email"
-                 (keyup.enter)="login(email,password)"
+                 [(ngModel)]="id" id="idInput"
+                 (keyup.enter)="login(id,password)"
       ></ion-input>
     </ion-item>
   </ion-row>
@@ -22,20 +22,20 @@
   <ion-row class="input-row">
     <ion-item>
       <ion-label stacked>MOT DE PASSE</ion-label>
-      <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
-                 class="round-edges"
+      <ion-input class="round-edges"
                  type="password"
-                 (keyup.enter)="login(email,password)"
+                 [(ngModel)]="password" id="passwordInput"
+                 (keyup.enter)="login(id,password)"
       ></ion-input>
     </ion-item>
   </ion-row>
 
   <ion-row class="pw-link">
-    <a (click)="ForgottenPassword()">Mot de passe oublié ?</a>
+    <a (click)="forgotPassword()">Mot de passe oublié ?</a>
   </ion-row>
 
   <ion-row class="button-row">
-    <button (click)="login(email,password)" class="round-edges" ion-button>CONNEXION</button>
+    <button (click)="login(id,password)" class="round-edges" ion-button>CONNEXION</button>
   </ion-row>
 
   <ion-row class="small-links">

@@ -7,9 +7,10 @@
   <ion-row class="input-row">
     <ion-item>
       <ion-label stacked>EMAIL</ion-label>
-      <ion-input #inputEmail (focusout)="setEmail(inputEmail.value)"
-                 class="round-edges"
+      <ion-input class="round-edges"
                  type="email"
+                 [(ngModel)]="email" id="emailInput"
+                 (keyup.enter)="createUser(email, password, username)"
       ></ion-input>
     </ion-item>
   </ion-row>
@@ -17,9 +18,10 @@
   <ion-row class="input-row">
     <ion-item>
       <ion-label stacked>IDENTIFIANT</ion-label>
-      <ion-input #inputUsername (focusout)="setUsername(inputUsername.value)"
-                 class="round-edges"
-                 type="username"
+      <ion-input class="round-edges"
+                 type="text"
+                 [(ngModel)]="username" id="usernameInput"
+                 (keyup.enter)="createUser(email, password, username)"
       ></ion-input>
     </ion-item>
   </ion-row>
@@ -27,10 +29,10 @@
   <ion-row class="input-row">
     <ion-item>
       <ion-label stacked>MOT DE PASSE</ion-label>
-      <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
-                 (keyup.enter)="createUser(email, password, username)"
-                 class="round-edges"
+      <ion-input class="round-edges"
                  type="password"
+                 [(ngModel)]="password" id="passwordInput"
+                 (keyup.enter)="createUser(email, password, username)"
       ></ion-input>
     </ion-item>
   </ion-row>

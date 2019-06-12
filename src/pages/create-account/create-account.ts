@@ -22,18 +22,6 @@ export class CreateAccountPage {
     console.log('ionViewDidLoad CreateAccountPage');
   }
 
-  setEmail(value: string) {
-    this.email = value;
-  }
-
-  setPassword(value: string) {
-    this.password = value;
-  }
-
-  setUsername(value: string) {
-    this.username = value;
-  }
-
   createUser(email: string, password: string, username: string) {
     this.userService.createUser(email, password, username);
     this.navCtrl.push('LoginPage');

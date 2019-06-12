@@ -9,9 +9,8 @@ import {UserServiceProvider} from "../../providers/user-service/user-service";
 })
 export class LoginPage {
 
-  username: string;
+  id: string;
   password: string;
-  email: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,7 +24,6 @@ export class LoginPage {
   }
 
   login(id: string, password: string) {
-
     this.userProvider.postLoginPromise(id, password)
       .then(resp => {
         console.log("logging in...");
@@ -50,19 +48,7 @@ export class LoginPage {
     this.navCtrl.push('CreateAccountPage');
   }
 
-  setEmail(value: string) {
-    this.email = value;
-  }
-
-  setPassword(value: string) {
-    this.password = value;
-  }
-
-  setUsername(value: string) {
-    this.username = value;
-  }
-
-  ForgottenPassword() {
+  forgotPassword() {
 
   }
 }
