@@ -13,18 +13,19 @@ import {LoginPage} from "../pages/login/login";
 import {UserServiceProvider} from '../providers/user-service/user-service';
 import {DatePipe, registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
+import {LoginPageModule} from "../pages/login/login.module";
 
 registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
-    MyApp,
-    LoginPage
+    MyApp
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {LoadingController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {UserServiceProvider} from "../../providers/user-service/user-service";
 
+@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
