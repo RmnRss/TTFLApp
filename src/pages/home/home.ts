@@ -44,7 +44,6 @@ export class HomePage {
         for (let gameDay of this.daysOfTheWeek) {
           let pick = new TTFLPick();
           pick.gameDate = gameDay;
-          this.picks.push(pick);
 
           let games: NBAGame[] = new Array<NBAGame>();
 
@@ -119,11 +118,12 @@ export class HomePage {
                                 if (pick.nbaPlayer.team.teamId == team.teamId) {
                                   pick.nbaPlayer.team.tricode = team.tricode;
                                   pick.nbaPlayer.team.ttsName = team.ttsName;
-                                  pick.nbaPlayer.team.primaryColor = team.primaryColor;
-                                  pick.nbaPlayer.team.secondaryColor = team.secondaryColor;
+                                  pick.nbaPlayer.team.colors = this.nbaDataProvider.NBATeamsColors.get(team.tricode);
                                 }
 
                               }
+
+                              this.picks.push(pick);
 
                             })
                         }

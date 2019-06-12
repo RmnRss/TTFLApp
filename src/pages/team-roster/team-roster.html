@@ -13,12 +13,12 @@
       <!-- JERSEY DRAWING -->
       <ion-col col-2>
         <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
-          <rect [ngStyle]="{'fill': selectedTeam.primaryColor}" height="43" width="34" x="0" y="0"></rect>
-          <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="0" cy="5" fill="white" rx="8" ry="15"
+          <rect [ngStyle]="{'fill': selectedTeam.colors.primary}" height="43" width="34" x="0" y="0"></rect>
+          <ellipse [ngStyle]="{'stroke': selectedTeam.colors.secondary}" cx="0" cy="5" fill="white" rx="8" ry="15"
                    stroke-width="2"></ellipse>
-          <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="35" cy="5" fill="white" rx="8" ry="15"
+          <ellipse [ngStyle]="{'stroke': selectedTeam.colors.secondary}" cx="35" cy="5" fill="white" rx="8" ry="15"
                    stroke-width="2"></ellipse>
-          <ellipse [ngStyle]="{'stroke': selectedTeam.secondaryColor}" cx="17" cy="0" fill="white" rx="8" ry="8"
+          <ellipse [ngStyle]="{'stroke': selectedTeam.colors.secondary}" cx="17" cy="0" fill="white" rx="8" ry="8"
                    stroke-width="2"></ellipse>
         </svg>
 
@@ -35,9 +35,9 @@
 
         <!-- PLAYER STATS -->
         <ion-row class="badge-inline">
-          <ion-badge>{{player.ppg}}</ion-badge>
-          <ion-badge>{{player.apg}}</ion-badge>
-          <ion-badge>{{player.rpg}}</ion-badge>
+          <ion-badge>{{player.ppg}} ppg</ion-badge>
+          <ion-badge>{{player.apg}} apg</ion-badge>
+          <ion-badge>{{player.rpg}} rpg</ion-badge>
         </ion-row>
       </ion-col>
 

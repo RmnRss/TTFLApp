@@ -27,6 +27,13 @@ export class TeamRosterPage {
               public nbaDataProvider: NbaDataProvider,
               public userProvider: UserServiceProvider,
               public ttflProvider: TtflProvider) {
+    this.selectedTeam = new NBATeam();
+    this.selectedPlayer = new NBAPlayer();
+    this.date = new Date();
+    this.roster = new Array<NBAPlayer>();
+
+    this.selectedTeam = this.navParams.get('selectedTeam');
+    this.date = this.navParams.get('selectedDate');
   }
 
   ionViewDidLoad() {
@@ -34,12 +41,11 @@ export class TeamRosterPage {
   }
 
   ionViewCanEnter() {
-    this.selectedTeam = this.navParams.get('selectedTeam');
-    this.date = this.navParams.get('selectedDate');
+    console.log(this.selectedTeam);
 
     this.nbaDataProvider.getRosterPromise(this.selectedTeam)
       .then(res => {
-        this.roster = res.league.standard.players;
+          this.roster = res.league.standard.players;
         }
       )
       .then(res => {

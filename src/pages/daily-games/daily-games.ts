@@ -22,6 +22,10 @@ export class DailyGamesPage {
               public navParams: NavParams,
               public nbaDataProvider: NbaDataProvider,
               public dateProvider: DateServiceProvider) {
+    this.selectedDate = this.navParams.get('selectedDate');
+    this.dateStr = this.dateProvider.dateToNBAString(this.selectedDate);
+
+    this.games = this.navParams.get('nbaGames');
   }
 
   ionViewDidLoad() {
@@ -29,11 +33,6 @@ export class DailyGamesPage {
   }
 
   ionViewCanEnter() {
-    this.selectedDate = this.navParams.get('selectedDate');
-    this.games = this.navParams.get('nbaGames');
-    this.dateStr = this.dateProvider.dateToNBAString(this.selectedDate);
-
-
     this.nbaDataProvider.getTeamInfoPromise()
       .then(res => {
         let allTeams = res.teams.config;
@@ -45,15 +44,13 @@ export class DailyGamesPage {
             if (game.hTeam.teamId == team.teamId) {
               game.hTeam.tricode = team.tricode;
               game.hTeam.ttsName = team.ttsName;
-              game.hTeam.primaryColor = team.primaryColor;
-              game.hTeam.secondaryColor = team.secondaryColor;
+              game.hTeam.colors = this.nbaDataProvider.NBATeamsColors.get(game.hTeam.tricode);
             }
 
             if (game.vTeam.teamId == team.teamId) {
               game.vTeam.tricode = team.tricode;
               game.vTeam.ttsName = team.ttsName;
-              game.vTeam.primaryColor = team.primaryColor;
-              game.vTeam.secondaryColor = team.secondaryColor;
+              game.vTeam.colors = this.nbaDataProvider.NBATeamsColors.get(game.vTeam.tricode);
             }
           }
         }

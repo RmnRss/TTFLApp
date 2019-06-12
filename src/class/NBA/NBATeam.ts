@@ -1,17 +1,24 @@
+import {NBATeamColors} from "./NBATeamColors";
+
 export class NBATeam {
+
+  private _teamId: string;
+  private _tricode: string;  //Abbreviation
+  private _ttsName: string;  //Full Name
+  private _colors: NBATeamColors;
+  private _tName: string; //Surname
+  private _logoUrl: string;
+  private _wins: string;
+  private _loss: string;
 
   constructor() {
     this._teamId = "";
     this._tricode = "";
     this._ttsName = "";
-    this._primaryColor = "#FFF";
-    this._secondaryColor = "#FFF";
+    this._colors = new NBATeamColors('#000', '#FFF');
     this._loss = "0";
     this._wins = "0";
   }
-
-  private _wins: string;
-  private _loss: string;
 
   get wins(): string {
     return this._wins;
@@ -29,8 +36,6 @@ export class NBATeam {
     this._loss = value;
   }
 
-  private _teamId: string;
-
   get teamId(): string {
     return this._teamId;
   }
@@ -39,7 +44,6 @@ export class NBATeam {
     this._teamId = value;
   }
 
-  private _tricode: string;  //Abbreviation
 
   get tricode(): string {
     return this._tricode;
@@ -49,8 +53,6 @@ export class NBATeam {
     this._logoUrl = "https://www.nba.com/assets/logos/teams/primary/web/" + value + ".svg"
     this._tricode = value;
   }
-
-  private _ttsName: string;  //Full Name
 
   get ttsName(): string {
     return this._ttsName;
@@ -62,33 +64,17 @@ export class NBATeam {
     this._ttsName = value;
   }
 
-  private _primaryColor: string;
-
-  get primaryColor(): string {
-    return this._primaryColor;
+  get colors(): NBATeamColors {
+    return this._colors;
   }
 
-  set primaryColor(value: string) {
-    this._primaryColor = value;
+  set colors(value: NBATeamColors) {
+    this._colors = value;
   }
-
-  private _secondaryColor: string;
-
-  get secondaryColor(): string {
-    return this._secondaryColor;
-  }
-
-  set secondaryColor(value: string) {
-    this._secondaryColor = value;
-  }
-
-  private _logoUrl: string;
 
   get logoUrl(): string {
     return this._logoUrl;
   }
-
-  private _tName: string; //Surname
 
   get tName(): string {
     return this._tName;

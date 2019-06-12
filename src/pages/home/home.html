@@ -22,7 +22,8 @@
             </ion-row>
 
             <ion-row class="center-row-content">
-              <h3 class="month">{{pick.gameDate.date | date: 'MMMM': undefined : 'fr-FR' | uppercase | slice :0:3 }}</h3>
+              <h3
+                class="month">{{pick.gameDate.date | date: 'MMMM': undefined : 'fr-FR' | uppercase | slice :0:3 }}</h3>
             </ion-row>
           </ion-col>
 
@@ -30,15 +31,15 @@
           <!-- Displayed when the user has chosen a pick -->
           <ion-col *ngIf="pick.hasPlayer" class="custom-padding" col-2>
             <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
-              <rect [ngStyle]="{'fill': pick.nbaPlayer.team.primaryColor}" height="43" width="34" x="0"
+              <rect [ngStyle]="{'fill': pick.nbaPlayer.team.colors.primary}" height="43" width="34" x="0"
                     y="0"></rect>
-              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="0" cy="5" fill="white" rx="8"
+              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.colors.secondary}" cx="0" cy="5" fill="white" rx="8"
                        ry="15"
                        stroke-width="2"></ellipse>
-              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="35" cy="5" fill="white" rx="8"
+              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.colors.secondary}" cx="35" cy="5" fill="white" rx="8"
                        ry="15"
                        stroke-width="2"></ellipse>
-              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.secondaryColor}" cx="17" cy="0" fill="white" rx="8"
+              <ellipse [ngStyle]="{'stroke': pick.nbaPlayer.team.colors.secondary}" cx="17" cy="0" fill="white" rx="8"
                        ry="8"
                        stroke-width="2"></ellipse>
             </svg>
