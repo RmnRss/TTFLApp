@@ -28,7 +28,7 @@
     <ion-item>
       <ion-label stacked>MOT DE PASSE</ion-label>
       <ion-input #inputPassword (focusout)="setPassword(inputPassword.value)"
-                 (keyup.enter)="createPlayer(email, password, username)"
+                 (keyup.enter)="createUser(email, password, username)"
                  class="round-edges"
                  type="password"
       ></ion-input>
@@ -36,7 +36,7 @@
   </ion-row>
 
   <ion-row class="button-row">
-    <button (click)="createPlayer(email, password, username)" class="round-edges" ion-button>CREER MON COMPTE</button>
+    <button (click)="createUser(email, password, username)" class="round-edges" ion-button>CREER MON COMPTE</button>
   </ion-row>
 
 </ion-content>

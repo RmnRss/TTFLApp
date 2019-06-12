@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Injectable} from '@angular/core';
 import {User} from "../../class/TTFL/user";
+import {ToastController} from "ionic-angular";
 
 @Injectable()
 export class UserServiceProvider {
@@ -16,7 +17,8 @@ export class UserServiceProvider {
 
   public user: User;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,
+              public toastCtrl: ToastController) {
     console.log('Hello UserServiceProvider Provider');
     this.user = new User();
   }
@@ -34,13 +36,12 @@ export class UserServiceProvider {
       username: username,
       password: password,
       email: email,
-    })
-      .subscribe(success => {
-          console.log(success);
-        }, error => {
-          console.log(error);
-        }
-      );
+    }).subscribe(success => {
+        this.presentToast('Votre compte a bien été créé').then();
+      }, error => {
+        this.presentToast('Erreur lors de la création de votre compte').then();
+      }
+    );
   }
 
   /***
@@ -126,5 +127,13 @@ export class UserServiceProvider {
       this.user.hasTeam = false;
       return this.user.hasTeam;
     }
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 }

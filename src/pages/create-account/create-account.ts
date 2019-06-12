@@ -13,15 +13,13 @@ export class CreateAccountPage {
   password: string;
   username: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateAccountPage');
-  }
-
-  createPlayer(email: string, password: string, username: string) {
-    this.userService.createUser(email, password, username);
   }
 
   setEmail(value: string) {
@@ -34,5 +32,10 @@ export class CreateAccountPage {
 
   setUsername(value: string) {
     this.username = value;
+  }
+
+  createUser(email: string, password: string, username: string) {
+    this.userService.createUser(email, password, username);
+    this.navCtrl.push('LoginPage');
   }
 }
