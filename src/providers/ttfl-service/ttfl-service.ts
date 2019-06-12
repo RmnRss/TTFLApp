@@ -185,6 +185,27 @@ export class TtflProvider {
     })
   }
 
+  /***
+   *
+   * @param date
+   * @param user
+   */
+  getTeamByNamePromise(teamName: String): Promise<any> {
+    let url = this.apiUrl + "ttflTeams";
+
+    let filter = {"where": {"name": teamName}};
+    let params = new HttpParams().set("filter", JSON.stringify(filter));
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, {params: params}).subscribe(
+        success => {
+          resolve(success);
+        }, error => {
+          reject(error);
+        });
+    })
+  }
+
   getTeamMembersPromise(teamId: number): Promise<any> {
     let url = this.apiUrl + "ttflTeams/members?teamId=" + teamId;
 

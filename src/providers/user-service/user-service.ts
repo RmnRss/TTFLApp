@@ -81,13 +81,14 @@ export class UserServiceProvider {
    * @param date
    */
   updateUserTeamPromise(id: number, teamId: number): Promise<any> {
-    let url = this.apiUrl + "users/" + id;
+    let url = this.apiUrl + "users/update?[where][id]=" + id;
 
     return new Promise((resolve, reject) => {
-      this.http.patch(url, {
+      this.http.post(url, {
         teamId: teamId
       }, this.httpOptions)
         .subscribe(success => {
+          this.user.teamId = teamId;
           resolve(success);
         }, error => {
           reject(error);

@@ -18,17 +18,18 @@ export class TtflTeamPage {
   teamName: string;
   showCreationCard: boolean = false;
   showSearchCard: boolean = false;
+  searchedTerms: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public userService: UserServiceProvider,
-              public ttflService: TtflProvider) {
+              public TTFLService: TtflProvider) {
 
   }
 
   ionViewCanEnter() {
     if (this.userService.userHasTeam()) {
-      this.ttflService.getTeamPromise(this.userService.user)
+      this.TTFLService.getTeamPromise(this.userService.user)
         .then(result => {
           this.userTeam.id = result.id;
           this.userTeam.name = result.name;
@@ -38,19 +39,19 @@ export class TtflTeamPage {
           console.log(error);
         })
         .then(next => {
-        this.ttflService.getTeamMembersPromise(this.userTeam.id)
-          .then(results => {
-            let tempMembers = new Array<User>();
+          this.TTFLService.getTeamMembersPromise(this.userTeam.id)
+            .then(results => {
+              let tempMembers = new Array<User>();
 
-            for (let member of results.members) {
-              tempMembers.push(member);
-            }
+              for (let member of results.members) {
+                tempMembers.push(member);
+              }
 
-            this.userTeam.members = tempMembers;
-          }, error => {
-            console.log(error);
-          })
-      })
+              this.userTeam.members = tempMembers;
+            }, error => {
+              console.log(error);
+            })
+        })
     } else {
 
     }
@@ -69,17 +70,25 @@ export class TtflTeamPage {
   }
 
   createTeam(name: string) {
-    /*this.TTFLService.createTeam(this.userService.user, name)
-      .then(response => {
-        this.userService.updateUserTeamPromise(this.userService.user.id, response[0].id)
-          .then(() => {
-          });
-      })*/
+    this.TTFLService.createTeam(this.userService.user, name)
+      .then(next => {
+        this.TTFLService.getTeamByNamePromise(name)
+          .then(response => {
+            this.userService.updateUserTeamPromise(this.userService.user.id, response[0].id).then(end => {
+              this.navCtrl.setRoot('TtflTeamPage')
+            })
+          })
+      });
   }
 
   leaveTeam() {
-    /*this.userService.updateUserTeamPromise(this.userService.user.id, null)
+    this.userService.updateUserTeamPromise(this.userService.user.id, null)
       .then(() => {
-      });*/
+        this.navCtrl.setRoot('TtflTeamPage')
+      });
+  }
+
+  searchTeam(searchedTerms: string) {
+
   }
 }
