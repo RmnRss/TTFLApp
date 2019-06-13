@@ -75,9 +75,15 @@ export class TtflTeamPage {
         this.TTFLService.getTeamByNamePromise(name)
           .then(response => {
             this.userService.updateUserTeamPromise(this.userService.user.id, response[0].id).then(end => {
-              this.navCtrl.setRoot('TtflTeamPage')
+              this.navCtrl.setRoot('TtflTeamPage');
+            }, error => {
+              console.log(error);
             })
+          }, error => {
+            console.log(error);
           })
+      }, error => {
+        console.log(error);
       });
   }
 
