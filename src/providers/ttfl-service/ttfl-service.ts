@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {NBAPlayer} from "../../class/NBA/NBAPlayer";
 import {User} from "../../class/TTFL/user";
+import {ToastController} from "ionic-angular";
 
 @Injectable()
 export class TtflProvider {
@@ -14,7 +15,8 @@ export class TtflProvider {
     })
   };
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,
+              public toastCtrl: ToastController) {
     console.log('Hello TtflProvider Provider');
   }
 
@@ -164,8 +166,10 @@ export class TtflProvider {
         name: teamName,
       })
         .subscribe(success => {
+            this.presentToast("Votre équipe a bien été créée");
             resolve(success);
           }, error => {
+            this.presentToast("Echec lors de la création de l'équipe");
             reject(error);
           }
         );
@@ -206,6 +210,10 @@ export class TtflProvider {
     })
   }
 
+  /***
+   * Get the members of a team
+   * @param teamId
+   */
   getTeamMembersPromise(teamId: number): Promise<any> {
     let url = this.apiUrl + "ttflTeams/members?teamId=" + teamId;
 
@@ -232,5 +240,11 @@ export class TtflProvider {
     })
   }
 
-
+  async presentToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
 }
