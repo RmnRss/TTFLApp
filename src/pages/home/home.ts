@@ -5,8 +5,8 @@ import {DateServiceProvider} from "../../providers/date-service/date-service";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {TTFLPick} from "../../class/TTFL/TTFLPick";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {NBADay} from "../../class/NBA/NBADay";
 import {NBAGame} from "../../class/NBA/NBAGame";
-import {GameDay} from "../../class/GameDay";
 
 @IonicPage()
 @Component({
@@ -16,121 +16,112 @@ import {GameDay} from "../../class/GameDay";
 export class HomePage {
 
   picks: TTFLPick[];
-  daysOfTheWeek = this.dateProvider.getCurrentWeek();
+  NBADaysOfTheWeek = this.dateProvider.getCurrentWeek();
 
   /***
    * Initializes the user information on page creation
    */
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public nbaDataProvider: NbaDataProvider,
-              public userProvider: UserServiceProvider,
+              public NBAService: NbaDataProvider,
+              public userService: UserServiceProvider,
               public dateProvider: DateServiceProvider,
-              public ttflProvider: TtflProvider) {
+              public TTFLService: TtflProvider) {
     //Gets the user info once he's logged in
-    this.userProvider.getUserInfo(this.userProvider.user.id);
+    this.userService.getUserInfo(this.userService.user.id);
   }
 
   /***
    * Called everytime the page is loaded
    */
   ionViewCanEnter() {
-    this.nbaDataProvider.getLinksPromise()
+    this.NBAService.getLinksPromise()
       .then(res => {
-        this.nbaDataProvider.links = res.links;
+        this.NBAService.links = res.links;
       })
       .then(next => {
         this.picks = new Array<TTFLPick>();
-        for (let gameDay of this.daysOfTheWeek) {
+
+        for (let gameDay of this.NBADaysOfTheWeek) {
           let pick = new TTFLPick();
           pick.gameDate = gameDay;
 
-          let games: NBAGame[] = new Array<NBAGame>();
+          // Get the games
+          this.NBAService.getSchedulePromise()
+            .then(res => {
+              let allNBAGames = res.league.standard;
 
-          this.nbaDataProvider.getSchedulePromise().then(
-            res => {
-              let tempGames = res.league.standard;
+              for (let anNBAGame of allNBAGames) {
 
-              for (let game of tempGames) {
-                let aGame = new NBAGame();
+                let tempNBAGame = new NBAGame();
+                tempNBAGame.startDateEastern = this.dateProvider.dateToNBAString(gameDay.date);
 
-                if (game.startDateEastern == this.dateProvider.dateToNBAString(gameDay.date)) {
-                  aGame.startTimeUTC = game.startTimeUTC;
+                if (anNBAGame.startDateEastern == tempNBAGame.startDateEastern) {
+                  tempNBAGame.startTimeUTC = anNBAGame.startTimeUTC;
 
                   // Home team
-                  aGame.hTeam.teamId = game.hTeam.teamId;
-                  aGame.hTeam.wins = game.hTeam.win;
-                  aGame.hTeam.loss = game.hTeam.loss;
+                  tempNBAGame.hTeam.teamId = anNBAGame.hTeam.teamId;
+                  tempNBAGame.hTeam.wins = anNBAGame.hTeam.win;
+                  tempNBAGame.hTeam.loss = anNBAGame.hTeam.loss;
 
                   // Visitor team
-                  aGame.vTeam.teamId = game.vTeam.teamId;
-                  aGame.vTeam.wins = game.vTeam.win;
-                  aGame.vTeam.loss = game.vTeam.loss;
-                  gameDay.nbaGames.push(aGame);
+                  tempNBAGame.vTeam.teamId = anNBAGame.vTeam.teamId;
+                  tempNBAGame.vTeam.wins = anNBAGame.vTeam.win;
+                  tempNBAGame.vTeam.loss = anNBAGame.vTeam.loss;
+
+                  gameDay.nbaGames.push(tempNBAGame);
                 }
               }
+            })
+            .then(next => {
 
-              // If there is at least one game that day, we get the earliest one
-              if (gameDay.nbaGames.length > 0) {
-                let index = 0;
-                let earliestGameTime = gameDay.nbaGames[index].startTimeUTC;
+              this.TTFLService.getPickOfUserPromise(pick.gameDate.date, this.userService.user)
+                .then(res => {
+                  for (let result of res) {
+                    // If a pick has already been chosen this week we get the information about all the picks
+                    if (result.size != 0) {
+                      pick.hasPlayer = true;
 
-                while (index < games.length - 2) {
-                  if (earliestGameTime > gameDay.nbaGames[index + 1].startTimeUTC) {
-                    earliestGameTime = gameDay.nbaGames[index + 1].startTimeUTC;
-                    index++;
-                  } else {
-                    index++;
+                      pick.nbaPlayer.personId = result.nbaPlayerId;
+                      pick.score = result.score;
+                      pick.bestPick = result.bestPick;
+                      pick.worstPick = result.worstPick;
+                      pick.isUpdated = result.isUpdated;
+
+                      this.NBAService.getPlayerPromise()
+                        .then(res => {
+                          for (let player of res.league.standard) {
+                            if (player.personId == pick.nbaPlayer.personId) {
+                              pick.nbaPlayer.firstName = player.firstName;
+                              pick.nbaPlayer.lastName = player.lastName;
+                              pick.nbaPlayer.jersey = player.jersey;
+                              pick.nbaPlayer.team = player.teams[player.teams.length - 1];
+
+                              this.NBAService.getTeamInfoPromise()
+                                .then(res => {
+                                  let allTeams = res.teams.config;
+
+                                  for (let team of allTeams) {
+
+                                    if (pick.nbaPlayer.team.teamId == team.teamId) {
+                                      pick.nbaPlayer.team.tricode = team.tricode;
+                                      pick.nbaPlayer.team.ttsName = team.ttsName;
+                                      pick.nbaPlayer.team.colors = this.NBAService.NBATeamsColors.get(team.tricode);
+                                    }
+
+                                  }
+
+                                  this.picks.push(pick);
+
+                                })
+                            }
+                          }
+                        });
+                    } else {
+                      //has no pick
+                    }
                   }
-                }
-                pick.closingTime = earliestGameTime;
-              }
-            });
-
-          this.ttflProvider.getPickOfUserPromise(pick.gameDate.date, this.userProvider.user)
-            .then(res => {
-              for (let result of res) {
-
-                // If a pick has already been chosen this week we get the information about all the picks
-                if (result.size != 0) {
-                  pick.hasPlayer = true;
-
-                  pick.nbaPlayer.personId = result.nbaPlayerId;
-                  pick.score = result.score;
-                  pick.bestPick = result.bestPick;
-                  pick.worstPick = result.worstPick;
-
-                  this.nbaDataProvider.getPlayerPromise()
-                    .then(res => {
-                      for (let player of res.league.standard) {
-                        if (player.personId == pick.nbaPlayer.personId) {
-                          pick.nbaPlayer.firstName = player.firstName;
-                          pick.nbaPlayer.lastName = player.lastName;
-                          pick.nbaPlayer.jersey = player.jersey;
-                          pick.nbaPlayer.team = player.teams[player.teams.length - 1];
-
-                          this.nbaDataProvider.getTeamInfoPromise()
-                            .then(res => {
-                              let allTeams = res.teams.config;
-
-                              for (let team of allTeams) {
-
-                                if (pick.nbaPlayer.team.teamId == team.teamId) {
-                                  pick.nbaPlayer.team.tricode = team.tricode;
-                                  pick.nbaPlayer.team.ttsName = team.ttsName;
-                                  pick.nbaPlayer.team.colors = this.nbaDataProvider.NBATeamsColors.get(team.tricode);
-                                }
-
-                              }
-
-                              this.picks.push(pick);
-
-                            })
-                        }
-                      }
-                    });
-                }
-              }
+                });
             });
         }
       });
@@ -140,7 +131,7 @@ export class HomePage {
    * Load the daily game page and passes the games and dates as parameters
    * @param date selected by the user
    */
-  showGamePage(date: GameDay) {
+  showGamePage(date: NBADay) {
     this.navCtrl.push('DailyGamesPage', {selectedDate: date.date, nbaGames: date.nbaGames});
   }
 }

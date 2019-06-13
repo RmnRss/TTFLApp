@@ -54,7 +54,7 @@
           <!-- Displayed when the user hasn't pick any nba player -->
           <ion-col *ngIf="!pick.hasPlayer" col-8>
             <p style="margin-top: 5px; margin-left: 5px;">Choisis ton joueur</p>
-            <p style="margin-left: 5px;">Fermeture à {{pick.closingTime | date:'hh': undefined : 'fr-FR'}}h</p>
+            <p style="margin-left: 5px;">Fermeture à {{pick.gameDate.getStartTime() | date:'hh': undefined : 'fr-FR'}}h</p>
           </ion-col>
 
           <!-- Displayed when the user hasn't pick any nba player -->
@@ -64,12 +64,12 @@
 
           <!-- PICK SCORE -->
           <!-- Displayed when the game has been played and stats are available -->
-          <ion-col *ngIf="pick.GamePlayed()" class="score-bubble center-row-content" col-2>
+          <ion-col *ngIf="pick.gameDate.hasStarted() && pick.isUpdated" class="score-bubble center-row-content" col-2>
             <div class="score">{{pick.score}} pts</div>
           </ion-col>
 
           <!-- Displayed when the first game of the night has started -->
-          <ion-col *ngIf="!pick.GamePlayed() && (pick.closingTime < dateProvider.today)" col-2>
+          <ion-col *ngIf="pick.gameDate.hasStarted()  && !pick.isUpdated" col-2>
             <ion-icon name="lock"></ion-icon>
           </ion-col>
 

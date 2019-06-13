@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {GameDay} from "../../class/GameDay";
+import {NBADay} from "../../class/NBA/NBADay";
 import {DatePipe} from "@angular/common";
 
 @Injectable()
@@ -37,16 +37,16 @@ export class DateServiceProvider {
   /***
    * returns the current week
    */
-  getCurrentWeek(): Array<GameDay> {
+  getCurrentWeek(): Array<NBADay> {
     //TODO: Fix bug for sundays
 
-    let weekDays = new Array<GameDay>();
+    let weekDays = new Array<NBADay>();
 
     //let curr = new Date('January 19, 2019');
     let curr = new Date();
 
     for (let i = 1; i <= 7; i++) {
-      let gameDay = new GameDay();
+      let gameDay = new NBADay();
 
       // first day of the week
       let first = curr.getDate() - curr.getDay() + i;
@@ -63,8 +63,8 @@ export class DateServiceProvider {
    * returns a week based on its number
    * @param weekNumber
    */
-  getWeek(weekNumber: number): Array<GameDay> {
-    let weekDays = new Array<GameDay>();
+  getWeek(weekNumber: number): Array<NBADay> {
+    let weekDays = new Array<NBADay>();
 
     //TODO: Implement
 

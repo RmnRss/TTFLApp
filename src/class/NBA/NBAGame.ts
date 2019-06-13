@@ -2,7 +2,10 @@ import {NBATeam} from "./NBATeam";
 
 export class NBAGame {
 
-  private;
+  private _startTimeUTC: Date; //Time at which the game starts
+  private _startDateEastern: string;
+  private _hTeam: NBATeam; //Home NBATeam id
+  private _vTeam: NBATeam; //Visitor NBATeam id
 
   constructor() {
     this._startTimeUTC = new Date();
@@ -11,13 +14,13 @@ export class NBAGame {
     this._hTeam = new NBATeam();
   }
 
-  private _startTimeUTC: Date;
-
   get startTimeUTC(): Date {
     return this._startTimeUTC;
   }
 
-  private _startDateEastern: string;
+  set startTimeUTC(value: Date) {
+    this._startTimeUTC = value;
+  }
 
   get startDateEastern(): string {
     return this._startDateEastern;
@@ -27,12 +30,6 @@ export class NBAGame {
     this._startDateEastern = value;
   }
 
-  set startTimeUTC(value: Date) {
-    this._startTimeUTC = value;
-  }
-
-  private _hTeam: NBATeam; //Home NBATeam id
-
   get hTeam(): NBATeam {
     return this._hTeam;
   }
@@ -40,8 +37,6 @@ export class NBAGame {
   set hTeam(value: NBATeam) {
     this._hTeam = value;
   }
-
-  private _vTeam: NBATeam; //Visitor NBATeam id
 
   get vTeam(): NBATeam {
     return this._vTeam;
