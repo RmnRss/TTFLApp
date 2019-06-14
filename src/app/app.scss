@@ -140,6 +140,67 @@ a {
 }
 
 /****************
+  RANK CARD STYLE
+****************/
+
+.ranking-card{
+  height: 40px;
+  width: auto;
+}
+
+.ranking-card ion-row {
+  height: 40px;
+}
+
+.ranking-card h5 {
+  margin-top: 6px !important;
+
+}
+
+.ranking-card .rank {
+  padding-left:0.5rem;
+  color: white;
+  font-family: "Montserrat Bold" !important;
+  font-size: 15px;
+  text-align: end;
+}
+
+.ranking-card .rank-prog {
+  padding-right:0.5rem;
+  padding-left: 0;
+  text-align: center !important;
+}
+
+.ranking-card .rank-inc {
+  color: color($colors, tt-green, base);
+}
+
+.ranking-card .rank-dec {
+  color: color($colors, tt-red, base);
+}
+
+.ranking-card .rank-eq {
+  color: white;
+}
+
+.ranking-card .points {
+  color: color($colors, tt-red-alt, base);
+  font-family: "Montserrat Bold" !important;
+  padding-right:0.5rem;
+  font-size: 15px;
+  text-align: end;
+}
+
+.ranking-card .name {
+  font-family: "Montserrat" !important;
+  font-weight: normal;
+  padding-left:0.5rem;
+  font-size: 15px;
+  text-align: start;
+}
+
+
+/****************
   DATE STYLE
 ****************/
 
@@ -314,4 +375,12 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
 .wide-list {
   width: 100%;
   margin: 0 !important;
+  font-family: "Montserrat";
+}
+
+.list-header {
+  text-transform: uppercase;
+  font-family: "Noto Sans";
+  font-size: 1.5rem;
+  font-weight: bold;
 }

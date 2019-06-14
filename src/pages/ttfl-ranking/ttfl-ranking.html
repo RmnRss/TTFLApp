@@ -9,11 +9,24 @@
 
 
 <ion-content padding>
-  <ion-list class="wide-list" inset>
-    <ion-item *ngFor="let user of users">
-      <ion-note item-start>{{user.rank}}</ion-note>
-      <ion-label>{{user.username}}</ion-label>
-      <ion-note item-end>{{user.points}} pts</ion-note>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let user of users" class="ranking-card round-edges">
+    <ion-card-content class="no-padding">
+      <ion-row>
+        <ion-col col-4 class="no-padding">
+          <ion-row class="bg-dark">
+            <ion-col col-7><h5 class="rank">{{user.rank}} | </h5></ion-col>
+            <ion-col col-5><h5 class="rank rank-prog" [class.rank-eq]="true">+12</h5></ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-4><h5 class="name">{{user.username | titlecase}}</h5></ion-col>
+        <ion-col col-4 class="no-padding">
+          <ion-row>
+            <ion-col col-7><h5 class="points">{{user.points}}</h5>
+            </ion-col>
+            <ion-col col-5><h5>pts</h5></ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
