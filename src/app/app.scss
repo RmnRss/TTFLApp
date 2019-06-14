@@ -36,13 +36,15 @@ h3, h5, h6 {
   font-family: $Montserrat !important;
 }
 
-a, p {
+p {
   font-family: $Montserrat;
   font-weight: normal;
 }
 
 a {
   color: color($colors, tt-blue, base);
+  font-family: $Montserrat;
+  font-weight: normal;
 }
 
 /****************
@@ -54,6 +56,7 @@ a {
 }
 
 .bar-button-default-md, .toolbar-title-md, .bar-button-default-ios, .toolbar-title-ios {
+  font-family: "Noto Sans Bold";
   color: white;
 }
 

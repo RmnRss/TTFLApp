@@ -1,19 +1,59 @@
-<ion-header>
+<ion-header class="big-header">
   <ion-navbar hideBackButton>
     <button align-items-start ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title color="white">Classement par équipe</ion-title>
   </ion-navbar>
+
+  <ion-row class="bg-dark wrap">
+    <!-- USER PP -->
+    <ion-col col-3>
+      <span class="user-pick"></span>
+    </ion-col>
+
+    <ion-col class="no-padding" col-9>
+      <!-- USERNAME -->
+      <ion-row class="text-col">
+        <ion-col col-7>
+          <h2 class="name">{{userTeam.name | titlecase}}</h2>
+        </ion-col>
+        <ion-col col-5><h2 class="rank">{{userTeam.rank}} e</h2></ion-col>
+      </ion-row>
+
+      <!-- USER INFO -->
+      <ion-row>
+        <ion-col col-4>
+          <ion-row>
+            <ion-col col-6><h5 class="points">{{userTeam.points}}</h5>
+            </ion-col>
+            <ion-col col-6><p>pts</p></ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-8><h5 class="rank-prog">+12 places</h5></ion-col>
+
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
 </ion-header>
 
 
 <ion-content padding>
-  <ion-list class="wide-list" inset>
-    <ion-item *ngFor="let team of teams">
-      <ion-note item-start>{{team.rank}}</ion-note>
-      <ion-label>{{team.name}}</ion-label>
-      <ion-note item-end>{{team.points}} pts</ion-note>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let team of teams" class="ranking-card round-edges">
+    <ion-card-content class="no-padding">
+      <ion-row>
+        <ion-col col-2><h5 class="rank">{{team.rank}}</h5></ion-col>
+        <ion-col col-6><h5 class="name">{{team.name | titlecase}}</h5></ion-col>
+        <ion-col col-4 class="no-padding">
+          <ion-row>
+            <ion-col col-7><h5 class="points">{{team.points}}</h5>
+            </ion-col>
+            <ion-col col-5><h5>pts</h5></ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
