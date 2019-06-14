@@ -1,10 +1,41 @@
-<ion-header>
+<ion-header class="big-header">
   <ion-navbar hideBackButton>
     <button align-items-start ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title color="white">Classement Individuel</ion-title>
   </ion-navbar>
+
+  <ion-row class="bg-dark wrap">
+    <!-- USER PP -->
+    <ion-col col-3>
+      <span class="user-pick"></span>
+    </ion-col>
+
+    <ion-col class="no-padding" col-9>
+      <!-- USERNAME -->
+      <ion-row class="text-col">
+        <ion-col col-7>
+          <h2 class="name">{{userService.user.username | titlecase}}</h2>
+        </ion-col>
+        <ion-col col-5><h2 class="rank">{{userService.user.rank}} e</h2></ion-col>
+      </ion-row>
+
+      <!-- USER INFO -->
+      <ion-row>
+        <ion-col col-4>
+          <ion-row>
+            <ion-col col-6><h5 class="points">{{userService.user.points}}</h5>
+            </ion-col>
+            <ion-col col-6><p>pts</p></ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-8><h5 class="rank-prog">+12 places</h5></ion-col>
+
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
 </ion-header>
 
 

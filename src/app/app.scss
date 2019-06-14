@@ -28,21 +28,23 @@
   TEXT STYLE
 ****************/
 
-h1,h2 {
+h1, h2 {
   font-family: $MontserratBold !important;
 }
 
-h3,h5,h6 {
+h3, h5, h6 {
   font-family: $Montserrat !important;
 }
 
 a, p {
-  font-family: $Noto-Sans;
+  font-family: $Montserrat;
+  font-weight: normal;
 }
 
 a {
   color: color($colors, tt-blue, base);
 }
+
 /****************
   NAVBAR STYLE
 ****************/
@@ -143,7 +145,7 @@ a {
   RANK CARD STYLE
 ****************/
 
-.ranking-card{
+.ranking-card {
   height: 40px;
   width: auto;
 }
@@ -158,34 +160,16 @@ a {
 }
 
 .ranking-card .rank {
-  padding-left:0.5rem;
+  padding-left: 0.5rem;
   font-family: "Montserrat Bold" !important;
   font-size: 15px;
   text-align: end;
 }
 
-.ranking-card .rank-prog {
-  padding-right:0.5rem;
-  padding-left: 0;
-  text-align: center !important;
-}
-
-.ranking-card .rank-inc {
-  color: color($colors, tt-green, base);
-}
-
-.ranking-card .rank-dec {
-  color: color($colors, tt-red, base);
-}
-
-.ranking-card .rank-eq {
-  color: white;
-}
-
-.ranking-card .points {
+.big-header .points, .ranking-card .points {
   color: color($colors, tt-red-alt, base);
   font-family: "Montserrat Bold" !important;
-  padding-right:0.5rem;
+  padding-right: 0.5rem;
   font-size: 15px;
   text-align: end;
 }
@@ -193,7 +177,7 @@ a {
 .ranking-card .name {
   font-family: "Montserrat" !important;
   font-weight: normal;
-  padding-left:0.5rem;
+  padding-left: 0.5rem;
   font-size: 15px;
   text-align: start;
 }
@@ -359,17 +343,17 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
   font-size: 3rem;
 }
 
-/***********
+/****************
   NBA TEAM LOGO
- */
+****************/
 
 .nba-logo {
   width: 65px !important;
 }
 
-/***********
-  List
- */
+/****************
+  LIST
+****************/
 
 .wide-list {
   width: 100%;
@@ -382,4 +366,69 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
   font-family: "Noto Sans";
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+/****************
+  LIST
+****************/
+
+.big-header {
+  color: white;
+}
+
+.big-header .wrap {
+  padding-bottom: 10px;
+
+}
+
+.big-header .col .col {
+  color: white;
+  padding: 1px;
+}
+
+.big-header .user-pick {
+  margin-left: 15px;
+}
+
+.big-header .points {
+  color: white;
+  text-align: left !important;
+}
+
+.big-header .name {
+  height: 30px;
+  text-align: left !important;
+}
+
+.big-header .rank {
+  padding-right: 2rem;
+  margin: 0 !important;
+  text-align: right !important;
+}
+
+.big-header .rank-prog {
+  padding-right: 2rem;
+  padding-left: 0;
+  text-align: right !important;
+}
+
+.big-header .rank-inc {
+  color: color($colors, tt-green, base);
+}
+
+.big-header.rank-dec {
+  color: color($colors, tt-red, base);
+}
+
+.big-header .rank-eq {
+  color: white;
+}
+
+.big-header p, .big-header h5, .big-header h2 {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.big-header h5, .big-header p {
+  margin-bottom: 5px !important;
 }
