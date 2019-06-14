@@ -11,11 +11,7 @@ export class NbaDataProvider {
   nbaApiUrl: string = 'http://data.nba.net/10s';
 
   links: NBALinks = new NBALinks();
-  games: NBAGame[] = new Array<NBAGame>();
   NBATeamsColors: Map<string, NBATeamColors>;
-
-  //NBATeamsColors: Array<{ tricode: string, colors: NBATeamColors }>;
-
 
   /***
    * Initializes the service by getting all the links
@@ -57,73 +53,42 @@ export class NbaDataProvider {
     this.NBATeamsColors.set('WAS', new NBATeamColors('#002b5c', '#e31837'));
   }
 
-  getLinksPromise(): Promise<any> {
+  getPromise(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      //console.log("Promise to " + this.nbaApiUrl + "/prod/v1/today.json");
-
-      this.http.get(this.nbaApiUrl + "/prod/v1/today.json")
-        .subscribe(success => resolve(success), error => reject(error));
+      //console.log("Promise to " + url);
+      this.http.get(url).subscribe(success => resolve(success), error => reject(error));
     });
   }
 
-  getSchedulePromise(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      //console.log("Promise to " + this.nbaApiUrl + this.links.leagueSchedule);
+  getLinksPromise(): Promise<any> {
+    return this.getPromise(this.nbaApiUrl + "/prod/v1/today.json");
+  }
 
-      this.http.get(this.nbaApiUrl + this.links.leagueSchedule)
-        .subscribe(success => resolve(success), error => reject(error));
-    })
+  getSchedulePromise(): Promise<any> {
+    return this.getPromise(this.nbaApiUrl + this.links.leagueSchedule);
   }
 
   getTeamInfoPromise(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      //console.log("Promise to " + this.nbaApiUrl + this.links.teamsConfig);
-
-      this.http.get(this.nbaApiUrl + this.links.teamsConfig)
-        .subscribe(success => resolve(success), error => reject(error));
-    })
-
+    return this.getPromise(this.nbaApiUrl + this.links.teamsConfig);
   }
 
   getRosterPromise(team: NBATeam): Promise<any> {
-    return new Promise((resolve, reject) => {
-      let rosterUrl = this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
-      //console.log("Promise to " + this.nbaApiUrl + rosterUrl);
-
-      this.http.get(this.nbaApiUrl + rosterUrl)
-        .subscribe(success => resolve(success), error => reject(error));
-    })
-
+    let rosterUrl = this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
+    return this.getPromise(rosterUrl);
   }
 
   getPlayerPromise(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      //console.log("Promise to " + this.nbaApiUrl + this.links.leagueRosterPlayers);
-
-      this.http.get(this.nbaApiUrl + this.links.leagueRosterPlayers)
-        .subscribe(success => resolve(success), error => reject(error));
-    })
+    return this.getPromise(this.nbaApiUrl + this.links.leagueRosterPlayers);
   }
 
   getPlayerSeasonStatsPromise(player: NBAPlayer): Promise<any> {
-    return new Promise((resolve, reject) => {
-      let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId.toString());
-      //console.log("Promise to " + this.nbaApiUrl + profileUrl);
-
-      this.http.get(this.nbaApiUrl + profileUrl)
-        .subscribe(success => resolve(success), error => reject(error));
-    })
-
+    let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId.toString());
+    return this.getPromise(profileUrl);
   }
 
   getPlayerLastGameStatsPromise(player: NBAPlayer): Promise<any> {
-    return new Promise((resolve, reject) => {
-      let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId.toString());
-      //console.log("Promise to " + this.nbaApiUrl + gamelogUrl);
-
-      this.http.get(this.nbaApiUrl + gamelogUrl)
-        .subscribe(success => resolve(success), error => reject(error));
-    })
+    let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId.toString());
+    return this.getPromise(gamelogUrl);
   }
 
 }
