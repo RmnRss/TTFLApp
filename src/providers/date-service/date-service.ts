@@ -63,10 +63,24 @@ export class DateServiceProvider {
    * returns a week based on its number
    * @param weekNumber
    */
-  getWeek(weekNumber: number): Array<NBADay> {
+  getWeek(monday: Date): Array<NBADay> {
+    //TODO: Fix bug for sundays
+
     let weekDays = new Array<NBADay>();
 
-    //TODO: Implement
+    //let curr = new Date('January 19, 2019');
+    let curr = monday;
+
+    for (let i = 1; i <= 7; i++) {
+      let gameDay = new NBADay();
+
+      // first day of the week
+      let first = curr.getDate() - curr.getDay() + i;
+      let day = new Date(curr.setDate(first));
+
+      gameDay.date = day;
+      weekDays.push(gameDay);
+    }
 
     return weekDays;
   }
