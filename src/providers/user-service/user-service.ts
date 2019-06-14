@@ -66,7 +66,7 @@ export class UserServiceProvider {
     this.getUserInfoPromise(id)
       .then(resp => {
         this.user = resp;
-        this.presentToast('Bienvenu ' + this.user.username).then();
+        this.presentToast('Bienvenue ' + this.user.username).then();
       }, error => {
         this.presentToast('Erreur: Impossible de récupérer l\'utilisateur ').then();
       });

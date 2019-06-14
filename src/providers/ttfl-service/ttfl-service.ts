@@ -16,8 +16,9 @@ export class TtflProvider {
   };
 
   constructor(public http: HttpClient,
-              public toastCtrl: ToastController) {
-    console.log('Hello TtflProvider Provider');
+              public toastCtrl: ToastController)
+  {
+
   }
 
   /**********************************************************************
@@ -73,7 +74,6 @@ export class TtflProvider {
    */
   updatePickPromise(existingPickId: number, player: NBAPlayer, user: User, date: Date): Promise<any> {
     let url = this.apiUrl + "picks/" + existingPickId;
-    console.log("put @ " + url);
 
     return new Promise((resolve, reject) => {
       this.http.put(url, {

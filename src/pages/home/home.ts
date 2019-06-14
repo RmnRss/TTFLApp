@@ -15,8 +15,8 @@ import {NBAGame} from "../../class/NBA/NBAGame";
 })
 export class HomePage {
 
-  picks: TTFLPick[];
-  NBADaysOfTheWeek = this.dateProvider.getCurrentWeek();
+  picks: Array<TTFLPick>;
+  NBADaysOfTheWeek: Array<NBADay>;
 
   /***
    * Initializes the user information on page creation
@@ -29,6 +29,8 @@ export class HomePage {
               public TTFLService: TtflProvider) {
     //Gets the user info once he's logged in
     this.userService.getUserInfo(this.userService.user.id);
+    this.NBADaysOfTheWeek = this.dateProvider.getWeek(new Date());
+    this.picks = new Array<TTFLPick>();
   }
 
   /***
@@ -40,16 +42,11 @@ export class HomePage {
         this.NBAService.links = res.links;
       })
       .then(next => {
-        this.picks = new Array<TTFLPick>();
-
         for (let gameDay of this.NBADaysOfTheWeek) {
-          let pick = new TTFLPick();
-          pick.gameDate = gameDay;
-
           // Get the games
           this.NBAService.getSchedulePromise()
-            .then(res => {
-              let allNBAGames = res.league.standard;
+            .then(schedule => {
+              let allNBAGames = schedule.league.standard;
 
               for (let anNBAGame of allNBAGames) {
 
@@ -72,25 +69,26 @@ export class HomePage {
                   gameDay.nbaGames.push(tempNBAGame);
                 }
               }
-            })
-            .then(next => {
 
-              this.TTFLService.getPickOfUserPromise(pick.gameDate.date, this.userService.user)
-                .then(res => {
-                  for (let result of res) {
+              if (gameDay.hasGames()) {
+
+                this.TTFLService.getPickOfUserPromise(gameDay.date, this.userService.user)
+                  .then(pickReceived => {
+                    let pick = new TTFLPick();
+                    pick.gameDate = gameDay;
                     // If a pick has already been chosen this week we get the information about all the picks
-                    if (result.size != 0) {
+                    if (pickReceived.length != 0) {
                       pick.hasPlayer = true;
 
-                      pick.nbaPlayer.personId = result.nbaPlayerId;
-                      pick.score = result.score;
-                      pick.bestPick = result.bestPick;
-                      pick.worstPick = result.worstPick;
-                      pick.isUpdated = result.isUpdated;
+                      pick.nbaPlayer.personId = pickReceived[0].nbaPlayerId;
+                      pick.score = pickReceived[0].score;
+                      pick.bestPick = pickReceived[0].bestPick;
+                      pick.worstPick = pickReceived[0].worstPick;
+                      pick.isUpdated = pickReceived[0].isUpdated;
 
                       this.NBAService.getPlayerPromise()
-                        .then(res => {
-                          for (let player of res.league.standard) {
+                        .then(allPlayers => {
+                          for (let player of allPlayers.league.standard) {
                             if (player.personId == pick.nbaPlayer.personId) {
                               pick.nbaPlayer.firstName = player.firstName;
                               pick.nbaPlayer.lastName = player.lastName;
@@ -98,10 +96,8 @@ export class HomePage {
                               pick.nbaPlayer.team = player.teams[player.teams.length - 1];
 
                               this.NBAService.getTeamInfoPromise()
-                                .then(res => {
-                                  let allTeams = res.teams.config;
-
-                                  for (let team of allTeams) {
+                                .then(allTeams => {
+                                  for (let team of allTeams.teams.config) {
 
                                     if (pick.nbaPlayer.team.teamId == team.teamId) {
                                       pick.nbaPlayer.team.tricode = team.tricode;
@@ -112,16 +108,18 @@ export class HomePage {
                                   }
 
                                   this.picks.push(pick);
-
-                                })
+                                });
                             }
                           }
                         });
                     } else {
-                      //has no pick
+                      //has no picks
+                      this.picks.push(pick);
                     }
-                  }
-                });
+
+                  });
+
+              }
             });
         }
       });
