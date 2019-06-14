@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {NBALinks} from "../../class/NBA/NBALinks";
 import {NBATeam} from "../../class/NBA/NBATeam";
 import {NBAPlayer} from "../../class/NBA/NBAPlayer";
-import {NBAGame} from "../../class/NBA/NBAGame";
 import {NBATeamColors} from "../../class/NBA/NBATeamColors";
 
 @Injectable()
@@ -73,7 +72,7 @@ export class NbaDataProvider {
   }
 
   getRosterPromise(team: NBATeam): Promise<any> {
-    let rosterUrl = this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
+    let rosterUrl = this.nbaApiUrl + this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
     return this.getPromise(rosterUrl);
   }
 
@@ -82,12 +81,12 @@ export class NbaDataProvider {
   }
 
   getPlayerSeasonStatsPromise(player: NBAPlayer): Promise<any> {
-    let profileUrl = this.links.playerProfile.replace("{{personId}}", player.personId.toString());
+    let profileUrl = this.nbaApiUrl + this.links.playerProfile.replace("{{personId}}", player.personId.toString());
     return this.getPromise(profileUrl);
   }
 
   getPlayerLastGameStatsPromise(player: NBAPlayer): Promise<any> {
-    let gamelogUrl = this.links.playerGameLog.replace("{{personId}}", player.personId.toString());
+    let gamelogUrl = this.nbaApiUrl + this.links.playerGameLog.replace("{{personId}}", player.personId.toString());
     return this.getPromise(gamelogUrl);
   }
 
