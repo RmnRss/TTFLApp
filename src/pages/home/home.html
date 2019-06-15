@@ -11,7 +11,7 @@
 
   <div *ngFor="let pick of picks">
     <!-- PICK CARDS -->
-    <ion-card (click)="showGamePage(pick.gameDate)" *ngIf="pick.gameDate.hasGames()" class="pick-card round-edges">
+    <ion-card (click)="showGamePage(pick.gameDate)" *ngIf="pick.gameDate.hasGames()" class="pick-card round-edges"> <!--[class.disabled]="pick.gameDate.hasStarted()"-->
 
       <ion-card-content class="no-padding">
         <ion-row class="inner-card">

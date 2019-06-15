@@ -94,6 +94,10 @@ a {
   COMMON TRAITS
 ****************/
 
+.disabled {
+  pointer-events: none;
+}
+
 .round-edges {
   border-radius: 7px;
 }
