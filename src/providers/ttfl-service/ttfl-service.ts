@@ -90,6 +90,9 @@ export class TtflProvider {
     })
   }
 
+  /***
+   * Returns all the picks of Yesterday
+   */
   getResultsOfYesterday(): Promise<any> {
     let url = this.apiUrl + "picks/results";
     return new Promise((resolve, reject) => {
@@ -136,6 +139,24 @@ export class TtflProvider {
    */
   getAllPicksOfUserPromise(user: User): Promise<any> {
     let url = this.apiUrl + "picks/ofUser?userId=" + user.id;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        success => {
+          resolve(success);
+        }, error => {
+          reject(error);
+        });
+    })
+  }
+
+  /***
+   * Returns the promise to get the pick of a user for a specific date
+   * @param date
+   * @param user
+   */
+  getBannedNBAPlayersOfUserPromise(user: User): Promise<any> {
+    let url = this.apiUrl + "picks/bannedPlayers?userId=" + user.id;
 
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(

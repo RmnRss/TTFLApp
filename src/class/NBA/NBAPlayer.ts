@@ -10,6 +10,8 @@ export class NBAPlayer {
   apg: number;
   team: NBATeam;
   selected: boolean;
+  isInjured:boolean;
+  isAvailable: boolean;
 
   constructor() {
     this.personId = 0;
@@ -20,5 +22,8 @@ export class NBAPlayer {
     this.rpg = 0;
     this.apg = 0;
     this.team = new NBATeam();
+    this.selected = false;
+    this.isInjured = false;
+    this.isAvailable = true;
   }
 }

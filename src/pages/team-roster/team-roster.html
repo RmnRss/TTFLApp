@@ -7,8 +7,9 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card (click)="showPlayerStats(player)" *ngFor="let player of roster" class="player-card round-edges">
+<ion-content padding class="bg-grey">
+  <ion-card (click)="showPlayerStats(player)" *ngFor="let player of roster" class="player-card round-edges"
+            [class.unAvailable]="!player.isAvailable">
     <ion-row>
       <!-- JERSEY DRAWING -->
       <ion-col col-2>
@@ -41,17 +42,17 @@
         </ion-row>
       </ion-col>
 
-      <ion-col (click)="selectPlayer(player)" [class.highlight]="player.selected" col-2>
+      <ion-col (click)="selectPlayer(player)" [class.highlight]="player.selected" *ngIf="player.isAvailable" col-2>
         <ion-icon class="icon" name="checkmark-circle"></ion-icon>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <div *ngIf="selectedPlayer.personId != 0" class="empty-space">
 
-    </ion-row>
+    </div>
   </ion-card>
 
-  <ion-fab *ngIf="selectedPlayer != undefined">
+  <ion-fab *ngIf="selectedPlayer.personId != 0">
     <button ion-fab color="primary" (click)="confirmPick()">Ajouter au deck</button>
   </ion-fab>
 

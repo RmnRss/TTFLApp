@@ -19,7 +19,8 @@ export class TeamRosterPage {
 
   date: Date;
 
-  roster: NBAPlayer[];
+  roster: Array<NBAPlayer>;
+  bannedPlayersIds: Array<number>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -28,12 +29,8 @@ export class TeamRosterPage {
               public userProvider: UserServiceProvider,
               public ttflProvider: TtflProvider) {
     this.selectedTeam = new NBATeam();
-    this.selectedPlayer = new NBAPlayer();
     this.date = new Date();
     this.roster = new Array<NBAPlayer>();
-
-    this.selectedTeam = this.navParams.get('selectedTeam');
-    this.date = this.navParams.get('selectedDate');
   }
 
   ionViewDidLoad() {
@@ -41,48 +38,66 @@ export class TeamRosterPage {
   }
 
   ionViewCanEnter() {
-    console.log(this.selectedTeam);
+    // Initialization
+    this.bannedPlayersIds = new Array<number>();
+    this.selectedPlayer = new NBAPlayer();
 
-    this.nbaDataProvider.getRosterPromise(this.selectedTeam)
-      .then(res => {
-          this.roster = res.league.standard.players;
-        }
-      )
-      .then(res => {
-        this.nbaDataProvider.getPlayerPromise().then(res => {
-          let allPlayers = res.league.standard;
-          let numberOfPlayers = 0;
+    this.selectedTeam = this.navParams.get('selectedTeam');
+    this.date = this.navParams.get('selectedDate');
 
-          for (let teamPlayer of this.roster) {
-
-            for (let aPlayer of allPlayers) {
-
-              if (teamPlayer.personId == aPlayer.personId) {
-                this.roster[numberOfPlayers].firstName = aPlayer.firstName;
-                this.roster[numberOfPlayers].lastName = aPlayer.lastName;
-                this.roster[numberOfPlayers].jersey = aPlayer.jersey;
-                this.roster[numberOfPlayers].team = this.selectedTeam;
-                numberOfPlayers++;
-              }
-
+    this.ttflProvider.getBannedNBAPlayersOfUserPromise(this.userProvider.user).then(response => {
+      this.bannedPlayersIds = response.data;
+    }).then(next => {
+      this.nbaDataProvider.getRosterPromise(this.selectedTeam)
+        .then(res => {
+            let fullRoster = res.league.standard.players;
+            for (let player of fullRoster) {
+              let tempPlayer = new NBAPlayer();
+              tempPlayer.personId = player.personId;
+              this.roster.push(tempPlayer);
             }
           }
-        })
-          .then(res => {
-            for (let player of this.roster) {
-              this.nbaDataProvider.getPlayerSeasonStatsPromise(player)
-                .then(res => {
-                  let seasonStats = res.league.standard.stats.latest;
+        )
+        .then(res => {
+          this.nbaDataProvider.getPlayerPromise().then(res => {
+            let allPlayers = res.league.standard;
+            let numberOfPlayers = 0;
 
-                  player.ppg = seasonStats.ppg;
-                  player.rpg = seasonStats.rpg;
-                  player.apg = seasonStats.apg;
+            for (let teamPlayer of this.roster) {
 
-                })
+              for (let aPlayer of allPlayers) {
+
+                if (teamPlayer.personId == aPlayer.personId) {
+                  this.roster[numberOfPlayers].firstName = aPlayer.firstName;
+                  this.roster[numberOfPlayers].lastName = aPlayer.lastName;
+                  this.roster[numberOfPlayers].jersey = aPlayer.jersey;
+                  this.roster[numberOfPlayers].team = this.selectedTeam;
+                  numberOfPlayers++;
+                }
+
+              }
             }
           })
-      });
+            .then(res => {
+              for (let player of this.roster) {
+
+                this.isAvailable(player);
+
+                this.nbaDataProvider.getPlayerSeasonStatsPromise(player)
+                  .then(res => {
+                    let seasonStats = res.league.standard.stats.latest;
+
+                    player.ppg = seasonStats.ppg;
+                    player.rpg = seasonStats.rpg;
+                    player.apg = seasonStats.apg;
+
+                  })
+              }
+            })
+        });
+    });
   }
+
 
   showPlayerStats(selectedPlayer: NBAPlayer) {
     //this.navCtrl.push('PlayerPage', {selectedPlayer: selectedPlayer});
@@ -96,6 +111,16 @@ export class TeamRosterPage {
     player.selected = true;
     this.selectedPlayer = player;
     return player;
+  }
+
+  isAvailable(player: NBAPlayer) {
+    for (let id of this.bannedPlayersIds) {
+      console.log(player.isAvailable);
+      if (id == player.personId) {
+        player.isAvailable = false;
+        console.log(player.isAvailable);
+      }
+    }
   }
 
   postPick(nbaPlayer: NBAPlayer, user: User, date: Date) {

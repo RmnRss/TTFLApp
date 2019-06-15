@@ -24,8 +24,6 @@ export class DailyGamesPage {
               public dateProvider: DateServiceProvider) {
     this.selectedDate = this.navParams.get('selectedDate');
     this.dateStr = this.dateProvider.dateToNBAString(this.selectedDate);
-
-    this.games = this.navParams.get('nbaGames');
   }
 
   ionViewDidLoad() {
@@ -33,6 +31,8 @@ export class DailyGamesPage {
   }
 
   ionViewCanEnter() {
+    this.games = this.navParams.get('nbaGames');
+
     this.nbaDataProvider.getTeamInfoPromise()
       .then(res => {
         let allTeams = res.teams.config;

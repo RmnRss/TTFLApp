@@ -16,6 +16,10 @@ page-team-roster {
     margin-left: 10px;
   }
 
+  .unAvailable{
+    background-color: color($colors, tt-grey-alt, base);
+  }
+
   ion-fab {
     top: 90%;
     left: 22%;
@@ -25,5 +29,12 @@ page-team-roster {
     width: 200px;
     height: 40px;
     border-radius: 100px;
+  }
+
+  empty-space {
+    margin-bottom: 60px;
+    display: block;
+    background-color: transparent;
+
   }
 }
