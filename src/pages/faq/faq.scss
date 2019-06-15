@@ -1,0 +1,14 @@
+page-faq {
+  b {
+    color: color($colors, tt-red-alt, base);
+  }
+
+  .uppercase {
+    font-size: small;
+  }
+
+  .card-md, .card-ios {
+    width: auto;
+  }
+
+}

@@ -1,0 +1,33 @@
+<ion-header *ngIf="fromLogin">
+
+  <ion-navbar>
+    <ion-title>FAQ</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-header *ngIf="!fromLogin">
+  <ion-navbar hideBackButton>
+    <button align-items-start ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title color="white">Les règles</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <!--FAQ PART-->
+  <ion-row>
+    <ion-card class="round-edges no-side-margin">
+      <ion-card-header>
+        <ion-card-title>FAQ</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+
+</ion-content>
