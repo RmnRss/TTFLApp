@@ -1,4 +1,12 @@
-<ion-header class="bg-red">
+<ion-header *ngIf="fromLogin">
+
+  <ion-navbar>
+    <ion-title>Les règles</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-header *ngIf="!fromLogin">
   <ion-navbar hideBackButton>
     <button align-items-start ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -8,6 +16,75 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="bg-grey">
 
+  <!--OBJECTIVES PART-->
+  <ion-row>
+    <ion-card class="round-edges no-side-margin">
+      <ion-card-header>
+        <ion-card-title>But du Jeu</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <p>Vous pensez connaître la NBA mieux que quiconque ?
+            Deviner le futur en vous basant sur vos instincts ?
+            Ou vous souhaitez simplement passer une année au top en jouant à un jeu ultra addictif avec d'autres
+            passionnés ?
+            Quoi qu'il en soit, vous êtes au bon endroit : Bienvenue dans la <b>Trashtalk Fantasy League</b> !
+          </p>
+        </ion-row>
+        <ion-row>
+          <ul>
+            <li><p>450 joueurs disponibles</p></li>
+            <li><p>170 soirées sur lesquelles parier</p></li>
+            <li><p>25 semaines intenses</p></li>
+            <li><p>7 joueurs par semaine</p></li>
+            <li><p>1 vainqueur</p></li>
+          </ul>
+        </ion-row>
+
+        <ion-row style="margin-bottom: 5px">
+          <h2>Le but du jeu dans la TTFL ?</h2>
+        </ion-row>
+
+        <ion-row>
+          <p>Terminer avec le plus de points possible, en pariant sur ceux qui prendront feu, et ainsi obtenir les
+            précieux droits de chambrer vos semblables pendant des mois.
+            Aucune règle budgétaire, aucun poste imposé, zéro restriction sur les joueurs disponibles : ils seront plus
+            de 450 à vous tendre la main, en espérant faire exploser votre score.
+            Attention cependant, vous ne pourrez pas prendre Lebron ou Curry tous les soirs. Lorsque cous choisissez un
+            joueur, il devient indisponible pour les <b>30 jours</b> suivants. Faites donc les bons choix, montrez qui est le
+            boss !</p>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+
+  <!--POINTS PART-->
+  <ion-row>
+    <ion-card class="round-edges no-side-margin">
+      <ion-card-header>
+        <ion-card-title>Calcul des points</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <p>Afin de départager chaque joueur participant à la TTFL, nous avons mis en place un algorithme précis, qui
+            prend en compte de nombreux critères statistiques.
+            De cette façon, vous pourrez mieux savoir qui prendre et qui éviter en fonction de ses spécialités.
+          </p>
+        </ion-row>
+        <ion-row class="center-row-content" style="margin-bottom: 5px; margin-top: 5px">
+          <p class="uppercase">POINTS + REBONDS + PASSES + INTERCEPTIONS + CONTRES + TIRS REUSSIS + 3 POINTS REUSSIS + LANCERS REUSSIS</p>
+          <p class="uppercase">(-)</p>
+          <p class="uppercase">balles perdues + tires ratés + trois points ratés + lancers ratés</p>
+        </ion-row>
+
+        <ion-row>
+          <p>Simple comme bonjour ! Toutes les autres questions liées à la TTFL sont disponibles dans FAQ, pour le reste
+            vous connaissez la formule : que le meilleur gagne !
+          </p>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
 </ion-content>

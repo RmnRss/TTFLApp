@@ -24,15 +24,19 @@
   background-color: color($colors, tt-red, base);
 }
 
+.bg-grey{
+  background-color: color($colors, tt-grey, base);;
+}
+
 /****************
   TEXT STYLE
 ****************/
 
-h1, h2 {
+ion-card-title, h1, h2 {
   font-family: $MontserratBold !important;
 }
 
-h3, h5, h6 {
+h3, h4, h5, h6 {
   font-family: $Montserrat !important;
 }
 
@@ -43,8 +47,14 @@ p {
 
 a {
   color: color($colors, tt-blue, base);
-  font-family: $Montserrat;
+  font-family: $Noto-Sans;
   font-weight: normal;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
 }
 
 /****************
@@ -87,7 +97,16 @@ a {
 }
 
 .no-padding {
-  padding: 0 0 0 0;
+  padding: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-side-margin {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .center {
