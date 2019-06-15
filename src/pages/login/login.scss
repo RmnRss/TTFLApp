@@ -30,4 +30,14 @@ page-login {
     margin-left: 165px;
     margin-bottom: 2rem;
   }
+
+  .bullet {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    background-color: color($colors, tt-blue, base);
+    border-radius: 50%;
+    margin-right: 5px;
+  }
 }

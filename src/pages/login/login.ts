@@ -49,6 +49,14 @@ export class LoginPage {
   }
 
   forgotPassword() {
+  //TODO : Implementst
+  }
 
+  showRules() {
+    this.navCtrl.push('RulesPage',{'fromLogin':true});
+  }
+
+  showFAQ() {
+    this.navCtrl.push('FaqPage',{'fromLogin':true});
   }
 }
