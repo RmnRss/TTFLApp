@@ -28,4 +28,11 @@ page-ttfl-team {
     box-shadow: 5px 10px;
   }
 
+  .form .item-md, .form .item-ios {
+    color: black;
+  }
+
+  .form .label-md[stacked], .form .label-ios[stacked] {
+    color: black;
+  }
 }

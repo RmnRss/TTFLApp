@@ -63,7 +63,7 @@ export class TtflTeamPage {
    */
   createTeam(name: string) {
     this.TTFLService.createTeam(this.userService.user, name)
-      .then((res:TTFLTeam) => {
+      .then((res: TTFLTeam) => {
         this.userService.updateUserTeamPromise(this.userService.user.id, res.id)
           .then(end => {
             this.navCtrl.setRoot('TtflTeamPage');
@@ -95,7 +95,7 @@ export class TtflTeamPage {
 
     this.TTFLService.getTeamByNamePromise(val)
       .then(response => {
-
+        this.teamsFound = response;
       }, error => {
         console.log(error);
       })
