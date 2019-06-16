@@ -34,12 +34,9 @@ export class TtflTeamRankingPage {
         console.log(error);
       });
 
-    this.TTFLService.getTeamPromise(this.userService.user)
+    this.TTFLService.getTeamOfUser(this.userService.user)
       .then(result => {
-        this.userTeam.id = result.id;
-        this.userTeam.name = result.mid;
-        this.userTeam.rank = result.rank;
-        this.userTeam.points = result.last;
+        this.userTeam = result;
       }, error => {
         console.log(error);
       });

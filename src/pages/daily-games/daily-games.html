@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Matchs du {{selectedDate | date: 'd MMMM': undefined : 'fr-FR' | titlecase}}</ion-title>
+    <ion-title>Matchs du {{selectedDay.date | date: 'd MMMM': undefined : 'fr-FR' | titlecase}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="bg-grey">
 
   <!-- GAME CARD -->
-  <ion-card *ngFor="let game of games" class="round-edges">
+  <ion-card *ngFor="let game of selectedDay.nbaGames" class="round-edges">
     <ion-card-content>
 
       <ion-row>

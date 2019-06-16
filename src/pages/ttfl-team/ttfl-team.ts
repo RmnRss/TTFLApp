@@ -16,9 +16,9 @@ export class TtflTeamPage {
 
   // Creation or search variables
   teamName: string;
-  showCreationCard: boolean = false;
-  showSearchCard: boolean = false;
   searchedTerms: string;
+
+  teamsFound: Array<TTFLTeam>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -29,12 +29,9 @@ export class TtflTeamPage {
 
   ionViewCanEnter() {
     if (this.userService.userHasTeam()) {
-      this.TTFLService.getTeamPromise(this.userService.user)
+      this.TTFLService.getTeamOfUser(this.userService.user)
         .then(result => {
-          this.userTeam.id = result.id;
-          this.userTeam.name = result.mid;
-          this.userTeam.rank = result.rank;
-          this.userTeam.points = result.last;
+          this.userTeam = result;
         }, error => {
           console.log(error);
         })
@@ -55,18 +52,6 @@ export class TtflTeamPage {
     } else {
 
     }
-  }
-
-  showTeamSearch() {
-    this.showSearchCard = true;
-  }
-
-  showCreateTeam() {
-    this.showCreationCard = true;
-  }
-
-  setTeamName(value: string) {
-    this.teamName = value;
   }
 
   createTeam(name: string) {
@@ -94,7 +79,17 @@ export class TtflTeamPage {
       });
   }
 
-  searchTeam(searchedTerms: string) {
+  searchTeam(ev: any) {
+    // set val to the value of the searchbar
+    const val = ev.target.value;
 
+    //TODO : Add API Search
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.teamsFound = this.teamsFound.filter((team) => {
+        return (team.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
 }

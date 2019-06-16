@@ -3,6 +3,11 @@ import {Injectable} from '@angular/core';
 import {NBAPlayer} from "../../class/NBA/NBAPlayer";
 import {User} from "../../class/TTFL/user";
 import {ToastController} from "ionic-angular";
+import {TTFLTeam} from "../../class/TTFL/TTFLTeam";
+import {TTFLPick} from "../../class/TTFL/TTFLPick";
+import {NBADay} from "../../class/NBA/NBADay";
+import {DateServiceProvider} from "../date-service/date-service";
+import {NbaDataProvider} from "../nba-service/NBA-service";
 
 @Injectable()
 export class TtflProvider {
@@ -16,8 +21,9 @@ export class TtflProvider {
   };
 
   constructor(public http: HttpClient,
-              public toastCtrl: ToastController)
-  {
+              public toastCtrl: ToastController,
+              public dateService: DateServiceProvider,
+              public NBAService: NbaDataProvider) {
 
   }
 
@@ -109,23 +115,45 @@ export class TtflProvider {
    * @param date
    * @param user
    */
-  getPickOfUserPromise(date: Date, user: User): Promise<any> {
+  getPickOfUser(day: NBADay, user: User): Promise<any> {
     let url = this.apiUrl + "picks";
+
 
     // Formating date for the database
     // Specific time is not needed
-    date.setUTCHours(0);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
+    day.date.setUTCHours(0);
+    day.date.setUTCMinutes(0);
+    day.date.setUTCSeconds(0);
+    day.date.setUTCMilliseconds(0);
 
-    let filter = {"where": {"userId": user.id, "date": date}};
+    let filter = {"where": {"userId": user.id, "date": day.date}};
     let params = new HttpParams().set("filter", JSON.stringify(filter));
 
     return new Promise((resolve, reject) => {
       this.http.get(url, {params: params}).subscribe(
-        success => {
-          resolve(success);
+        (received: any) => {
+          let pick = new TTFLPick();
+          pick.gameDate = day;
+
+          // If a pick has already been chosen this week we get the information about all the picks
+          if (received.length != 0) {
+            pick.hasPlayer = true;
+
+            pick.nbaPlayer.personId = received[0].nbaPlayerId;
+            pick.score = received[0].score;
+            pick.bestPick = received[0].bestPick;
+            pick.worstPick = received[0].worstPick;
+            pick.isUpdated = received[0].isUpdated;
+
+            this.NBAService.getNBAPlayer(pick.nbaPlayer.personId)
+              .then(player => {
+                pick.nbaPlayer = player;
+              });
+
+            resolve(pick);
+          } else {
+            resolve(pick);
+          }
         }, error => {
           reject(error);
         });
@@ -198,12 +226,19 @@ export class TtflProvider {
 
   }
 
-  getTeamPromise(user: User): Promise<any> {
+  getTeamOfUser(user: User): Promise<any> {
     let url = this.apiUrl + "ttflTeams/" + user.teamId;
 
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe(success => {
-        resolve(success);
+      this.http.get(url).subscribe((success: TTFLTeam) => {
+        let userTeam = new TTFLTeam();
+
+        userTeam.id = success.id;
+        userTeam.name = success.name;
+        userTeam.rank = success.rank;
+        userTeam.points = success.points;
+
+        resolve(userTeam);
       }, error => {
         reject(error);
       });

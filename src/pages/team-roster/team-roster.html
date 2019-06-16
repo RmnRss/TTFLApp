@@ -46,14 +46,13 @@
         <ion-icon class="icon" name="checkmark-circle"></ion-icon>
       </ion-col>
     </ion-row>
-
-    <div *ngIf="selectedPlayer.personId != 0" class="empty-space">
-
-    </div>
   </ion-card>
 
   <ion-fab *ngIf="selectedPlayer.personId != 0">
     <button ion-fab color="primary" (click)="confirmPick()">Ajouter au deck</button>
   </ion-fab>
 
+  <div *ngIf="selectedPlayer.personId != 0" class="empty-space">
+
+  </div>
 </ion-content>

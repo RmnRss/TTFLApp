@@ -21,6 +21,14 @@ export class DateServiceProvider {
   }
 
   /***
+   * Formats the date to a string we can use with the NBA API
+   * @param date
+   */
+  dateToAPIString(theDate: Date): string {
+    return this.datePipe.transform(theDate, 'yyyy' + 'MM' + 'dd') + 'T00:00:00.000Z';
+  }
+
+  /***
    * Counts the number of weeks starting from a specific date
    * @param year
    * @param month_number

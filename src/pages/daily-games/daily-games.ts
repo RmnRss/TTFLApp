@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {NBAGame} from "../../class/NBA/NBAGame";
-import {NbaDataProvider} from "../../providers/nba-service/nba-service";
+import {NbaDataProvider} from "../../providers/nba-service/NBA-service";
 import {NBATeam} from "../../class/NBA/NBATeam";
 import {DateServiceProvider} from "../../providers/date-service/date-service";
+import {NBADay} from "../../class/NBA/NBADay";
 
 @IonicPage()
 @Component({
@@ -12,18 +13,11 @@ import {DateServiceProvider} from "../../providers/date-service/date-service";
 })
 export class DailyGamesPage {
 
-  games: NBAGame[] = new Array<NBAGame>();
-
-  selectedDate: Date;
-
-  dateStr: string;
+  selectedDay: NBADay;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public nbaDataProvider: NbaDataProvider,
-              public dateProvider: DateServiceProvider) {
-    this.selectedDate = this.navParams.get('selectedDate');
-    this.dateStr = this.dateProvider.dateToNBAString(this.selectedDate);
+              public nbaDataProvider: NbaDataProvider) {
   }
 
   ionViewDidLoad() {
@@ -31,36 +25,26 @@ export class DailyGamesPage {
   }
 
   ionViewCanEnter() {
-    this.games = this.navParams.get('nbaGames');
+    this.selectedDay = this.navParams.get('selectedDay');
 
-    this.nbaDataProvider.getTeamInfoPromise()
-      .then(res => {
-        let allTeams = res.teams.config;
+    for (let game of this.selectedDay.nbaGames) {
 
-        for (let game of this.games) {
+      this.nbaDataProvider.getNBATeam(game.hTeam)
+        .then(team => {
+          game.hTeam = team;
+        });
 
-          for (let team of allTeams) {
-
-            if (game.hTeam.teamId == team.teamId) {
-              game.hTeam.tricode = team.tricode;
-              game.hTeam.ttsName = team.ttsName;
-              game.hTeam.colors = this.nbaDataProvider.NBATeamsColors.get(game.hTeam.tricode);
-            }
-
-            if (game.vTeam.teamId == team.teamId) {
-              game.vTeam.tricode = team.tricode;
-              game.vTeam.ttsName = team.ttsName;
-              game.vTeam.colors = this.nbaDataProvider.NBATeamsColors.get(game.vTeam.tricode);
-            }
-          }
-        }
-      });
+      this.nbaDataProvider.getNBATeam(game.vTeam)
+        .then(team => {
+          game.vTeam = team;
+        });
+    }
   }
 
   showRoster(selectedTeam: NBATeam) {
     this.navCtrl.push('TeamRosterPage', {
       selectedTeam: selectedTeam,
-      selectedDate: this.selectedDate
+      selectedDay: this.selectedDay
     });
   }
 }

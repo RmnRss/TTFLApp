@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {TTFLPick} from "../../class/TTFL/TTFLPick";
-import {NbaDataProvider} from "../../providers/nba-service/nba-service";
+import {NbaDataProvider} from "../../providers/nba-service/NBA-service";
 
 
 @IonicPage()
@@ -37,18 +37,9 @@ export class TtflDailyPickRankingPage {
           tempPick.bestPick = pick.bestPick;
           tempPick.worstPick = pick.worstPick;
 
-          this.NBAService.getPlayerPromise()
-            .then(players => {
-              for (let player of players.league.standard) {
-                if (player.personId == tempPick.nbaPlayer.personId) {
-                  tempPick.nbaPlayer.firstName = player.firstName;
-                  tempPick.nbaPlayer.lastName = player.lastName;
-                  tempPick.nbaPlayer.jersey = player.jersey;
-                  tempPick.nbaPlayer.team = player.teams[player.teams.length - 1];
-                }
-              }
-
-              console.log(tempPick);
+          this.NBAService.getNBAPlayer(pick.nbaPlayerId)
+            .then(player => {
+              tempPick.nbaPlayer = player;
               this.picks.push(tempPick);
             });
         }

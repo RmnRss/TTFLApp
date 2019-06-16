@@ -14,6 +14,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
+  newEmail: string;
+  newPassword: string;
+  confirmPassword: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -22,4 +25,11 @@ export class SettingsPage {
     console.log('ionViewDidLoad SettingsPage');
   }
 
+  changeEmail(newEmail: string) {
+
+  }
+
+  changePassword(newPassword: string, confirmPassword: string) {
+
+  }
 }

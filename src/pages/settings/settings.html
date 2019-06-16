@@ -10,4 +10,75 @@
 
 <ion-content padding class="bg-grey">
 
+  <!--OBJECTIVES PART-->
+  <ion-row>
+    <ion-card class="round-edges no-side-margin">
+      <ion-card-header>
+        <ion-card-title>Mes accès</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-list class="wide-list">
+            <ion-item>
+              <ion-label stacked class="uppercase">email</ion-label>
+              <ion-input class="round-edges"
+                         type="email"
+                         [(ngModel)]="newEmail" id="newEmailInput"
+                         (keyup.enter)="changeEmail(newEmail)"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked class="uppercase">Mot de passe</ion-label>
+              <ion-input class="round-edges"
+                         type="password"
+                         [(ngModel)]="newPassword" id="newPassword"
+                         (keyup.enter)="changePassword(newPassword, confirmPassword)"
+              ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked class="uppercase">Mot de passe</ion-label>
+              <ion-input class="round-edges"
+                         type="password"
+                         [(ngModel)]="confirmPassword" id="confirmPassword"
+                         (keyup.enter)="changePassword(newPassword, confirmPassword)"
+              ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+
+  <!--OBJECTIVES PART-->
+  <ion-row>
+    <ion-card class="round-edges no-side-margin">
+      <ion-card-header>
+        <ion-card-title>Mes infos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <p>Pour défendre les couleurs de ta région dans le championnat de France de TTFL.</p>
+        </ion-row>
+        <ion-row>
+          <ion-list class="wide-list">
+            <ion-item>
+              <ion-label>Région</ion-label>
+              <ion-select>
+                <ion-option value="pays de la loire">Pays de la Loire</ion-option>
+                <ion-option value="bretagne">Bretagne</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label>Année de naissance</ion-label>
+              <ion-select>
+                <ion-option value="1995">1995</ion-option>
+                <ion-option value="1994">1994</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+
 </ion-content>

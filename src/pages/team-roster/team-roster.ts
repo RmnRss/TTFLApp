@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {NbaDataProvider} from "../../providers/nba-service/nba-service";
+import {NbaDataProvider} from "../../providers/nba-service/NBA-service";
 import {NBATeam} from "../../class/NBA/NBATeam";
 import {NBAPlayer} from "../../class/NBA/NBAPlayer";
 import {User} from "../../class/TTFL/user";
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {UserServiceProvider} from "../../providers/user-service/user-service";
+import {NBADay} from "../../class/NBA/NBADay";
 
 @IonicPage()
 @Component({
@@ -17,7 +18,7 @@ export class TeamRosterPage {
   selectedTeam: NBATeam;
   selectedPlayer: NBAPlayer;
 
-  date: Date;
+  day: NBADay;
 
   roster: Array<NBAPlayer>;
   bannedPlayersIds: Array<number>;
@@ -28,9 +29,7 @@ export class TeamRosterPage {
               public nbaDataProvider: NbaDataProvider,
               public userProvider: UserServiceProvider,
               public ttflProvider: TtflProvider) {
-    this.selectedTeam = new NBATeam();
-    this.date = new Date();
-    this.roster = new Array<NBAPlayer>();
+
   }
 
   ionViewDidLoad() {
@@ -39,64 +38,33 @@ export class TeamRosterPage {
 
   ionViewCanEnter() {
     // Initialization
+    this.selectedTeam = new NBATeam();
+    this.day = new NBADay();
+    this.roster = new Array<NBAPlayer>();
     this.bannedPlayersIds = new Array<number>();
     this.selectedPlayer = new NBAPlayer();
 
     this.selectedTeam = this.navParams.get('selectedTeam');
-    this.date = this.navParams.get('selectedDate');
+    this.day = this.navParams.get('selectedDay');
 
-    this.ttflProvider.getBannedNBAPlayersOfUserPromise(this.userProvider.user).then(response => {
-      this.bannedPlayersIds = response.data;
-    }).then(next => {
-      this.nbaDataProvider.getRosterPromise(this.selectedTeam)
-        .then(res => {
-            let fullRoster = res.league.standard.players;
-            for (let player of fullRoster) {
-              let tempPlayer = new NBAPlayer();
-              tempPlayer.personId = player.personId;
-              this.roster.push(tempPlayer);
+    this.ttflProvider.getBannedNBAPlayersOfUserPromise(this.userProvider.user)
+      .then(response => {
+        this.bannedPlayersIds = response.data;
+      })
+      .then(next => {
+        this.nbaDataProvider.getNBATeamRoster(this.selectedTeam)
+          .then(roster => {
+            console.log(roster);
+
+            this.roster = roster;
             }
-          }
-        )
-        .then(res => {
-          this.nbaDataProvider.getPlayerPromise().then(res => {
-            let allPlayers = res.league.standard;
-            let numberOfPlayers = 0;
-
+          )
+          .then(res => {
             for (let teamPlayer of this.roster) {
-
-              for (let aPlayer of allPlayers) {
-
-                if (teamPlayer.personId == aPlayer.personId) {
-                  this.roster[numberOfPlayers].firstName = aPlayer.firstName;
-                  this.roster[numberOfPlayers].lastName = aPlayer.lastName;
-                  this.roster[numberOfPlayers].jersey = aPlayer.jersey;
-                  this.roster[numberOfPlayers].pos = aPlayer.pos;
-                  this.roster[numberOfPlayers].team = this.selectedTeam;
-                  numberOfPlayers++;
-                }
-
-              }
+              this.isAvailable(teamPlayer);
             }
-          })
-            .then(res => {
-              for (let player of this.roster) {
-
-                this.isAvailable(player);
-
-                this.nbaDataProvider.getPlayerSeasonStatsPromise(player)
-                  .then(res => {
-                    let seasonStats = res.league.standard.stats.latest;
-
-                    player.ppg = seasonStats.ppg;
-                    player.rpg = seasonStats.rpg;
-                    player.apg = seasonStats.apg;
-
-                  })
-              }
-            })
-        });
-    });
+          });
+      });
   }
 
 
@@ -116,20 +84,16 @@ export class TeamRosterPage {
 
   isAvailable(player: NBAPlayer) {
     for (let id of this.bannedPlayersIds) {
-      console.log(player.isAvailable);
       if (id == player.personId) {
         player.isAvailable = false;
-        console.log(player.isAvailable);
       }
     }
   }
 
-  postPick(nbaPlayer: NBAPlayer, user: User, date: Date) {
-    this.ttflProvider.getPickOfUserPromise(date, this.userProvider.user).then(res => {
-      console.log(res);
-      console.log("size " + res.length);
+  postPick(nbaPlayer: NBAPlayer, user: User, day: NBADay) {
+    this.ttflProvider.getPickOfUser(day, this.userProvider.user).then(res => {
       if (res.length == 0) {
-        this.ttflProvider.postPickPromise(nbaPlayer, user, date).then(
+        this.ttflProvider.postPickPromise(nbaPlayer, user, day.date).then(
           resp => {
             this.presentToast('Pick selectionné : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
             this.navCtrl.setRoot('HomePage');
@@ -139,7 +103,7 @@ export class TeamRosterPage {
             console.log(error);
           })
       } else {
-        this.ttflProvider.updatePickPromise(res[0].id, nbaPlayer, user, date).then(resp => {
+        this.ttflProvider.updatePickPromise(res[0].id, nbaPlayer, user, day.date).then(resp => {
           this.presentToast('Pick mis à jour : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
           this.navCtrl.setRoot('HomePage');
           console.log(resp);
@@ -153,7 +117,7 @@ export class TeamRosterPage {
   }
 
   confirmPick() {
-    this.postPick(this.selectedPlayer, this.userProvider.user, this.date);
+    this.postPick(this.selectedPlayer, this.userProvider.user, this.day);
   }
 
   async presentToast(msg: string) {

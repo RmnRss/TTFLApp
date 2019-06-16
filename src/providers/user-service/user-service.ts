@@ -30,6 +30,8 @@ export class UserServiceProvider {
    * @param username
    */
   createUser(email: string, password: string, username: string) {
+    // TODO: Hash password before sending it
+
     let url = this.apiUrl + "users";
 
     this.http.post(url, {
@@ -103,11 +105,31 @@ export class UserServiceProvider {
    * @param password
    */
   postLoginPromise(login: string, password: string): Promise<any> {
+    // TODO: Hash password before sending it
     let url = this.apiUrl + "users/login";
     return new Promise((resolve, reject) => {
       this.http.post(url, {
         username: login,
         password: password,
+      }, this.httpOptions)
+        .subscribe(success => {
+          resolve(success);
+        }, error => {
+          reject(error);
+        });
+    })
+  }
+
+  /***
+   * Gets the promise to log out the user using the API
+   * @param login
+   * @param password
+   */
+  postLogOutPromise(accessToken:string): Promise<any> {
+    let url = this.apiUrl + "users/logout";
+    return new Promise((resolve, reject) => {
+      this.http.post(url, {
+
       }, this.httpOptions)
         .subscribe(success => {
           resolve(success);

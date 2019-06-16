@@ -6,7 +6,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 
 import {MyApp} from '../app/app.component';
-import {NbaDataProvider} from '../providers/nba-service/nba-service';
+import {NbaDataProvider} from '../providers/nba-service/NBA-service';
 import {DateServiceProvider} from '../providers/date-service/date-service';
 import {TtflProvider} from '../providers/ttfl-service/ttfl-service';
 import {LoginPage} from "../pages/login/login";
