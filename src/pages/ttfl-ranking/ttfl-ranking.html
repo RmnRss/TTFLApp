@@ -7,31 +7,19 @@
   </ion-navbar>
 
   <ion-row class="bg-dark wrap">
-    <!-- USER PP -->
+
+    <!--USER IMAGE-->
+    <!-- Displayed when the user has chosen a pick -->
     <ion-col col-3>
-      <span class="user-pick"></span>
+      <ion-row class="center-row-content">
+        <span class="user-pick"></span>
+      </ion-row>
     </ion-col>
 
-    <ion-col class="no-padding" col-9>
-      <!-- USERNAME -->
-      <ion-row class="text-col">
-        <ion-col col-7>
-          <h2 class="mid">{{userService.user.username | titlecase}}</h2>
-        </ion-col>
-        <ion-col col-5><h2 class="first">{{userService.user.rank}} e</h2></ion-col>
-      </ion-row>
-
-      <!-- USER INFO -->
+    <ion-col col-9>
+      <!--USER NAME-->
       <ion-row>
-        <ion-col col-4>
-          <ion-row>
-            <ion-col col-6><h5 class="last">{{userService.user.points}}</h5>
-            </ion-col>
-            <ion-col col-6><p>pts</p></ion-col>
-          </ion-row>
-        </ion-col>
-        <ion-col col-8><h5 class="rank-prog">+12 places</h5></ion-col>
-
+        <h2>{{userService.user.username | titlecase}}</h2>
       </ion-row>
     </ion-col>
 
@@ -39,15 +27,33 @@
 </ion-header>
 
 
-<ion-content padding class="bg-grey">
-  <ion-card *ngFor="let user of users" class="small-card round-edges">
-    <ion-card-content class="no-padding">
-      <ion-row>
-        <ion-col col-2><p class="first">{{user.rank}}</p></ion-col>
-        <ion-col col-6><p class="mid">{{user.username | titlecase}}</p></ion-col>
-        <ion-col col-4><p class="last"><b>{{user.points}}</b> pts</p>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
+<ion-content class="bg-grey">
+  <!-- STATS UNDER HEADER -->
+  <ion-row class="under-header">
+    <ion-col col-4>
+      <ion-row class="category-name"><p class="uppercase">Points</p></ion-row>
+      <ion-row class="number"><h2>{{userService.user.points}}</h2></ion-row>
+    </ion-col>
+    <ion-col col-4>
+      <ion-row class="category-name"><p class="uppercase">Rang</p></ion-row>
+      <ion-row class="number"><h2>{{userService.user.rank}}</h2></ion-row>
+    </ion-col>
+    <ion-col col-4>
+      <ion-row class="category-name"><p class="uppercase">PROG.</p></ion-row>
+      <ion-row class="number"><h2>+12</h2></ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="custom-padding">
+    <ion-card *ngFor="let user of users" class="small-card round-edges">
+      <ion-card-content class="no-padding">
+        <ion-row>
+          <ion-col col-2><p class="first">{{user.rank}}</p></ion-col>
+          <ion-col col-6><p class="mid">{{user.username | titlecase}}</p></ion-col>
+          <ion-col col-4><p class="last"><b>{{user.points}}</b> pts</p>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
 </ion-content>
