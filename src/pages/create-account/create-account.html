@@ -1,12 +1,14 @@
-<ion-content class="bg-dark" padding>
+<ion-header>
+  <ion-navbar>
+    <ion-title>Créer un compte</ion-title>
+  </ion-navbar>
+</ion-header>
 
-  <ion-row class="header">
-    <h1>CREER UN COMPTE</h1>
-  </ion-row>
+<ion-content class="bg-dark form" padding>
 
   <ion-row class="input-row">
     <ion-item>
-      <ion-label stacked>EMAIL</ion-label>
+      <ion-label floating>Email</ion-label>
       <ion-input class="round-edges"
                  type="email"
                  [(ngModel)]="email" id="emailInput"
@@ -17,7 +19,7 @@
 
   <ion-row class="input-row">
     <ion-item>
-      <ion-label stacked>IDENTIFIANT</ion-label>
+      <ion-label floating>Identifiant</ion-label>
       <ion-input class="round-edges"
                  type="text"
                  [(ngModel)]="username" id="usernameInput"
@@ -28,9 +30,10 @@
 
   <ion-row class="input-row">
     <ion-item>
-      <ion-label stacked>MOT DE PASSE</ion-label>
+      <ion-label floating>Mot de passe</ion-label>
       <ion-input class="round-edges"
                  type="password"
+                 minlength="5"
                  [(ngModel)]="password" id="passwordInput"
                  (keyup.enter)="createUser(email, password, username)"
       ></ion-input>

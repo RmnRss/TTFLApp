@@ -22,7 +22,7 @@ export class TtflDailyPickRankingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TtflDailyPickRankingPage');
+    //console.log('ionViewDidLoad TtflDailyPickRankingPage');
   }
 
   ionViewCanEnter() {

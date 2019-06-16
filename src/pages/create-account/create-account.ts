@@ -19,7 +19,7 @@ export class CreateAccountPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateAccountPage');
+    //console.log('ionViewDidLoad CreateAccountPage');
   }
 
   createUser(email: string, password: string, username: string) {

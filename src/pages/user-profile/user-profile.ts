@@ -27,7 +27,7 @@ export class UserProfilePage {
   }
 
   ionViewDidLoad() {
-    console.log('UserProfilePage');
+    //console.log('UserProfilePage');
   }
 
   ionViewCanEnter() {
@@ -56,7 +56,7 @@ export class UserProfilePage {
           this.NBAService.getNBAPlayer(pick.nbaPlayerId)
             .then(player => {
               tempPick.nbaPlayer = player;
-              console.log(tempPick);
+              //console.log(tempPick);
               this.userPicks.push(tempPick);
             });
         }

@@ -21,7 +21,7 @@ export class TtflRankingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TtflRankingPage');
+    //console.log('ionViewDidLoad TtflRankingPage');
   }
 
   ionViewCanEnter() {

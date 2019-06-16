@@ -15,7 +15,7 @@ export class FaqPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FaqPage');
+   // console.log('ionViewDidLoad FaqPage');
   }
 
   ionViewCanEnter(){

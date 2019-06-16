@@ -18,7 +18,7 @@ export class NbaDataProvider {
    * @param http
    */
   constructor(public http: HttpClient) {
-    console.log("NBA SERVICE READY");
+    //console.log("NBA SERVICE READY");
     this.initNBATeamsColors();
   }
 

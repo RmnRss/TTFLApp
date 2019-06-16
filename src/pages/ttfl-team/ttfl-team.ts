@@ -84,12 +84,5 @@ export class TtflTeamPage {
     const val = ev.target.value;
 
     //TODO : Add API Search
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.teamsFound = this.teamsFound.filter((team) => {
-        return (team.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
   }
 }

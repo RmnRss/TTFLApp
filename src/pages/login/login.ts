@@ -11,6 +11,10 @@ export class LoginPage {
 
   id: string;
   password: string;
+  error: string;
+
+  passwordType: string = 'password';
+  passwordShown: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -20,26 +24,28 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    //console.log('ionViewDidLoad LoginPage');
   }
 
   login(id: string, password: string) {
     this.userProvider.postLoginPromise(id, password)
       .then(resp => {
-        console.log("logging in...");
-        //this.connexionLoading();
-        this.userProvider.user.id = resp.userId;
+        this.connexionLoading();
         this.navCtrl.setRoot('HomePage');
       })
-      .catch(() => {
-        console.log("error")
+      .catch(status => {
+        if (status == 401) {
+          this.error = "Erreur lors de la connexion. \n Verifier vos identifiants";
+        } else {
+          this.error = "Erreur lors de la connexion.";
+        }
       })
   }
 
   connexionLoading() {
     const loader = this.loadingCtrl.create({
       content: "Connexion en cours",
-      duration: 3000
+      duration: 2000
     });
     loader.present();
   }
@@ -49,14 +55,24 @@ export class LoginPage {
   }
 
   forgotPassword() {
-  //TODO : Implementst
+    //TODO : Implement
   }
 
   showRules() {
-    this.navCtrl.push('RulesPage',{'fromLogin':true});
+    this.navCtrl.push('RulesPage', {'fromLogin': true});
   }
 
   showFAQ() {
-    this.navCtrl.push('FaqPage',{'fromLogin':true});
+    this.navCtrl.push('FaqPage', {'fromLogin': true});
+  }
+
+  togglePassword() {
+    if (this.passwordShown) {
+      this.passwordShown = false;
+      this.passwordType = 'password';
+    } else {
+      this.passwordShown = true;
+      this.passwordType = 'text';
+    }
   }
 }

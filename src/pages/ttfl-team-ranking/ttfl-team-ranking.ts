@@ -23,7 +23,7 @@ export class TtflTeamRankingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TtflTeamRankingPage');
+    //console.log('ionViewDidLoad TtflTeamRankingPage');
   }
 
   ionViewCanEnter() {

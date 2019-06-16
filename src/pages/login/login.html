@@ -1,4 +1,4 @@
-<ion-content class="bg-dark" padding>
+<ion-content class="bg-dark form" padding>
 
   <ion-row class="login-header brand-name-row">
     <h1>#TRASHTALK</h1>
@@ -16,9 +16,10 @@
 
   <ion-row class="input-row">
     <ion-item>
-      <ion-label stacked>IDENTIFIANT OU EMAIL</ion-label>
+      <ion-label floating>Identifiant ou Email</ion-label>
       <ion-input class="round-edges"
                  type="email"
+                 required
                  [(ngModel)]="id" id="idInput"
                  (keyup.enter)="login(id,password)"
       ></ion-input>
@@ -27,13 +28,18 @@
 
   <ion-row class="input-row">
     <ion-item>
-      <ion-label stacked>MOT DE PASSE</ion-label>
-      <ion-input class="round-edges"
-                 type="password"
-                 [(ngModel)]="password" id="passwordInput"
-                 (keyup.enter)="login(id,password)"
-      ></ion-input>
+        <ion-label floating>Mot de passe</ion-label>
+        <ion-input class="round-edges"
+                   [type]="passwordType"
+                   required
+                   [(ngModel)]="password" id="passwordInput"
+                   (keyup.enter)="login(id,password)"
+        ></ion-input>
+        <ion-icon name="eye-off" item-end (click)="togglePassword()" *ngIf="!passwordShown"></ion-icon>
+        <ion-icon name="eye" item-end (click)="togglePassword()" *ngIf="passwordShown"></ion-icon>
     </ion-item>
+    <p class="error">{{error}}</p>
+
   </ion-row>
 
   <ion-row>

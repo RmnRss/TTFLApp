@@ -6,82 +6,83 @@
     <ion-title color="white">Mon équipe</ion-title>
   </ion-navbar>
 
+  <ion-row class="bg-dark wrap" *ngIf="userService.userHasTeam()">
 
+    <!--USER IMAGE-->
+    <!-- Displayed when the user has chosen a pick -->
+    <ion-col col-3>
+      <ion-row class="center-row-content">
+        <span class="user-pick"></span>
+      </ion-row>
+    </ion-col>
+
+    <ion-col col-9>
+      <!-- USER TEAM NAME -->
+      <ion-row>
+        <h2>{{userTeam.name | titlecase}}</h2>
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
 </ion-header>
 
+<!-- USER HAS NO TEAM -->
+<ion-content padding class="bg-grey" *ngIf="!userService.userHasTeam()">
+  <ion-row>
+    <h2>Pas encore d'équipe ?</h2>
+  </ion-row>
 
-<ion-content padding class="bg-grey">
-  <!-- USER HAS NO TEAM -->
-  <div *ngIf="!userService.userHasTeam()">
+  <!-- SEARCH TEAM PART -->
+  <ion-row>
+    <ion-searchbar clearInput (ionInput)="searchTeam($event)"></ion-searchbar>
     <ion-row>
-      <h1>Pas encore de Team ?</h1>
+      <ion-card *ngFor="let team of teamsFound">
+        <ion-header><ion-card-title>{{team.name}}</ion-card-title></ion-header>
+        <ion-card-content><ion-card-title>{{team.name}}</ion-card-title></ion-card-content>
+      </ion-card>
     </ion-row>
-
-    <!-- SEARCH TEAM PART -->
-    <ion-card class="bg-dark round-edges">
-      <ion-card-content>
-        <ion-row class="input-row">
-          <ion-searchbar (ionInput)="searchTeam($event)"></ion-searchbar>
-          <ion-list>
-            <ion-item *ngFor="let team of teamsFound">
-              {{ team }}
-            </ion-item>
-          </ion-list>
-        </ion-row>
-
-        <ion-row class="button-row">
-          <button (click)="createTeam(teamName)" class="round-edges" ion-button>RECHERCHER</button>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-
-    <!-- CREATE TEAM PART -->
-    <ion-card class="bg-dark round-edges">
-      <ion-card-content>
-        <ion-row class="input-row">
-          <ion-item>
-            <ion-label stacked>NOM DE LA TEAM</ion-label>
-            <ion-input class="round-edges"
-                       type="text"
-                       [(ngModel)]="teamName" id="teamNameInput"
-                       (keyup.enter)="createTeam(teamName)"
-            ></ion-input>
-          </ion-item>
-        </ion-row>
-
-        <ion-row class="button-row">
-          <button (click)="createTeam(teamName)" class="round-edges" ion-button>CREER MA TEAM</button>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </div>
-
-  <!-- USER HAS TEAM -->
-  <div *ngIf="userService.userHasTeam()">
-
-    <!--TEAM IMAGE-->
-    <ion-row class="center-row-content">
-      <span class="team-pick"></span>
-    </ion-row>
-
-    <!--TEAM NAME-->
-    <ion-row class="center-row-content">
-      <h2>{{userTeam.name}}</h2>
-    </ion-row>
-
-    <!--TEAM INFO-->
-    <div>
-      <ion-row class="center-row-content">
-        <ion-badge>{{userTeam.points}} pts</ion-badge>
-        <ion-badge style="margin-left: 5px; margin-right: 5px;">{{userTeam.rank}} e</ion-badge>
-        <ion-badge>{{userTeam.members.length}} membres</ion-badge>
-      </ion-row>
-    </div>
-
-
-    <!--SEPARATOR-->
     <div class="separator"></div>
+  </ion-row>
 
+  <!-- CREATE TEAM PART -->
+  <ion-row>
+    <ion-item style="margin-bottom: 15px;">
+      <ion-label stacked
+                 class="uppercase"
+                 style="color: black;">Nom de l'équipe</ion-label>
+      <ion-input class="round-edges"
+                 type="text"
+                 [(ngModel)]="teamName" id="teamNameInput"
+                 (keyup.enter)="createTeam(teamName)"
+      ></ion-input>
+    </ion-item>
+  </ion-row>
+
+  <ion-row class="button-row">
+    <button (click)="createTeam(teamName)" class="round-edges" ion-button>Créer mon équipe</button>
+  </ion-row>
+</ion-content>
+
+<!-- USER HAS TEAM -->
+<ion-content class="bg-grey" *ngIf="userService.userHasTeam()">
+
+  <!-- TEAM INFO HEADER -->
+  <ion-row class="under-header">
+    <ion-col col-4>
+      <ion-row class="category-name"><p class="uppercase">Points</p></ion-row>
+      <ion-row class="number"><h2>{{userTeam.points}}</h2></ion-row>
+    </ion-col>
+    <ion-col col-4>
+      <ion-row class="category-name"><p class="uppercase">Rang</p></ion-row>
+      <ion-row class="number"><h2>{{userTeam.rank}}</h2></ion-row>
+    </ion-col>
+    <ion-col col-4>
+      <ion-row class="category-name"><p class="uppercase">Membres</p></ion-row>
+      <ion-row class="number"><h2>{{userTeam.members.length}}</h2></ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="custom-padding">
     <h3 class="uppercase">Membres</h3>
 
     <ion-card *ngFor="let member of userTeam.members" class="small-card round-edges">
@@ -93,9 +94,10 @@
         </ion-row>
       </ion-card-content>
     </ion-card>
+  </ion-row>
 
-    <ion-row class="button-row">
-      <button (click)="leaveTeam()" class="leave-team-button round-edges" ion-button>Quitter l'équipe</button>
-    </ion-row>
-  </div>
+  <ion-row class="button-row">
+    <button (click)="leaveTeam()" class="leave-team-button round-edges" ion-button>Quitter l'équipe</button>
+  </ion-row>
+
 </ion-content>

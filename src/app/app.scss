@@ -1,22 +1,11 @@
 // App Global Sass
 // --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
 
 /****************
   GENERAL STYLE
 ****************/
 
-.bg-dark {
+.menu-inner .bg-dark, .bg-dark {
   background-color: color($colors, tt-dark, base);
 }
 
@@ -55,7 +44,6 @@ a {
   font-family: $Noto-Sans-Bold;
   font-weight: normal;
   text-transform: uppercase;
-  text-align: center;
 }
 
 /****************
@@ -67,7 +55,7 @@ a {
 }
 
 .bar-button-default-md, .toolbar-title-md, .bar-button-default-ios, .toolbar-title-ios {
-  font-family: "Noto Sans Bold";
+  font-family: $Noto-Sans-Bold;
   color: white;
 }
 
@@ -87,7 +75,7 @@ a {
 
 .badge-md, .badge-ios {
   border-radius: 25px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: $Noto-Sans, sans-serif;
   font-weight: lighter;
 }
 
@@ -138,7 +126,7 @@ a {
   height: 3px;
   margin-left: auto;
   margin-right: auto;
-  background-color: color($colors, tt-red, base);
+  background-color: color($colors, tt-blue, base);
   border: 0 none;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -204,18 +192,18 @@ a {
 
 .small-card b {
   color: color($colors, tt-red-alt, base);
-  font-family: "Montserrat Bold", sans-serif !important;
+  font-family: $MontserratBold, sans-serif !important;
   font-weight: normal;
 }
 
 .small-card .first {
   padding-left: 1rem;
-  font-family: "Noto Sans Bold", sans-serif !important;
+  font-family: $Noto-Sans-Bold, sans-serif !important;
   text-align: start;
 }
 
 .small-card .mid {
-  font-family: "Noto Sans", sans-serif !important;
+  font-family: $Noto-Sans, sans-serif !important;
   padding-left: 1rem;
   text-align: start;
 }
@@ -257,10 +245,15 @@ a {
 
 .jersey-nbr {
   font-size: 2.1rem;
-  font-family: "Montserrat SemiBold", sans-serif;
+  font-family: $MontserratSemiBold, sans-serif;
   margin-top: -28px;
   text-align: center;
   color: white;
+}
+
+.jersey-padding {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 /****************
@@ -269,33 +262,6 @@ a {
 .input-row {
   margin-bottom: 2rem;
   margin-top: 2rem;
-}
-
-.input-cover {
-  position: static;
-}
-
-
-.item-md, .item-ios {
-  background-color: transparent;
-}
-
-ion-input {
-  background: white;
-}
-
-.item-inner {
-  border-bottom-color: transparent !important;
-  box-shadow: none !important;
-}
-
-.label-md[stacked], .label-ios[stacked] {
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.item-label-stacked .text-input-md, .item-ios.item-label-stacked .text-input {
-  margin-left: 10px;
 }
 
 /****************
@@ -372,6 +338,16 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
   color: #d2d2d2;
 }
 
+.drawer-page-list .item-inner {
+  border-bottom-color: transparent !important;
+  box-shadow: none !important;
+}
+
+
+.drawer-page-list .item-md, .drawer-page-list .item-ios {
+  background-color: transparent;
+}
+
 .page-group .item-md, .page-group .item-ios {
   padding-left: 25px;
 }
@@ -401,12 +377,12 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
 .wide-list {
   width: 100%;
   margin: 0 !important;
-  font-family: "Montserrat";
+  font-family: $Montserrat;
 }
 
 .list-header {
   text-transform: uppercase;
-  font-family: "Noto Sans";
+  font-family: $Noto-Sans;
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -500,8 +476,36 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
 }
 
 .under-header .uppercase {
-  font-family: "Noto Sans Bold", sans-serif;
+  font-family: $Noto-Sans-Bold, sans-serif;
   margin-bottom: 0;
   margin-top: 5px;
 }
+
+/****************
+  INPUTS FORM
+****************/
+
+.form .input-cover {
+  position: static;
+}
+
+.form .item-md, .form .item-ios {
+  background-color: transparent;
+  color: white;
+}
+
+.form .label-md[stacked], .form .label-ios[stacked] {
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.error{
+  color: color($colors, danger, base);
+  font-size: small;
+  padding-left: 16px;
+}
+
+
+
+
 

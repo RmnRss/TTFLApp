@@ -33,7 +33,7 @@ export class TeamRosterPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TeamRosterPage');
+    //console.log('ionViewDidLoad TeamRosterPage');
   }
 
   ionViewCanEnter() {
@@ -54,8 +54,6 @@ export class TeamRosterPage {
       .then(next => {
         this.nbaDataProvider.getNBATeamRoster(this.selectedTeam)
           .then(roster => {
-            console.log(roster);
-
             this.roster = roster;
             }
           )
@@ -97,7 +95,6 @@ export class TeamRosterPage {
           resp => {
             this.presentToast('Pick selectionné : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
             this.navCtrl.setRoot('HomePage');
-            console.log(resp);
           }, error => {
             this.presentToast('Erreur lors de l\'envoi du pick au serveur.');
             console.log(error);
@@ -106,7 +103,6 @@ export class TeamRosterPage {
         this.ttflProvider.updatePickPromise(res[0].id, nbaPlayer, user, day.date).then(resp => {
           this.presentToast('Pick mis à jour : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
           this.navCtrl.setRoot('HomePage');
-          console.log(resp);
         }, error => {
           this.presentToast('Erreur lors de l\'envoi du pick au serveur.');
           console.log(error);

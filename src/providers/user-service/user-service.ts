@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 
 import {Injectable} from '@angular/core';
 import {User} from "../../class/TTFL/user";
@@ -19,7 +19,7 @@ export class UserServiceProvider {
 
   constructor(public http: HttpClient,
               public toastCtrl: ToastController) {
-    console.log('Hello UserServiceProvider Provider');
+    //console.log('Hello UserServiceProvider Provider');
     this.user = new User();
   }
 
@@ -112,10 +112,11 @@ export class UserServiceProvider {
         username: login,
         password: password,
       }, this.httpOptions)
-        .subscribe(success => {
+        .subscribe((success:any) => {
+          this.user.id = success.userId;
           resolve(success);
-        }, error => {
-          reject(error);
+        }, (error: HttpErrorResponse) => {
+          reject(error.status);
         });
     })
   }

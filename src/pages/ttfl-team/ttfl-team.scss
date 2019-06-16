@@ -11,4 +11,21 @@ page-ttfl-team {
     border-radius: 50%;
     display: inline-block;
   }
+
+  .searchbar-md .searchbar-input, .searchbar-ios .searchbar-input {
+    border-radius: 25px !important;
+  }
+
+  .searchbar .button-md, .searchbar .button-ios {
+    background-color: transparent;
+  }
+
+  .uppercase {
+    text-align: start;
+  }
+
+  ion-input {
+    box-shadow: 5px 10px;
+  }
+
 }

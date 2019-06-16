@@ -21,7 +21,7 @@ export class PlayerStatsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PlayerStatsPage');
+    //console.log('ionViewDidLoad PlayerStatsPage');
   }
 
   ionViewCanEnter(){

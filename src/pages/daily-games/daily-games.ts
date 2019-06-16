@@ -19,7 +19,7 @@ export class DailyGamesPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DailyGamesPage');
+    //console.log('ionViewDidLoad DailyGamesPage');
   }
 
   ionViewCanEnter() {
