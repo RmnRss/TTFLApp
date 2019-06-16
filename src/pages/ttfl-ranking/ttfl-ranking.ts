@@ -24,6 +24,9 @@ export class TtflRankingPage {
     //console.log('ionViewDidLoad TtflRankingPage');
   }
 
+  /***
+   * Loads the rankings
+   */
   ionViewCanEnter() {
     this.ttflService.getUsersRankingPromise().then(
       response => {

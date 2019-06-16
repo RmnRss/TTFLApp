@@ -26,6 +26,9 @@ export class TtflTeamRankingPage {
     //console.log('ionViewDidLoad TtflTeamRankingPage');
   }
 
+  /***
+   * Loads the teams ranking
+   */
   ionViewCanEnter() {
     this.TTFLService.getTeamsRankingPromise().then(
       response => {

@@ -30,6 +30,9 @@ export class UserProfilePage {
     //console.log('UserProfilePage');
   }
 
+  /***
+   * Loads the user's information
+   */
   ionViewCanEnter() {
     //Team Info
     if (this.userService.userHasTeam()) {
@@ -66,6 +69,9 @@ export class UserProfilePage {
       });
   }
 
+  /***
+   *
+   */
   getUsersPick() {
     //TODO :  Implements
   }

@@ -21,7 +21,7 @@ export class DateServiceProvider {
   }
 
   /***
-   * Formats the date to a string we can use with the NBA API
+   * Formats the date to a string we can use with the TTFL API
    * @param date
    */
   dateToAPIString(theDate: Date): string {

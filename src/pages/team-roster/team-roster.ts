@@ -36,6 +36,11 @@ export class TeamRosterPage {
     //console.log('ionViewDidLoad TeamRosterPage');
   }
 
+  /***
+   * Reloads the page's roster everytime the page is loaded
+   * See BannedNBAPlayer method from TTFLService
+   * See getNBATeamRoster method from NBAService for more information
+   */
   ionViewCanEnter() {
     // Initialization
     this.selectedTeam = new NBATeam();
@@ -65,11 +70,18 @@ export class TeamRosterPage {
       });
   }
 
-
+  /***
+   * Loads the NBA Player stats page
+   * @param selectedPlayer
+   */
   showPlayerStats(selectedPlayer: NBAPlayer) {
     this.navCtrl.push('PlayerStatsPage', {selectedPlayer: selectedPlayer});
   }
 
+  /***
+   * Select an NBA Player form the list
+   * @param player
+   */
   selectPlayer(player: NBAPlayer): NBAPlayer {
     for (let rosterPlayer of this.roster) {
       rosterPlayer.selected = false;
@@ -80,6 +92,10 @@ export class TeamRosterPage {
     return player;
   }
 
+  /***
+   * Checks if a player from the roster is on the banned list
+   * @param player
+   */
   isAvailable(player: NBAPlayer) {
     for (let id of this.bannedPlayersIds) {
       if (id == player.personId) {
@@ -88,6 +104,12 @@ export class TeamRosterPage {
     }
   }
 
+  /***
+   * Post the Pick of the user
+   * @param nbaPlayer selected for the pick
+   * @param user who made the pick
+   * @param day NBA Day for the pick
+   */
   postPick(nbaPlayer: NBAPlayer, user: User, day: NBADay) {
     this.ttflProvider.getPickOfUser(day, this.userProvider.user).then(res => {
       if (res.length == 0) {
@@ -112,10 +134,18 @@ export class TeamRosterPage {
     });
   }
 
+  /***
+   * Calls the postPick method onc the button is pushed
+   */
   confirmPick() {
     this.postPick(this.selectedPlayer, this.userProvider.user, this.day);
   }
 
+  /***
+   * Shows a toast
+   * Called in postPick
+   * @param msg
+   */
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,

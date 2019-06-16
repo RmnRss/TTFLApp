@@ -27,6 +27,12 @@ export class LoginPage {
     //console.log('ionViewDidLoad LoginPage');
   }
 
+  /***
+   * Logs the user in
+   * Depending on the HTTPS GET Response we either displays errors or load the HomePage
+   * @param id
+   * @param password
+   */
   login(id: string, password: string) {
     this.userProvider.postLoginPromise(id, password)
       .then(resp => {
@@ -42,6 +48,9 @@ export class LoginPage {
       })
   }
 
+  /***
+   * Shows a loader for the connexion
+   */
   connexionLoading() {
     const loader = this.loadingCtrl.create({
       content: "Connexion en cours",
@@ -50,22 +59,37 @@ export class LoginPage {
     loader.present();
   }
 
+  /***
+   * Loads the account creation page
+   */
   goToCreateAccount() {
     this.navCtrl.push('CreateAccountPage');
   }
 
+  /***
+   * Uses the API to reset the users password
+   */
   forgotPassword() {
     //TODO : Implement
   }
 
+  /***
+   * Loads the rules page
+   */
   showRules() {
     this.navCtrl.push('RulesPage', {'fromLogin': true});
   }
 
+  /***
+   * Loads the FAQ page
+   */
   showFAQ() {
     this.navCtrl.push('FaqPage', {'fromLogin': true});
   }
 
+  /***
+   * Hides or show password using the http parameter type
+   */
   togglePassword() {
     if (this.passwordShown) {
       this.passwordShown = false;

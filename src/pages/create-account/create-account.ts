@@ -22,6 +22,13 @@ export class CreateAccountPage {
     //console.log('ionViewDidLoad CreateAccountPage');
   }
 
+  /***
+   * Creates a user using the userService method
+   * Then loads the login page
+   * @param email
+   * @param password
+   * @param username
+   */
   createUser(email: string, password: string, username: string) {
     this.userService.createUser(email, password, username);
     this.navCtrl.push('LoginPage');

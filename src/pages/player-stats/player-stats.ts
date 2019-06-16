@@ -24,12 +24,14 @@ export class PlayerStatsPage {
     //console.log('ionViewDidLoad PlayerStatsPage');
   }
 
+  /***
+   * Loads the NBAPlayer and the related picks everytime the page is reloaded
+   */
   ionViewCanEnter(){
     this.NBAPlayer = new NBAPlayer();
     this.NBAPlayer = this.navParams.get('selectedPlayer');
 
     this.picks = new Array<TTFLPick>();
-
   }
 
 }

@@ -25,6 +25,9 @@ export class TtflDailyPickRankingPage {
     //console.log('ionViewDidLoad TtflDailyPickRankingPage');
   }
 
+  /***
+   * Loads the picks from API to be displayed
+   */
   ionViewCanEnter() {
     //TODO : get all yesterday's pick and rank them
     this.ttflService.getResultsOfYesterday().then(

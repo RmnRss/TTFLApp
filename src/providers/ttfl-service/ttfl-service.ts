@@ -213,8 +213,7 @@ export class TtflProvider {
 
       this.http.post(url, {
         name: teamName,
-      })
-        .subscribe(success => {
+      }).subscribe(success => {
             this.presentToast("Votre équipe a bien été créée");
             resolve(success);
           }, error => {
@@ -246,7 +245,7 @@ export class TtflProvider {
   }
 
   /***
-   *
+   * Search the API for a team with a specific name
    * @param date
    * @param user
    */
@@ -283,6 +282,9 @@ export class TtflProvider {
     })
   }
 
+  /***
+   * Get teams ranked
+   */
   getTeamsRankingPromise(): Promise<any> {
     let url = this.apiUrl + "ttflTeams/ranking";
 
@@ -296,6 +298,10 @@ export class TtflProvider {
     })
   }
 
+  /***
+   * Creates a toast of 2 sec
+   * @param msg text to display on the toast
+   */
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,

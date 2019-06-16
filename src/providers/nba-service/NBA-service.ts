@@ -22,6 +22,10 @@ export class NbaDataProvider {
     this.initNBATeamsColors();
   }
 
+  /***
+   * General method to get a Promise
+   * @param url
+   */
   getPromise(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       //console.log("Promise to " + url);
@@ -29,10 +33,17 @@ export class NbaDataProvider {
     });
   }
 
+  /***
+   * Gets all the links needed from the NBA API
+   */
   getLinksPromise(): Promise<any> {
     return this.getPromise(this.nbaApiUrl + "/prod/v1/today.json");
   }
 
+  /***
+   * Returns a promise containing the nbaTeam
+   * @param nbaTeam to fill
+   */
   getNBATeam(nbaTeam: NBATeam): Promise<any> {
     let url = this.nbaApiUrl + this.links.teamsConfig;
 
@@ -52,10 +63,12 @@ export class NbaDataProvider {
         reject(error);
       });
     });
-
-
   }
 
+  /***
+   * Gets the roster (all players) of an NBA Team
+   * @param team
+   */
   getNBATeamRoster(team: NBATeam): Promise<any> {
     let url = this.nbaApiUrl + this.links.teamRoster.replace("{{teamUrlCode}}", team.teamId);
 
@@ -86,6 +99,10 @@ export class NbaDataProvider {
     })
   }
 
+  /***
+   * Get an NBA Player based on its personID
+   * @param id of the NBAPlayer on the NBA API
+   */
   getNBAPlayer(id: number): Promise<any> {
     let url = this.nbaApiUrl + this.links.leagueRosterPlayers;
 
@@ -117,6 +134,10 @@ export class NbaDataProvider {
     });
   }
 
+  /***
+   * Gets the information about a specific player
+   * @param player to fill
+   */
   getPlayerSeasonStatsPromise(player: NBAPlayer): Promise<any> {
     let url = this.nbaApiUrl + this.links.playerProfile.replace("{{personId}}", player.personId.toString());
     return new Promise((resolve, reject) => {
@@ -132,11 +153,19 @@ export class NbaDataProvider {
     });
   }
 
+  /***
+   * Gets the last game of a player stats
+   * @param player
+   */
   getPlayerLastGameStatsPromise(player: NBAPlayer): Promise<any> {
     let gamelogUrl = this.nbaApiUrl + this.links.playerGameLog.replace("{{personId}}", player.personId.toString());
     return this.getPromise(gamelogUrl);
   }
 
+  /***
+   * Gets the game for a specific date
+   * @param date at which the games take place
+   */
   getGames(date: string): Promise<any> {
     let url = this.nbaApiUrl + this.links.leagueSchedule;
 
@@ -173,6 +202,9 @@ export class NbaDataProvider {
     });
   }
 
+  /***
+   * Initialize all colors of the NBA Teams while the NBA API is still bugged on this part
+   */
   private initNBATeamsColors() {
     this.NBATeamsColors = new Map<string, NBATeamColors>();
 

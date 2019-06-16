@@ -27,6 +27,9 @@ export class TtflTeamPage {
 
   }
 
+  /***
+   * Loads the user's team infos
+   */
   ionViewCanEnter() {
     if (this.userService.userHasTeam()) {
       this.TTFLService.getTeamOfUser(this.userService.user)
@@ -54,16 +57,16 @@ export class TtflTeamPage {
     }
   }
 
+  /***
+   * Creates a team on the api and updates the current user
+   * @param name given to the new team
+   */
   createTeam(name: string) {
     this.TTFLService.createTeam(this.userService.user, name)
-      .then(next => {
-        this.TTFLService.getTeamByNamePromise(name)
-          .then(response => {
-            this.userService.updateUserTeamPromise(this.userService.user.id, response[0].id).then(end => {
-              this.navCtrl.setRoot('TtflTeamPage');
-            }, error => {
-              console.log(error);
-            })
+      .then((res:TTFLTeam) => {
+        this.userService.updateUserTeamPromise(this.userService.user.id, res.id)
+          .then(end => {
+            this.navCtrl.setRoot('TtflTeamPage');
           }, error => {
             console.log(error);
           })
@@ -72,6 +75,9 @@ export class TtflTeamPage {
       });
   }
 
+  /***
+   * Removes the current player from the team
+   */
   leaveTeam() {
     this.userService.updateUserTeamPromise(this.userService.user.id, null)
       .then(() => {
@@ -79,10 +85,20 @@ export class TtflTeamPage {
       });
   }
 
+  /***
+   * Send get request to the API to get the teams
+   * @param ev
+   */
   searchTeam(ev: any) {
     // set val to the value of the searchbar
     const val = ev.target.value;
 
+    this.TTFLService.getTeamByNamePromise(val)
+      .then(response => {
+
+      }, error => {
+        console.log(error);
+      })
     //TODO : Add API Search
   }
 }

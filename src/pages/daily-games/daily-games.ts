@@ -22,6 +22,9 @@ export class DailyGamesPage {
     //console.log('ionViewDidLoad DailyGamesPage');
   }
 
+  /***
+   * At each loading gets the remaining information about all the games
+   */
   ionViewCanEnter() {
     this.selectedDay = this.navParams.get('selectedDay');
 
@@ -39,6 +42,10 @@ export class DailyGamesPage {
     }
   }
 
+  /***
+   * Loads roster page with the selected team
+   * @param selectedTeam
+   */
   showRoster(selectedTeam: NBATeam) {
     this.navCtrl.push('TeamRosterPage', {
       selectedTeam: selectedTeam,
