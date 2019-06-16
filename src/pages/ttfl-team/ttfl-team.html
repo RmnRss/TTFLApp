@@ -8,7 +8,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="bg-grey">
   <!-- USER HAS NO TEAM -->
   <div *ngIf="!userService.userHasTeam()">
     <ion-row>
@@ -90,13 +90,17 @@
     <!--SEPARATOR-->
     <div class="separator"></div>
 
-    <ion-list class="wide-list" inset>
-      <ion-list-header>MEMBRES</ion-list-header>
-      <ion-item *ngFor="let member of userTeam.members">
-        <ion-label>{{member.username}}</ion-label>
-        <ion-note item-end>{{member.points}}</ion-note>
-      </ion-item>
-    </ion-list>
+    <h3 class="uppercase">Membres</h3>
+
+    <ion-card *ngFor="let member of userTeam.members" class="small-card round-edges">
+      <ion-card-content class="no-padding">
+        <ion-row>
+          <ion-col col-8><p class="mid">{{member.username}}</p></ion-col>
+          <ion-col col-4><p class="last"><b>{{member.points}}</b> pts</p>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
 
     <ion-row class="button-row">
       <button (click)="leaveTeam()" class="leave-team-button round-edges" ion-button>Quitter l'équipe</button>

@@ -29,7 +29,7 @@ export class HomePage {
               public TTFLService: TtflProvider) {
     //Gets the user info once he's logged in
     this.userService.getUserInfo(this.userService.user.id);
-    this.NBADaysOfTheWeek = this.dateProvider.getWeek(new Date());
+    this.NBADaysOfTheWeek = this.dateProvider.getWeek(new Date('19 April, 2019'));
   }
 
   /***

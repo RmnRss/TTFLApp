@@ -24,7 +24,7 @@
   background-color: color($colors, tt-red, base);
 }
 
-.bg-grey{
+.bg-grey {
   background-color: color($colors, tt-grey, base);
 }
 
@@ -140,6 +140,16 @@ a {
 }
 
 /****************
+  CARD STYLE
+****************/
+
+.card-md {
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/****************
   PICK CARD STYLE
 ****************/
 
@@ -170,41 +180,43 @@ a {
 }
 
 /****************
-  RANK CARD STYLE
+  SMALL CARD STYLE
 ****************/
 
-.ranking-card {
+.small-card {
   height: 40px;
   width: auto;
 }
 
-.ranking-card ion-row {
+.small-card ion-row {
   height: 40px;
 }
 
-.ranking-card h5 {
+.small-card p {
   margin-top: 6px !important;
-
 }
 
-.ranking-card .rank {
+.small-card b {
+  color: color($colors, tt-red-alt, base);
+  font-family: "Montserrat Bold", sans-serif !important;
+  font-weight: normal;
+}
+
+.small-card .first {
   padding-left: 0.5rem;
-  font-family: "Montserrat Bold" !important;
+  font-family: "Montserrat Bold", sans-serif !important;
   font-size: 15px;
   text-align: end;
 }
 
-.big-header .points, .ranking-card .points {
-  color: color($colors, tt-red-alt, base);
-  font-family: "Montserrat Bold" !important;
+.big-header .last, .small-card .last {
   padding-right: 0.5rem;
   font-size: 15px;
   text-align: end;
 }
 
-.ranking-card .name {
-  font-family: "Montserrat" !important;
-  font-weight: normal;
+.small-card .mid {
+  font-family: "Montserrat", sans-serif !important;
   padding-left: 0.5rem;
   font-size: 15px;
   text-align: start;
@@ -398,7 +410,7 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
 }
 
 /****************
-  LIST
+  BIG HEADER
 ****************/
 
 .big-header {
@@ -419,17 +431,17 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
   margin-left: 15px;
 }
 
-.big-header .points {
+.big-header .last {
   color: white;
   text-align: left !important;
 }
 
-.big-header .name {
+.big-header .mid {
   height: 30px;
   text-align: left !important;
 }
 
-.big-header .rank {
+.big-header .first {
   padding-right: 2rem;
   margin: 0 !important;
   text-align: right !important;
@@ -460,4 +472,31 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
 
 .big-header h5, .big-header p {
   margin-bottom: 5px !important;
+}
+
+/****************
+  UNDER HEADER
+****************/
+
+.under-header {
+  background-color: white;
+  padding: 0;
+}
+
+.under-header .row {
+  justify-content: center;
+}
+
+.under-header .category-name {
+  margin-top: 3px;
+  margin-bottom: 6px;
+}
+
+.under-header .number {
+  margin-bottom: 3px;
+  color: color($colors, tt-red, base);
+}
+
+.under-header h2 {
+  margin-bottom: 2px;
 }

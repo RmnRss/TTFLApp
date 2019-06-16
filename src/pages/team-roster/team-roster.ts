@@ -71,6 +71,7 @@ export class TeamRosterPage {
                   this.roster[numberOfPlayers].firstName = aPlayer.firstName;
                   this.roster[numberOfPlayers].lastName = aPlayer.lastName;
                   this.roster[numberOfPlayers].jersey = aPlayer.jersey;
+                  this.roster[numberOfPlayers].pos = aPlayer.pos;
                   this.roster[numberOfPlayers].team = this.selectedTeam;
                   numberOfPlayers++;
                 }
@@ -100,7 +101,7 @@ export class TeamRosterPage {
 
 
   showPlayerStats(selectedPlayer: NBAPlayer) {
-    //this.navCtrl.push('PlayerPage', {selectedPlayer: selectedPlayer});
+    this.navCtrl.push('PlayerStatsPage', {selectedPlayer: selectedPlayer});
   }
 
   selectPlayer(player: NBAPlayer): NBAPlayer {

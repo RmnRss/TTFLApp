@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the PlayerStatsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {NbaDataProvider} from "../../providers/nba-service/nba-service";
+import {NBAPlayer} from "../../class/NBA/NBAPlayer";
 
 @IonicPage()
 @Component({
@@ -15,11 +10,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PlayerStatsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  NBAPlayer: NBAPlayer;
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public NBAService: NbaDataProvider)
+  {
+    this.NBAPlayer = new NBAPlayer();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlayerStatsPage');
+  }
+
+  ionViewCanEnter(){
+    this.NBAPlayer = this.navParams.get('selectedPlayer');
   }
 
 }

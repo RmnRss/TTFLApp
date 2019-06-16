@@ -8,12 +8,14 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list class="wide-list" inset>
-    <ion-list-header>HISTORIQUE</ion-list-header>
-    <ion-item *ngFor="let pick of picks">
-      <ion-label>{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</ion-label>
-      <ion-note item-end>{{pick.score}}</ion-note>
-    </ion-item>
-  </ion-list>
+<ion-content padding class="bg-grey">
+  <ion-card *ngFor="let pick of picks" class="small-card round-edges">
+    <ion-card-content class="no-padding">
+      <ion-row>
+        <ion-col col-8><p class="mid">{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</p></ion-col>
+        <ion-col col-4><p class="last"><b>{{pick.score}}</b> pts</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

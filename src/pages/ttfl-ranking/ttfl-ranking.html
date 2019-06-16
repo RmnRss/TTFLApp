@@ -16,16 +16,16 @@
       <!-- USERNAME -->
       <ion-row class="text-col">
         <ion-col col-7>
-          <h2 class="name">{{userService.user.username | titlecase}}</h2>
+          <h2 class="mid">{{userService.user.username | titlecase}}</h2>
         </ion-col>
-        <ion-col col-5><h2 class="rank">{{userService.user.rank}} e</h2></ion-col>
+        <ion-col col-5><h2 class="first">{{userService.user.rank}} e</h2></ion-col>
       </ion-row>
 
       <!-- USER INFO -->
       <ion-row>
         <ion-col col-4>
           <ion-row>
-            <ion-col col-6><h5 class="points">{{userService.user.points}}</h5>
+            <ion-col col-6><h5 class="last">{{userService.user.points}}</h5>
             </ion-col>
             <ion-col col-6><p>pts</p></ion-col>
           </ion-row>
@@ -39,18 +39,13 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card *ngFor="let user of users" class="ranking-card round-edges">
+<ion-content padding class="bg-grey">
+  <ion-card *ngFor="let user of users" class="small-card round-edges">
     <ion-card-content class="no-padding">
       <ion-row>
-        <ion-col col-2><h5 class="rank">{{user.rank}}</h5></ion-col>
-        <ion-col col-6><h5 class="name">{{user.username | titlecase}}</h5></ion-col>
-        <ion-col col-4 class="no-padding">
-          <ion-row>
-            <ion-col col-7><h5 class="points">{{user.points}}</h5>
-            </ion-col>
-            <ion-col col-5><h5>pts</h5></ion-col>
-          </ion-row>
+        <ion-col col-2><p class="first">{{user.rank}}</p></ion-col>
+        <ion-col col-6><p class="mid">{{user.username | titlecase}}</p></ion-col>
+        <ion-col col-4><p class="last"><b>{{user.points}}</b> pts</p>
         </ion-col>
       </ion-row>
     </ion-card-content>

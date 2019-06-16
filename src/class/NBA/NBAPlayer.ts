@@ -12,6 +12,7 @@ export class NBAPlayer {
   selected: boolean;
   isInjured:boolean;
   isAvailable: boolean;
+  pos: string;
 
   constructor() {
     this.personId = 0;
@@ -25,5 +26,6 @@ export class NBAPlayer {
     this.selected = false;
     this.isInjured = false;
     this.isAvailable = true;
+    this.pos = "N";
   }
 }

@@ -32,9 +32,9 @@ export class TtflTeamPage {
       this.TTFLService.getTeamPromise(this.userService.user)
         .then(result => {
           this.userTeam.id = result.id;
-          this.userTeam.name = result.name;
+          this.userTeam.name = result.mid;
           this.userTeam.rank = result.rank;
-          this.userTeam.points = result.points;
+          this.userTeam.points = result.last;
         }, error => {
           console.log(error);
         })
