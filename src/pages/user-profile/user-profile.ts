@@ -51,10 +51,12 @@ export class UserProfilePage {
           tempPick.score = pick.score;
           tempPick.bestPick = pick.bestPick;
           tempPick.worstPick = pick.worstPick;
+          tempPick.gameDate.date = new Date(pick.date);
 
           this.NBAService.getNBAPlayer(pick.nbaPlayerId)
             .then(player => {
               tempPick.nbaPlayer = player;
+              console.log(tempPick);
               this.userPicks.push(tempPick);
             });
         }

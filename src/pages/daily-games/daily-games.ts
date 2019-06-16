@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {NBAGame} from "../../class/NBA/NBAGame";
 import {NbaDataProvider} from "../../providers/nba-service/NBA-service";
 import {NBATeam} from "../../class/NBA/NBATeam";
-import {DateServiceProvider} from "../../providers/date-service/date-service";
 import {NBADay} from "../../class/NBA/NBADay";
 
 @IonicPage()
