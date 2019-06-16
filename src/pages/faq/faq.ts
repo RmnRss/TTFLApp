@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -9,16 +9,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class FaqPage {
   fromLogin: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams)
-  {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.fromLogin = false;
   }
 
   ionViewDidLoad() {
-   // console.log('ionViewDidLoad FaqPage');
+    // console.log('ionViewDidLoad FaqPage');
   }
 
-  ionViewCanEnter(){
+  ionViewCanEnter() {
     this.fromLogin = this.navParams.get('fromLogin');
   }
 

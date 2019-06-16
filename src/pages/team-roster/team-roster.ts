@@ -59,7 +59,7 @@ export class TeamRosterPage {
       .then(next => {
         this.nbaDataProvider.getNBATeamRoster(this.selectedTeam)
           .then(roster => {
-            this.roster = roster;
+              this.roster = roster;
             }
           )
           .then(res => {
@@ -112,7 +112,7 @@ export class TeamRosterPage {
    */
   postPick(nbaPlayer: NBAPlayer, user: User, day: NBADay) {
     this.ttflProvider.getPickOfUser(day, this.userProvider.user).then(res => {
-      if (res.length == 0) {
+      if (res.hasPlayer == false) {
         this.ttflProvider.postPickPromise(nbaPlayer, user, day.date).then(
           resp => {
             this.presentToast('Pick selectionné : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
@@ -122,7 +122,7 @@ export class TeamRosterPage {
             console.log(error);
           })
       } else {
-        this.ttflProvider.updatePickPromise(res[0].id, nbaPlayer, user, day.date).then(resp => {
+        this.ttflProvider.updatePickPromise(res.id, nbaPlayer, user, day.date).then(resp => {
           this.presentToast('Pick mis à jour : ' + this.selectedPlayer.firstName + ' ' + this.selectedPlayer.lastName);
           this.navCtrl.setRoot('HomePage');
         }, error => {

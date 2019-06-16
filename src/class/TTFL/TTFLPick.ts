@@ -1,8 +1,7 @@
 import {NBAPlayer} from "../NBA/NBAPlayer";
 import {NBADay} from "../NBA/NBADay";
 
-export class TTFLPick
-{
+export class TTFLPick {
   nbaPlayer: NBAPlayer;
   gameDate: NBADay;
   bestPick: boolean;

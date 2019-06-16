@@ -214,13 +214,13 @@ export class TtflProvider {
       this.http.post(url, {
         name: teamName,
       }).subscribe(success => {
-            this.presentToast("Votre équipe a bien été créée");
-            resolve(success);
-          }, error => {
-            this.presentToast("Echec lors de la création de l'équipe");
-            reject(error);
-          }
-        );
+          this.presentToast("Votre équipe a bien été créée");
+          resolve(success);
+        }, error => {
+          this.presentToast("Echec lors de la création de l'équipe");
+          reject(error);
+        }
+      );
     })
 
   }

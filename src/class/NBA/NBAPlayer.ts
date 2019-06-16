@@ -10,7 +10,7 @@ export class NBAPlayer {
   apg: number;
   team: NBATeam;
   selected: boolean;
-  isInjured:boolean;
+  isInjured: boolean;
   isAvailable: boolean;
   pos: string;
 

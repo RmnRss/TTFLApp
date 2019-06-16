@@ -8,7 +8,7 @@
 </ion-header>
 
 
-<ion-content padding class="bg-grey">
+<ion-content class="bg-grey" padding>
 
   <!--OBJECTIVES PART-->
   <ion-row>
@@ -20,27 +20,27 @@
         <ion-row>
           <ion-list class="wide-list">
             <ion-item>
-              <ion-label stacked class="uppercase">email</ion-label>
-              <ion-input class="round-edges"
+              <ion-label class="uppercase" stacked>email</ion-label>
+              <ion-input (keyup.enter)="changeEmail(newEmail)"
+                         [(ngModel)]="newEmail"
+                         class="round-edges" id="newEmailInput"
                          type="email"
-                         [(ngModel)]="newEmail" id="newEmailInput"
-                         (keyup.enter)="changeEmail(newEmail)"
               ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label stacked class="uppercase">Mot de passe</ion-label>
-              <ion-input class="round-edges"
+              <ion-label class="uppercase" stacked>Mot de passe</ion-label>
+              <ion-input (keyup.enter)="changePassword(newPassword, confirmPassword)"
+                         [(ngModel)]="newPassword"
+                         class="round-edges" id="newPassword"
                          type="password"
-                         [(ngModel)]="newPassword" id="newPassword"
-                         (keyup.enter)="changePassword(newPassword, confirmPassword)"
               ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label stacked class="uppercase">Mot de passe</ion-label>
-              <ion-input class="round-edges"
+              <ion-label class="uppercase" stacked>Mot de passe</ion-label>
+              <ion-input (keyup.enter)="changePassword(newPassword, confirmPassword)"
+                         [(ngModel)]="confirmPassword"
+                         class="round-edges" id="confirmPassword"
                          type="password"
-                         [(ngModel)]="confirmPassword" id="confirmPassword"
-                         (keyup.enter)="changePassword(newPassword, confirmPassword)"
               ></ion-input>
             </ion-item>
           </ion-list>

@@ -7,11 +7,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="bg-grey">
+<ion-content class="bg-grey" padding>
 
   <div *ngFor="let pick of picks">
     <!-- PICK CARDS -->
-    <ion-card (click)="showGamePage(pick.gameDate)" *ngIf="pick.gameDate.hasGames()" class="pick-card round-edges"> <!--[class.disabled]="pick.gameDate.hasStarted()"-->
+    <ion-card (click)="showGamePage(pick.gameDate)" *ngIf="pick.gameDate.hasGames()" class="pick-card round-edges">
+      <!--[class.disabled]="pick.gameDate.hasStarted()"-->
 
       <ion-card-content class="no-padding">
         <ion-row class="inner-card">
@@ -54,7 +55,8 @@
           <!-- Displayed when the user hasn't pick any nba player -->
           <ion-col *ngIf="!pick.hasPlayer" col-8>
             <p style="margin-top: 5px; margin-left: 5px;">Choisis ton joueur</p>
-            <p style="margin-left: 5px;">Fermeture à {{pick.gameDate.getStartTime() | date:'hh': undefined : 'fr-FR'}}h</p>
+            <p style="margin-left: 5px;">Fermeture à {{pick.gameDate.getStartTime() | date:'hh': undefined : 'fr-FR'}}
+              h</p>
           </ion-col>
 
           <!-- Displayed when the user hasn't pick any nba player -->

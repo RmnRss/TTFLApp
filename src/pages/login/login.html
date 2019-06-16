@@ -9,41 +9,41 @@
   </ion-row>
 
   <ion-row class="small-links">
-    <a class="uppercase" style="margin-right: 5px;" (click)="showRules()">Les regles</a>
+    <a (click)="showRules()" class="uppercase" style="margin-right: 5px;">Les regles</a>
     <a class="uppercase"> - </a>
-    <a class="uppercase" style="margin-left: 5px;" (click)="showFAQ()">FAQ</a>
+    <a (click)="showFAQ()" class="uppercase" style="margin-left: 5px;">FAQ</a>
   </ion-row>
 
   <ion-row class="input-row">
     <ion-item>
       <ion-label floating>Identifiant ou Email</ion-label>
-      <ion-input class="round-edges"
+      <ion-input (keyup.enter)="login(id,password)"
+                 [(ngModel)]="id"
+                 class="round-edges"
+                 id="idInput" required
                  type="email"
-                 required
-                 [(ngModel)]="id" id="idInput"
-                 (keyup.enter)="login(id,password)"
       ></ion-input>
     </ion-item>
   </ion-row>
 
   <ion-row class="input-row">
     <ion-item>
-        <ion-label floating>Mot de passe</ion-label>
-        <ion-input class="round-edges"
-                   [type]="passwordType"
-                   required
-                   [(ngModel)]="password" id="passwordInput"
-                   (keyup.enter)="login(id,password)"
-        ></ion-input>
-        <ion-icon name="eye-off" item-end (click)="togglePassword()" *ngIf="!passwordShown"></ion-icon>
-        <ion-icon name="eye" item-end (click)="togglePassword()" *ngIf="passwordShown"></ion-icon>
+      <ion-label floating>Mot de passe</ion-label>
+      <ion-input (keyup.enter)="login(id,password)"
+                 [(ngModel)]="password"
+                 [type]="passwordType"
+                 class="round-edges" id="passwordInput"
+                 required
+      ></ion-input>
+      <ion-icon (click)="togglePassword()" *ngIf="!passwordShown" item-end name="eye-off"></ion-icon>
+      <ion-icon (click)="togglePassword()" *ngIf="passwordShown" item-end name="eye"></ion-icon>
     </ion-item>
     <p class="error">{{error}}</p>
 
   </ion-row>
 
   <ion-row>
-    <a  class="pw-link" (click)="forgotPassword()">Mot de passe oublié ?</a>
+    <a (click)="forgotPassword()" class="pw-link">Mot de passe oublié ?</a>
   </ion-row>
 
   <ion-row class="button-row">

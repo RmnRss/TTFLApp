@@ -7,12 +7,12 @@
 </ion-header>
 
 
-<ion-content padding class="bg-grey">
-  <ion-card (click)="showPlayerStats(player)" *ngFor="let player of roster" class="player-card round-edges"
-            [class.unAvailable]="!player.isAvailable">
+<ion-content class="bg-grey" padding>
+  <ion-card *ngFor="let player of roster" [class.unAvailable]="!player.isAvailable"
+            class="player-card round-edges">
     <ion-row>
       <!-- JERSEY DRAWING -->
-      <ion-col col-2>
+      <ion-col (click)="showPlayerStats(player)" col-2>>
         <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
           <rect [ngStyle]="{'fill': selectedTeam.colors.primary}" height="43" width="34" x="0" y="0"></rect>
           <ellipse [ngStyle]="{'stroke': selectedTeam.colors.secondary}" cx="0" cy="5" fill="white" rx="8" ry="15"
@@ -28,7 +28,7 @@
       </ion-col>
 
       <!-- PLAYER INFO -->
-      <ion-col col-8>
+      <ion-col (click)="showPlayerStats(player)" col-8>
         <!-- PLAYER NAME -->
         <ion-row>
           <p>{{player.firstName}} {{player.lastName}}</p>
@@ -42,14 +42,14 @@
         </ion-row>
       </ion-col>
 
-      <ion-col (click)="selectPlayer(player)" [class.highlight]="player.selected" *ngIf="player.isAvailable" col-2>
+      <ion-col (click)="selectPlayer(player)" *ngIf="player.isAvailable" [class.highlight]="player.selected" col-2>
         <ion-icon class="icon" name="checkmark-circle"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-card>
 
   <ion-fab *ngIf="selectedPlayer.personId != 0">
-    <button ion-fab color="primary" (click)="confirmPick()">Ajouter au deck</button>
+    <button (click)="confirmPick()" color="primary" ion-fab>Ajouter au deck</button>
   </ion-fab>
 
   <div *ngIf="selectedPlayer.personId != 0" class="empty-space">

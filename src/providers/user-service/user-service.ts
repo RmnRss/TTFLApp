@@ -68,9 +68,7 @@ export class UserServiceProvider {
     this.getUserInfoPromise(id)
       .then(resp => {
         this.user = resp;
-        this.presentToast('Bienvenue ' + this.user.username).then();
       }, error => {
-        this.presentToast('Erreur: Impossible de récupérer l\'utilisateur ').then();
       });
   }
 
@@ -112,8 +110,9 @@ export class UserServiceProvider {
         username: login,
         password: password,
       }, this.httpOptions)
-        .subscribe((success:any) => {
+        .subscribe((success: any) => {
           this.user.id = success.userId;
+          this.presentToast('Bienvenue !').then();
           resolve(success);
         }, (error: HttpErrorResponse) => {
           reject(error.status);
@@ -126,12 +125,10 @@ export class UserServiceProvider {
    * @param login
    * @param password
    */
-  postLogOutPromise(accessToken:string): Promise<any> {
+  postLogOutPromise(accessToken: string): Promise<any> {
     let url = this.apiUrl + "users/logout";
     return new Promise((resolve, reject) => {
-      this.http.post(url, {
-
-      }, this.httpOptions)
+      this.http.post(url, {}, this.httpOptions)
         .subscribe(success => {
           resolve(success);
         }, error => {

@@ -2,8 +2,6 @@ import {NBAGame} from "./NBAGame";
 
 export class NBADay {
 
-  private _date: Date;
-  private _nbaGames: Array<NBAGame>;
   private _startTime: Date;
 
   constructor() {
@@ -11,6 +9,7 @@ export class NBADay {
     this._nbaGames = new Array<NBAGame>();
   }
 
+  private _date: Date;
 
   get date(): Date {
     return this._date;
@@ -19,6 +18,8 @@ export class NBADay {
   set date(value: Date) {
     this._date = value;
   }
+
+  private _nbaGames: Array<NBAGame>;
 
   get nbaGames(): Array<NBAGame> {
     return this._nbaGames;

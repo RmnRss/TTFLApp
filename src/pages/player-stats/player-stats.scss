@@ -1,5 +1,5 @@
 page-player-stats {
-  .header-md::after,.header-ios::after{
+  .header-md::after, .header-ios::after {
     background-color: color($colors, tt-red, base);
   }
 }

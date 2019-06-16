@@ -6,7 +6,7 @@
     <ion-title color="white">Mon équipe</ion-title>
   </ion-navbar>
 
-  <ion-row class="bg-dark wrap" *ngIf="userService.userHasTeam()">
+  <ion-row *ngIf="userService.userHasTeam()" class="bg-dark wrap">
 
     <!--USER IMAGE-->
     <!-- Displayed when the user has chosen a pick -->
@@ -27,18 +27,22 @@
 </ion-header>
 
 <!-- USER HAS NO TEAM -->
-<ion-content padding class="bg-grey" *ngIf="!userService.userHasTeam()">
+<ion-content *ngIf="!userService.userHasTeam()" class="bg-grey" padding>
   <ion-row>
     <h2>Pas encore d'équipe ?</h2>
   </ion-row>
 
   <!-- SEARCH TEAM PART -->
   <ion-row>
-    <ion-searchbar clearInput (ionInput)="searchTeam($event)"></ion-searchbar>
+    <ion-searchbar (ionInput)="searchTeam($event)" clearInput></ion-searchbar>
     <ion-row>
       <ion-card *ngFor="let team of teamsFound">
-        <ion-header><ion-card-title>{{team.name}}</ion-card-title></ion-header>
-        <ion-card-content><ion-card-title>{{team.name}}</ion-card-title></ion-card-content>
+        <ion-header>
+          <ion-card-title>{{team.name}}</ion-card-title>
+        </ion-header>
+        <ion-card-content>
+          <ion-card-title>{{team.name}}</ion-card-title>
+        </ion-card-content>
       </ion-card>
     </ion-row>
     <div class="separator"></div>
@@ -47,13 +51,14 @@
   <!-- CREATE TEAM PART -->
   <ion-row class="form">
     <ion-item style="margin-bottom: 15px;">
-      <ion-label stacked
-                 class="uppercase"
-                 style="color: black;">Nom de l'équipe</ion-label>
-      <ion-input class="round-edges"
+      <ion-label class="uppercase"
+                 stacked
+                 style="color: black;">Nom de l'équipe
+      </ion-label>
+      <ion-input (keyup.enter)="createTeam(teamName)"
+                 [(ngModel)]="teamName"
+                 class="round-edges" id="teamNameInput"
                  type="text"
-                 [(ngModel)]="teamName" id="teamNameInput"
-                 (keyup.enter)="createTeam(teamName)"
       ></ion-input>
     </ion-item>
   </ion-row>
@@ -64,7 +69,7 @@
 </ion-content>
 
 <!-- USER HAS TEAM -->
-<ion-content class="bg-grey" *ngIf="userService.userHasTeam()">
+<ion-content *ngIf="userService.userHasTeam()" class="bg-grey">
 
   <!-- TEAM INFO HEADER -->
   <ion-row class="under-header">

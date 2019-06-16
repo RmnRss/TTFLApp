@@ -6,7 +6,7 @@ export class User {
   points: number;
   money: number;
   rank: number;
-  hasTeam : boolean;
+  hasTeam: boolean;
 
   constructor() {
     this.id = null;
