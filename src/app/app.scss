@@ -492,6 +492,7 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
 .form .item-md, .form .item-ios {
   background-color: transparent;
   color: white;
+  padding-left: 0;
 }
 
 .form .label-md[stacked], .form .label-ios[stacked] {
@@ -502,7 +503,6 @@ ion-toolbar .toolbar-title-md, ion-toolbar .toolbar-title-ios {
 .error {
   color: color($colors, danger, base);
   font-size: small;
-  padding-left: 16px;
 }
 
 
