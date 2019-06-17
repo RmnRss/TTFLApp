@@ -32,20 +32,7 @@ export class TtflDailyPickRankingPage {
     //TODO : get all yesterday's pick and rank them
     this.ttflService.getResultsOfYesterday().then(
       response => {
-        for (let pick of response.picks) {
-          let tempPick = new TTFLPick();
-
-          tempPick.nbaPlayer.personId = pick.nbaPlayerId;
-          tempPick.score = pick.score;
-          tempPick.bestPick = pick.bestPick;
-          tempPick.worstPick = pick.worstPick;
-
-          this.NBAService.getNBAPlayer(pick.nbaPlayerId)
-            .then(player => {
-              tempPick.nbaPlayer = player;
-              this.picks.push(tempPick);
-            });
-        }
+        this.picks = response;
       },
       error => {
         console.log(error);

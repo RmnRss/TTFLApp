@@ -102,8 +102,24 @@ export class TtflProvider {
   getResultsOfYesterday(): Promise<any> {
     let url = this.apiUrl + "picks/results";
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe(success => {
-        resolve(success);
+      this.http.get(url).subscribe((success: any) => {
+        let picks = new Array<TTFLPick>();
+
+        for (let pick of success.picks) {
+          let tempPick = new TTFLPick();
+
+          tempPick.nbaPlayer.personId = pick.nbaPlayerId;
+          tempPick.score = pick.score;
+          tempPick.bestPick = pick.bestPick;
+          tempPick.worstPick = pick.worstPick;
+
+          this.NBAService.getNBAPlayer(pick.nbaPlayerId)
+            .then(player => {
+              tempPick.nbaPlayer = player;
+              picks.push(tempPick);
+            });
+        }
+        resolve(picks);
       }, error => {
         reject(error);
       });
@@ -117,7 +133,6 @@ export class TtflProvider {
    */
   getPickOfUser(day: NBADay, user: User): Promise<any> {
     let url = this.apiUrl + "picks";
-
 
     // Formating date for the database
     // Specific time is not needed
@@ -170,9 +185,8 @@ export class TtflProvider {
 
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (success:any) => {
+        (success: any) => {
           let userPicks = new Array<TTFLPick>();
-          console.log(success.picks);
 
           for (let pick of success.picks) {
             let tempPick = new TTFLPick();
@@ -190,7 +204,6 @@ export class TtflProvider {
                 userPicks.push(tempPick);
               });
           }
-          console.log(userPicks);
           resolve(userPicks);
         }, error => {
           reject(error);
