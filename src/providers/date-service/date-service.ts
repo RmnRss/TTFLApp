@@ -68,16 +68,16 @@ export class DateServiceProvider {
   }
 
   /***
-   * returns a week based on its number
+   * returns a week based on a day of said week
    * @param weekNumber
    */
-  getWeek(monday: Date): Array<NBADay> {
+  getWeek(aDay: Date): Array<NBADay> {
     //TODO: Fix bug for sundays
 
     let weekDays = new Array<NBADay>();
 
     //let curr = new Date('January 19, 2019');
-    let curr = monday;
+    let curr = aDay;
 
     for (let i = 1; i <= 7; i++) {
       let gameDay = new NBADay();
