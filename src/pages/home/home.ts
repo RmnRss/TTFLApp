@@ -28,7 +28,7 @@ export class HomePage {
               public TTFLService: TtflProvider) {
     //Gets the user info once he's logged in
     this.userService.getUserInfo(this.userService.user.id);
-    this.NBADaysOfTheWeek = this.dateProvider.getWeek(new Date('19 April, 2019'));
+
   }
 
   /***
@@ -38,6 +38,7 @@ export class HomePage {
    */
   ionViewCanEnter() {
     this.picks = new Array<TTFLPick>();
+    this.NBADaysOfTheWeek = this.dateProvider.getWeek(new Date('22 May, 2019'));
 
     this.NBAService.getLinksPromise()
       .then(res => {
