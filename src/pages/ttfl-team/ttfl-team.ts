@@ -86,19 +86,25 @@ export class TtflTeamPage {
   }
 
   /***
-   * Send get request to the API to get the teams
-   * @param ev
+   * Removes the current player from the team
    */
-  searchTeam(ev: any) {
-    // set val to the value of the searchbar
-    const val = ev.target.value;
+  joinTeam(team: TTFLTeam) {
+    this.userService.updateUserTeamPromise(this.userService.user.id, team.id)
+      .then(() => {
+        this.navCtrl.setRoot('TtflTeamPage')
+      });
+  }
 
-    this.TTFLService.getTeamByNamePromise(val)
+  /***
+   * Send get request to the API to get the teams
+   * @param terms
+   */
+  searchTeam(terms: string) {
+    this.TTFLService.getTeamByNamePromise(terms)
       .then(response => {
         this.teamsFound = response;
       }, error => {
         console.log(error);
-      })
-    //TODO : Add API Search
+      });
   }
 }

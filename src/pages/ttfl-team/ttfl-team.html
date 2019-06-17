@@ -34,19 +34,14 @@
 
   <!-- SEARCH TEAM PART -->
   <ion-row>
-    <ion-searchbar (ionInput)="searchTeam($event)" clearInput></ion-searchbar>
-    <ion-row>
-      <ion-card *ngFor="let team of teamsFound">
-        <ion-header>
-          <ion-card-title>{{team.name}}</ion-card-title>
-        </ion-header>
-        <ion-card-content>
-          <ion-card-title>{{team.name}}</ion-card-title>
-        </ion-card-content>
-      </ion-card>
-    </ion-row>
-    <div class="separator"></div>
+    <ion-searchbar (ionInput)="searchTeam(searchedTerms)" [(ngModel)]="searchedTerms" clearInput></ion-searchbar>
+    <ion-list class="wide-list">
+      <ion-item *ngFor="let team of teamsFound" (click)="joinTeam(team)">
+        <ion-label>{{ team.name }}</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-row>
+  <div class="separator"></div>
 
   <!-- CREATE TEAM PART -->
   <ion-row class="form">
@@ -88,7 +83,7 @@
   </ion-row>
 
   <ion-row class="custom-padding">
-    <h3 class="uppercase">Membres</h3>
+    <ion-row><p class="uppercase">Membres</p></ion-row>
 
     <ion-card *ngFor="let member of userTeam.members" class="small-card round-edges">
       <ion-card-content class="no-padding">
