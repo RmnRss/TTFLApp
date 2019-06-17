@@ -9,7 +9,7 @@ export class TTFLPick {
   score: number;
   hasPlayer: boolean;
   isUpdated: boolean;
-  opponent: string;
+  opposingTeamId: number;
   rank:number;
   id:number;
 
@@ -23,6 +23,6 @@ export class TTFLPick {
     this.rank = null;
     this.hasPlayer = false;
     this.isUpdated = false;
-    this.opponent = "Opposing Team";
+    this.opposingTeamId = null;
   }
 }
