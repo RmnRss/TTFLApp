@@ -104,7 +104,7 @@ export class TtflProvider {
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe((success: any) => {
         let picks = new Array<TTFLPick>();
-
+        let rank = 1;
         for (let pick of success.picks) {
           let tempPick = new TTFLPick();
 
@@ -112,7 +112,8 @@ export class TtflProvider {
           tempPick.score = pick.score;
           tempPick.bestPick = pick.bestPick;
           tempPick.worstPick = pick.worstPick;
-
+          tempPick.rank = rank;
+          rank++;
           this.NBAService.getNBAPlayer(pick.nbaPlayerId)
             .then(player => {
               tempPick.nbaPlayer = player;
