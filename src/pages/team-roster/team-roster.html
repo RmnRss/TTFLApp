@@ -12,7 +12,7 @@
             class="player-card round-edges">
     <ion-row>
       <!-- JERSEY DRAWING -->
-      <ion-col (click)="showPlayerStats(player)" col-2>>
+      <ion-col (click)="showPlayerStats(player)" col-2>
         <svg height="43" overflow="hidden" style="display: block;margin: auto;" width="34">
           <rect [ngStyle]="{'fill': selectedTeam.colors.primary}" height="43" width="34" x="0" y="0"></rect>
           <ellipse [ngStyle]="{'stroke': selectedTeam.colors.secondary}" cx="0" cy="5" fill="white" rx="8" ry="15"
