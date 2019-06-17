@@ -170,8 +170,28 @@ export class TtflProvider {
 
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        success => {
-          resolve(success);
+        (success:any) => {
+          let userPicks = new Array<TTFLPick>();
+          console.log(success.picks);
+
+          for (let pick of success.picks) {
+            let tempPick = new TTFLPick();
+
+            tempPick.gameDate.date = new Date(pick.date);
+            tempPick.nbaPlayer.personId = pick.nbaPlayerId;
+            tempPick.score = pick.score;
+            tempPick.bestPick = pick.bestPick;
+            tempPick.worstPick = pick.worstPick;
+            tempPick.isUpdated = pick.isUpdated;
+
+            this.NBAService.getNBAPlayer(pick.nbaPlayerId)
+              .then(player => {
+                tempPick.nbaPlayer = player;
+                userPicks.push(tempPick);
+              });
+          }
+          console.log(userPicks);
+          resolve(userPicks);
         }, error => {
           reject(error);
         });

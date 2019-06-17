@@ -47,23 +47,7 @@ export class UserProfilePage {
     // All Users Pick
     this.TTFLService.getAllPicksOfUserPromise(this.userService.user)
       .then(results => {
-        for (let pick of results.picks) {
-          let tempPick = new TTFLPick();
-
-          tempPick.nbaPlayer.personId = pick.nbaPlayerId;
-          tempPick.score = pick.score;
-          tempPick.bestPick = pick.bestPick;
-          tempPick.worstPick = pick.worstPick;
-          tempPick.gameDate.date = new Date(pick.date);
-
-          this.NBAService.getNBAPlayer(pick.nbaPlayerId)
-            .then(player => {
-              tempPick.nbaPlayer = player;
-              //console.log(tempPick);
-              this.userPicks.push(tempPick);
-            });
-        }
-
+          this.userPicks = results;
       }, error => {
         console.log(error);
       });
