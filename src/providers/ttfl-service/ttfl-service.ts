@@ -137,10 +137,12 @@ export class TtflProvider {
 
     // Formating date for the database
     // Specific time is not needed
-    day.date.setUTCHours(0);
-    day.date.setUTCMinutes(0);
-    day.date.setUTCSeconds(0);
-    day.date.setUTCMilliseconds(0);
+    let date = new Date(day.date);
+
+    date.setUTCHours(0);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
+    date.setUTCMilliseconds(0);
 
     let filter = {"where": {"userId": user.id, "date": day.date}};
     let params = new HttpParams().set("filter", JSON.stringify(filter));
