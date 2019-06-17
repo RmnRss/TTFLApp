@@ -14,6 +14,7 @@ export class TTFLPick {
   id:number;
 
   constructor() {
+    this.id = null;
     this.nbaPlayer = new NBAPlayer();
     this.gameDate = new NBADay();
     this.bestPick = false;
