@@ -9,10 +9,14 @@
 
 
 <ion-content class="bg-grey" padding>
+  <ion-row><p class="uppercase">{{dateService.today | date: 'd MMMM yyyy': undefined : 'fr-FR' | titlecase}}</p>
+  </ion-row>
+
   <ion-card *ngFor="let pick of picks" class="small-card round-edges">
     <ion-card-content class="no-padding">
       <ion-row>
-        <ion-col col-8><p class="mid">{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</p></ion-col>
+        <ion-col col-2><p class="first">{{pick.rank}}</p></ion-col>
+        <ion-col col-6><p class="mid">{{pick.nbaPlayer.firstName}} {{pick.nbaPlayer.lastName}}</p></ion-col>
         <ion-col col-4><p class="last"><b>{{pick.score}}</b> pts</p>
         </ion-col>
       </ion-row>

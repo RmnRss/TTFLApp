@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {TtflProvider} from "../../providers/ttfl-service/ttfl-service";
 import {TTFLPick} from "../../class/TTFL/TTFLPick";
 import {NbaDataProvider} from "../../providers/nba-service/NBA-service";
+import {DateServiceProvider} from "../../providers/date-service/date-service";
 
 
 @IonicPage()
@@ -17,7 +18,8 @@ export class TtflDailyPickRankingPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public ttflService: TtflProvider,
-              public NBAService: NbaDataProvider) {
+              public NBAService: NbaDataProvider,
+              public dateService: DateServiceProvider) {
     this.picks = new Array<TTFLPick>();
   }
 
