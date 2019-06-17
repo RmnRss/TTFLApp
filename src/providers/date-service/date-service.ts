@@ -77,7 +77,8 @@ export class DateServiceProvider {
     let weekDays = new Array<NBADay>();
 
     //let curr = new Date('January 19, 2019');
-    let curr = aDay;
+    aDay.setUTCHours(aDay.getUTCHours()+2);
+    let curr = new Date(aDay.toUTCString());
 
     for (let i = 1; i <= 7; i++) {
       let gameDay = new NBADay();
@@ -86,6 +87,7 @@ export class DateServiceProvider {
       let first = curr.getDate() - curr.getDay() + i;
       let day = new Date(curr.setDate(first));
 
+      console.log(day.toUTCString())
       gameDay.date = day;
       weekDays.push(gameDay);
     }
