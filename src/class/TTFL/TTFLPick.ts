@@ -10,6 +10,7 @@ export class TTFLPick {
   hasPlayer: boolean;
   isUpdated: boolean;
   opponent: string;
+  rank:number;
 
   constructor() {
     this.nbaPlayer = new NBAPlayer();
@@ -17,6 +18,7 @@ export class TTFLPick {
     this.bestPick = false;
     this.worstPick = false;
     this.score = 0;
+    this.rank = null;
     this.hasPlayer = false;
     this.isUpdated = false;
     this.opponent = "Opposing Team";
