@@ -11,6 +11,7 @@ export class TTFLPick {
   isUpdated: boolean;
   opponent: string;
   rank:number;
+  id:number;
 
   constructor() {
     this.nbaPlayer = new NBAPlayer();
