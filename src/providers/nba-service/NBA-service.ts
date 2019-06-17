@@ -176,10 +176,10 @@ export class NbaDataProvider {
 
         for (let anNBAGame of allNBAGames) {
 
-          let tempNBAGame = new NBAGame();
-          tempNBAGame.startDateEastern = date;
+          if (anNBAGame.startDateEastern == date) {
+            let tempNBAGame = new NBAGame();
+            tempNBAGame.startDateEastern = date;
 
-          if (anNBAGame.startDateEastern == tempNBAGame.startDateEastern) {
             tempNBAGame.startTimeUTC = anNBAGame.startTimeUTC;
 
             // Home team
