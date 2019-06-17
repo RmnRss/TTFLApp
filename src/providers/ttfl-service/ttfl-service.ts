@@ -154,7 +154,7 @@ export class TtflProvider {
           // If a pick has already been chosen this week we get the information about all the picks
           if (received.length != 0) {
             pick.hasPlayer = true;
-
+            pick.id = received[0].id;
             pick.nbaPlayer.personId = received[0].nbaPlayerId;
             pick.score = received[0].score;
             pick.bestPick = received[0].bestPick;
